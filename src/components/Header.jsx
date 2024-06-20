@@ -1,4 +1,4 @@
-import { Container, Navbar } from "react-bootstrap";
+import { Container, Nav, Navbar } from "react-bootstrap";
 import styled from "styled-components";
 
 function Header() {
@@ -27,6 +27,9 @@ function Header() {
     }
     `
     
+    const StyledNavbar = styled(Navbar.Brand)`
+      text-align: center;
+    `
 
   return (
     <>
@@ -38,17 +41,32 @@ function Header() {
 
           <h3>0000호</h3>
         </StyledHeader> */}
-      <Navbar className="bg-body-tertiary">
+
+      {/* <Navbar bg="primary" data-bs-theme="dark">
         <Container>
-          <Navbar.Brand href="#home">Navbar with text</Navbar.Brand>
-          <Navbar.Toggle />
-          <Navbar.Collapse className="justify-content-end">
-            <Navbar.Text>
-              Signed in as: <a href="#login">Mark Otto</a>
-            </Navbar.Text>
-          </Navbar.Collapse>
+          <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+          <Nav className="me-auto">
+            <Nav.Link href="#home">Home</Nav.Link>
+            <Nav.Link href="#features">Features</Nav.Link>
+            <Nav.Link href="#pricing">Pricing</Nav.Link>
+          </Nav>
         </Container>
-      </Navbar>
+      </Navbar> */}
+
+      <Navbar className="bg-body-tertiary">
+      <Container>
+        <StyledNavbar href="#">MENU1</StyledNavbar>
+        <StyledNavbar href="#">MENU2</StyledNavbar>
+        <StyledNavbar href="#">MENU3</StyledNavbar>
+        <StyledNavbar href="#">MENU4</StyledNavbar>
+        <Navbar.Toggle />
+        <Navbar.Collapse className="justify-content-end">
+          <Navbar.Text>
+            <a href="#">000호</a> 입주자분 환영합니다.
+          </Navbar.Text>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
     </>
   );
 };
