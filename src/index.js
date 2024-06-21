@@ -8,16 +8,10 @@ import { store } from './app/store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-<<<<<<< HEAD
-  <>
-    <App/>
-  </>
-=======
   <Provider store={store}>
     <App/>
   </Provider>
 
->>>>>>> 9882744d7cc5c303031eb755ecd42282411dcf33
 );
 
 reportWebVitals();
