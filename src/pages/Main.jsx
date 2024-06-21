@@ -1,11 +1,10 @@
-import Footer from "../components/Footer";
-import Header from "../components/Header";
+import Layout from "../components/Layout";
+
 
 function Main() {
   return (
     <>
-      <Header/>
-      <Footer/>
+      <Layout/>
     </>
   );
 };

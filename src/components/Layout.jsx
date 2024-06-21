@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import FoodSidebar from "../features/food/FoodSidebar";
 import { Outlet } from "react-router-dom";
+import { IoIosHome } from "react-icons/io";
 
 const StyledNavbar = styled(Navbar.Brand)`
       text-align: center;
@@ -25,7 +26,7 @@ const StyledNavbar = styled(Navbar.Brand)`
       align-items: flex-start; /* 자식 요소를 위쪽으로 정렬 */
     `;
 
-function Header() {
+function Layout() {
 
   const navigate = useNavigate();
 
@@ -34,6 +35,9 @@ function Header() {
     <HeaderContainer>
       <Navbar className="bg-body-tertiary">
         <Container>
+        <Navbar.Collapse className="justify-content-start">
+          <IoIosHome onClick={() => navigate('/')}/>
+        </Navbar.Collapse>
           <StyledNavbar href="#">MENU1</StyledNavbar>
           <StyledNavbar href="#">MENU2</StyledNavbar>
           <StyledNavbar href="#">MENU3</StyledNavbar>
@@ -59,8 +63,15 @@ function Header() {
       </ContentContainer>
     </HeaderContainer>
 
+      <footer>
+        <p className="py-5 mb-0 bg-dark text-white text-center">
+          &copy; 코딩하는오합지졸. All Rights Reserved.
+        </p>
+      </footer>
     </>
   );
 };
 
-export default Header;
+export default Layout;
+
+// 홈버튼, 메인페이지 껍데기, 메뉴 컴포넌트
