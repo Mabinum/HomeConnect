@@ -2,7 +2,7 @@ function Footer() {
   
   return (
     <>
-    {
+    {/* {
       <footer>
       <div class="inner">
         <ul class="menu">
@@ -35,8 +35,13 @@ function Footer() {
         <img src="./images/starbucks_logo_only_text.png" alt="" class="logo"/>
       </div>
     </footer>
-    }
-      
+    } */}
+
+      <footer>
+        <p className="py-5 mb-0 bg-dark text-white text-center">
+          &copy; 코딩하는오합지졸. All Rights Reserved.
+        </p>
+      </footer>
     </>
   );
 };
