@@ -1,4 +1,5 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
+import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 
 function Header() {
@@ -69,6 +70,14 @@ function Header() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+
+      <Outlet />
+
+      <footer>
+        <p className="py-5 mb-0 bg-dark text-white">
+          &copy; 코딩하는오합지졸. All Rights Reserved.
+        </p>
+      </footer>
     </>
   );
 };

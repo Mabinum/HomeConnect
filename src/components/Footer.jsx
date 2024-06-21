@@ -2,7 +2,7 @@ function Footer() {
   
   return (
     <>
-    {
+    {/* {
       <footer>
       <div class="inner">
         <ul class="menu">
@@ -35,7 +35,7 @@ function Footer() {
         <img src="./images/starbucks_logo_only_text.png" alt="" class="logo"/>
       </div>
     </footer>
-    }
+    } */}
       
     </>
   );
