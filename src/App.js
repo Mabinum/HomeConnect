@@ -34,9 +34,9 @@ function App() {
       <GlobalStyle/>
       <BrowserRouter>
         <Routes>
+          <Route path='login' element={<Login/>}/>
           <Route path='/' element={<Layout/>} >
             <Route index element={<Main/>}/>
-            <Route path='login' element={<Login/>}/>
             <Route path='menu1' element={<Menu1/>}/>
             <Route path='menu2' element={<Menu2/>}/>
             <Route path='menu3' element={<Menu3/>}/>
