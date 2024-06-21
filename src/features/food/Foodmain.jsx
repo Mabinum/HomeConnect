@@ -39,7 +39,7 @@ function Foodmain() {
     // 최대 28자까지 입력할 수 있도록 제한
   if (value.length <= 28) {
       setInputValue(value);
-   }
+  }
 
   };
 
