@@ -37,6 +37,11 @@ function Footer() {
     </footer>
     } */}
       
+      <footer>
+        <p className="py-5 mb-0 bg-dark text-white text-center">
+          &copy; 코딩하는 오합지졸. All Rights Reserved.
+        </p>
+      </footer>
     </>
   );
 };
