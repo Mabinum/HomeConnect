@@ -4,18 +4,10 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Login from './pages/Login';
 import { createGlobalStyle } from 'styled-components';
 import 'bootstrap/dist/css/bootstrap.css';
-<<<<<<< HEAD
 import Health from './features/health/Health';
-=======
-import Health from './features/Health';
 import HealthList from './features/HealthList';
 import Layout from './components/Layout';
 import Menu4 from './components/Menu4';
-<<<<<<< HEAD
-import Foodmain from "./features/food/Foodmain";
-=======
->>>>>>> develop
->>>>>>> a424f179a3010c7bf0abce4bff374b17cd4e1ef6
 
 const GlobalStyle = createGlobalStyle`
   
