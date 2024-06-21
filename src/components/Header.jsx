@@ -22,6 +22,7 @@ function Header() {
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
+              <img src="../image/profile.png" alt="profile" />
               {/* <a href="#">000호</a>
               입주자분 환영합니다. */}
               {/* 수정1 */}
