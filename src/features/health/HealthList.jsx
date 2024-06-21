@@ -1,4 +1,4 @@
-import { ListGroup, Pagination } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 
 import styled from "styled-components";
 
@@ -7,30 +7,37 @@ import styled from "styled-components";
 function HealthList() {
   return (
     <>
-      <ListGroup>
-        <ListGroup.Item>Cras justo odio</ListGroup.Item>
-        <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-        <ListGroup.Item>Morbi leo risus</ListGroup.Item>
-        <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
-        <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
-      </ListGroup>
-      <Pagination>
-        <Pagination.First />
-        <Pagination.Prev />
-        <Pagination.Item>{1}</Pagination.Item>
-        <Pagination.Ellipsis />
+      <Table hover>
+        <thead>
+          <tr>
+            <th></th>
+            <th>게시물 번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>등록일</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
 
-        <Pagination.Item>{10}</Pagination.Item>
-        <Pagination.Item>{11}</Pagination.Item>
-        <Pagination.Item active>{12}</Pagination.Item>
-        <Pagination.Item>{13}</Pagination.Item>
-        <Pagination.Item disabled>{14}</Pagination.Item>
+            </td>
+            <td>
+              No.1
+            </td>
+            <td>
+              헬스장 추천 드립니다.
+            </td>
+            <td>
+              1013호
+            </td>
+            <td>
+              2024년6월19일
+            </td>
+          </tr>
+        </tbody>
 
-        <Pagination.Ellipsis />
-        <Pagination.Item>{20}</Pagination.Item>
-        <Pagination.Next />
-        <Pagination.Last />
-      </Pagination>
+      </Table>
     </>
   );
 };

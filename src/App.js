@@ -10,6 +10,7 @@ import Menu1 from './components/Menu1';
 import Menu2 from './components/Menu2';
 import Menu3 from './components/Menu3';
 import MyPage from './components/MyPage';
+import HealthList from './features/health/HealthList';
 
 const GlobalStyle = createGlobalStyle`
   
@@ -40,6 +41,7 @@ function App() {
             <Route path='menu3' element={<Menu3/>}/>
             <Route path='menu4' element={<Menu4/>}/>
             <Route path='mypage' element={<MyPage/>}/>
+            <Route path='list' element={<HealthList/>}/>
             {/* 나중에 메뉴바에 해당하는 것들 수정하기 */}
             {/* <Route path='menu/:menuID' element={<MenuDetail/>}/> */}
             {/* 나중에 params로 아이디에 맞는 메뉴화면 나오도록 하기 */}
