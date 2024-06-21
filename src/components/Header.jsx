@@ -2,6 +2,7 @@ import { Container, Navbar } from "react-bootstrap";
 import styled from "styled-components";
 import FoodSidebar from "../features/food/FoodSidebar";
 
+
 function Header() {
     
     const StyledNavbar = styled(Navbar.Brand)`
@@ -44,7 +45,7 @@ function Header() {
         </Container>
       </Navbar>
       <ContentContainer>
-      <FoodSidebar />
+        <FoodSidebar />
       </ContentContainer>
     </HeaderContainer>
       
