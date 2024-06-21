@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FaTimes } from 'react-icons/fa';
 import Styled from 'styled-components';
 
 
@@ -13,15 +14,33 @@ const SidebarContainer = Styled.div`
   z-index: 5;
 `;
 
+const CloseButton = Styled.button`
+  position: absolute;
+  color: black; /* 버튼 글자색 */
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+`;
+
+
 function FoodSidebar() {
   const [show, setShow] = useState(true);
+
+  const hadleClose = () => setShow(false);
+  const hadleOpen = () => setShow(true);
 
   return (
     <>
       <SidebarContainer show={show}>
+        <CloseButton onClick={hadleClose}>
+          <FaTimes />
+        </CloseButton>
           <p>Sidebar</p>
           <p>맛집</p>
           <p>운동</p>
+
       </SidebarContainer>
       
     </>
