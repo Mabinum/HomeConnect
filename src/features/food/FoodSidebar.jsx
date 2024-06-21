@@ -29,6 +29,7 @@ function FoodSidebar() {
   const [show, setShow] = useState(true);
 
   const handleClose = () => setShow(false);
+  const handleOpen = () => setShow(true);
 
   return (
     <>
