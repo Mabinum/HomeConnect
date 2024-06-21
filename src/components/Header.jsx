@@ -8,6 +8,10 @@ function Header() {
     const StyledNavbar = styled(Navbar.Brand)`
       text-align: center;
       align-items: center; /* 수직 가운데 정렬 */
+
+      &:hover {
+        color: green;
+      }
     `
 
     const HeaderContainer = styled.div`
@@ -21,9 +25,6 @@ function Header() {
       align-items: flex-start; /* 자식 요소를 위쪽으로 정렬 */
     `;
 
-    const ProfileImage = styled.img`
-      margin-right: 10px;
-    `;
 
   return (
     <>
