@@ -36,10 +36,10 @@ function Footer() {
       </div>
     </footer>
     } */}
-      
+
       <footer>
         <p className="py-5 mb-0 bg-dark text-white text-center">
-          &copy; 코딩하는 오합지졸. All Rights Reserved.
+          &copy; 코딩하는오합지졸. All Rights Reserved.
         </p>
       </footer>
     </>

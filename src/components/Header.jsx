@@ -1,11 +1,29 @@
+
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import FoodSidebar from "../features/FoodSidebar";
+import { Outlet } from "react-router-dom";
 
 const StyledNavbar = styled(Navbar.Brand)`
-  text-align: center;
-`;
+      text-align: center;
+      align-items: center; /* 수직 가운데 정렬 */
 
+      &:hover {
+        color: green;
+      }
+    `;
+
+    const HeaderContainer = styled.div`
+      display: flex;
+      flex-direction: column; /* 수직으로 정렬 */
+    `;
+
+    const ContentContainer = styled.div`
+      display: flex;
+      justify-content: space-between; /* 자식 요소 사이에 공간을 균등하게 배치 */
+      align-items: flex-start; /* 자식 요소를 위쪽으로 정렬 */
+    `;
 
 function Header() {
 
@@ -13,6 +31,7 @@ function Header() {
 
   return (
     <>
+    <HeaderContainer>
       <Navbar className="bg-body-tertiary">
         <Container>
           <StyledNavbar href="#">MENU1</StyledNavbar>
@@ -32,6 +51,14 @@ function Header() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+
+      <Outlet />
+
+      <ContentContainer>
+      <FoodSidebar />
+      </ContentContainer>
+    </HeaderContainer>
+
     </>
   );
 };
