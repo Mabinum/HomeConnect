@@ -40,7 +40,7 @@ h1 {
 
 Button {
   margin-top: 50px;
-
+  margin-left: 4px;
 }
 `;
 
@@ -95,7 +95,11 @@ function Login() {
             <label htmlFor="loginId">패스워드 :</label>
             <Form.Control className="loginFunction" type="password" placeholder="password" value={PWvalue} onChange={handlePWChange}/>
           </div>
-          <Button type="button" onClick={handleSubmitINFO}> 로그인 </Button>
+          <div>
+            <Button type="button" onClick={handleSubmitINFO}> 로그인 </Button>
+            <Button type="button" onClick={handleSubmitINFO}> 회원가입 </Button>
+            <Button variant="success">회원가입</Button>
+          </div>
         </Container>
       </Wrapper>
     </>
