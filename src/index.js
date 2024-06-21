@@ -13,7 +13,8 @@ import Health from './features/Health';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <>
-    <Health />
+    {/* <Health /> */}
+    <Sidebar />
   </>
 );
 
