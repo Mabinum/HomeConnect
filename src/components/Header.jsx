@@ -3,29 +3,29 @@ import styled from "styled-components";
 
 function Header() {
 
-  const StyledHeader = styled.div`
-    height: 90px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #A8E6D6;
+  // const StyledHeader = styled.div`
+  //   height: 90px;
+  //   width: 100%;
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
+  //   background-color: #A8E6D6;
     
-    p {
-      margin: 0 1rem;
-      font-size: 2rem;
-      cursor: pointer;
+  //   p {
+  //     margin: 0 1rem;
+  //     font-size: 2rem;
+  //     cursor: pointer;
 
-      &:hover {
-        color: #ffffff;
-      }
-    }
+  //     &:hover {
+  //       color: #ffffff;
+  //     }
+  //   }
     
-    h3 {
-      margin-left: auto;
-      margin-right: 1rem;
-    }
-    `
+  //   h3 {
+  //     margin-left: auto;
+  //     margin-right: 1rem;
+  //   }
+  //   `
     
     const StyledNavbar = styled(Navbar.Brand)`
       text-align: center;
@@ -54,19 +54,20 @@ function Header() {
       </Navbar> */}
 
       <Navbar className="bg-body-tertiary">
-      <Container>
-        <StyledNavbar href="#">MENU1</StyledNavbar>
-        <StyledNavbar href="#">MENU2</StyledNavbar>
-        <StyledNavbar href="#">MENU3</StyledNavbar>
-        <StyledNavbar href="#">MENU4</StyledNavbar>
-        <Navbar.Toggle />
-        <Navbar.Collapse className="justify-content-end">
-          <Navbar.Text>
-            <a href="#">000호</a> 입주자분 환영합니다.
-          </Navbar.Text>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+        <Container>
+          <StyledNavbar href="#">MENU1</StyledNavbar>
+          <StyledNavbar href="#">MENU2</StyledNavbar>
+          <StyledNavbar href="#">MENU3</StyledNavbar>
+          <StyledNavbar href="#">MENU4</StyledNavbar>
+          <Navbar.Toggle />
+          <Navbar.Collapse className="justify-content-end">
+            <img src="./image/profile.png" alt="profile" />
+            <Navbar.Text>
+              <a href="#">000호</a> 입주자분 환영합니다.
+            </Navbar.Text>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
     </>
   );
 };

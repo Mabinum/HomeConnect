@@ -32,11 +32,9 @@ function Footer() {
           Starbucks Coffee Company. All Rights Reserved.
         </p>
   
-        <img src="./images/starbucks_logo_only_text.png" alt="" class="logo">
+        <img src="./images/starbucks_logo_only_text.png" alt="" class="logo"/>
       </div>
     </footer>
-  
-
     }
       
     </>
