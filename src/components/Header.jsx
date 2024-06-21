@@ -1,6 +1,6 @@
 import { Container, Navbar } from "react-bootstrap";
 import styled from "styled-components";
-import FoodSidebar from "../features/FoodSidebar";
+import FoodSidebar from "../features/food/FoodSidebar";
 
 function Header() {
     
