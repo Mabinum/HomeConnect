@@ -103,3 +103,6 @@ function Login() {
 };
 
 export default Login;
+
+// 나중에 toast넣어도 괜찮을듯 
+// 아이디 문자열 오류나 그런것들도 구현하면 될듯
