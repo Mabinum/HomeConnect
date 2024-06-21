@@ -2,7 +2,6 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import FoodSidebar from "../features/FoodSidebar";
 import { Outlet } from "react-router-dom";
 
 const StyledNavbar = styled(Navbar.Brand)`
@@ -14,24 +13,12 @@ const StyledNavbar = styled(Navbar.Brand)`
       }
     `;
 
-    const HeaderContainer = styled.div`
-      display: flex;
-      flex-direction: column; /* 수직으로 정렬 */
-    `;
-
-    const ContentContainer = styled.div`
-      display: flex;
-      justify-content: space-between; /* 자식 요소 사이에 공간을 균등하게 배치 */
-      align-items: flex-start; /* 자식 요소를 위쪽으로 정렬 */
-    `;
-
-function Header() {
+function Layout() {
 
   const navigate = useNavigate();
 
   return (
     <>
-    <HeaderContainer>
       <Navbar className="bg-body-tertiary">
         <Container>
           <StyledNavbar href="#">MENU1</StyledNavbar>
@@ -54,13 +41,13 @@ function Header() {
 
       <Outlet />
 
-      <ContentContainer>
-      <FoodSidebar />
-      </ContentContainer>
-    </HeaderContainer>
-
+      <footer>
+        <p className="py-5 mb-0 bg-dark text-white text-center">
+          &copy; 코딩하는오합지졸. All Rights Reserved.
+        </p>
+      </footer>
     </>
   );
 };
 
-export default Header;
+export default Layout;
