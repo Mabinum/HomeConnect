@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getIDPWInfo } from "../features/main/mainSlice";
+import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
 background-color: aqua;
@@ -62,6 +63,7 @@ const Container = styled.form`
 
 function Login() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [IDvalue, setIDvalue] = useState('');
   const [PWvalue, setPWvalue] = useState('');
@@ -97,8 +99,7 @@ function Login() {
           </div>
           <div>
             <Button type="button" onClick={handleSubmitINFO}> 로그인 </Button>
-            <Button type="button" onClick={handleSubmitINFO}> 회원가입 </Button>
-            <Button variant="success">회원가입</Button>
+            <Button type="button" variant="success" onClick={()=>navigate('/signup')}>회원가입</Button>
           </div>
         </Container>
       </Wrapper>
