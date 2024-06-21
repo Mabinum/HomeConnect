@@ -1,6 +1,7 @@
 import { Container, Navbar } from "react-bootstrap";
 import styled from "styled-components";
 import FoodSidebar from "../features/FoodSidebar";
+import { Outlet } from "react-router-dom";
 
 function Header() {
     
@@ -43,6 +44,9 @@ function Header() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+
+      <Outlet />
+
       <ContentContainer>
       <FoodSidebar />
       </ContentContainer>
