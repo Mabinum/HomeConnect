@@ -62,9 +62,9 @@ function Header() {
           <StyledNavbar href="#">MENU4</StyledNavbar>
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
-            <img src="./image/profile.png" alt="profile" />
             <Navbar.Text>
-              <a href="#">000호</a> 입주자분 환영합니다.
+              {/* <a href="#">000호</a> ????id값 전달 */}
+              입주자분 환영합니다.
             </Navbar.Text>
           </Navbar.Collapse>
         </Container>
