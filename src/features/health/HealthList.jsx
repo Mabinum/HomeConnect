@@ -35,6 +35,7 @@ function HealthList() {
               2024년6월19일
             </td>
           </tr>
+          <tr></tr>
         </tbody>
 
       </Table>
