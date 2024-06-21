@@ -10,6 +10,7 @@ import Menu1 from './components/Menu1';
 import Menu2 from './components/Menu2';
 import Menu3 from './components/Menu3';
 import MyPage from './components/MyPage';
+import SignUp from './pages/SignUp';
 import HealthList from './features/health/HealthList';
 
 const GlobalStyle = createGlobalStyle`
@@ -34,6 +35,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='login' element={<Login/>}/>
+          <Route path='signup' element={<SignUp/>}/>
           <Route path='/' element={<Layout/>} >
             <Route index element={<Main/>}/>
             <Route path='menu1' element={<Menu1/>}/>
