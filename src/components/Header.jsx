@@ -2,7 +2,7 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import FoodSidebar from "../features/FoodSidebar";
+import FoodSidebar from "../features/food/FoodSidebar";
 import { Outlet } from "react-router-dom";
 
 const StyledNavbar = styled(Navbar.Brand)`
@@ -55,7 +55,7 @@ function Header() {
       <Outlet />
 
       <ContentContainer>
-      <FoodSidebar />
+        <FoodSidebar />
       </ContentContainer>
     </HeaderContainer>
 
