@@ -7,6 +7,7 @@ import { createGlobalStyle } from 'styled-components';
 import 'bootstrap/dist/css/bootstrap.css';
 import Health from './features/Health';
 import HealthList from './features/HealthList';
+import Layout from './components/Layout';
 
 const GlobalStyle = createGlobalStyle`
   
@@ -29,7 +30,7 @@ function App() {
       <GlobalStyle/>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Main/>}/>
+          <Route path='/' element={<Main/>} />
           <Route path='login' element={<Login/>}/>
           {/* 나중에 메뉴바에 해당하는 것들 수정하기 */}
           {/* <Route path='menu/:menuID' element={<MenuDetail/>}/> */}
