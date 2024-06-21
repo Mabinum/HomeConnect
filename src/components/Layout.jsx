@@ -1,8 +1,6 @@
-
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import FoodSidebar from "../features/food/FoodSidebar";
 import { Outlet } from "react-router-dom";
 import { IoIosHome } from "react-icons/io";
 
@@ -29,7 +27,7 @@ function Layout() {
           <StyledNavbar href="#">MENU1</StyledNavbar>
           <StyledNavbar href="#">MENU2</StyledNavbar>
           <StyledNavbar href="#">MENU3</StyledNavbar>
-          <StyledNavbar href="#">MENU4</StyledNavbar>
+          <StyledNavbar href="menu4">MENU4</StyledNavbar>
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
