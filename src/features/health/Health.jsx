@@ -1,71 +1,86 @@
 import { useState } from "react";
 import { FloatingLabel, Form, InputGroup } from "react-bootstrap";
-import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import Styled from "styled-components";
 
-const Wrapper = styled.div`
-  width: 700px;
-  margin: 6rem auto 0;
-  border: 2px solid black;
-  border-radius: 4px;
-  overflow: hidden;
+const FoodForm = Styled.form`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #61bcd3;
+  height: 100vh; /* 화면 전체 높이를 차지하도록 설정 */
+`;
 
-  h2 {
-    margin-bottom: 25px;
-  }
-  
+const FoodHeader = Styled.input`
+  width: 80%;
+  max-width: 465px; /* 최대 너비 설정 */
+  height: 50px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  padding: 10px;
+  border: 1px solid #ccc;
+`;
+
+const FoodBoard = Styled.textarea`
+  width: 80%;
+  max-width: 465px; /* 최대 너비 설정 */
+  height: 300px; /* 높이 수정 */
+  margin-bottom: 10px;
+  overflow: auto; /* 스크롤바가 필요할 때만 보이도록 설정 */
+  vertical-align: top;
+  resize: none;
+  border: 1px solid #ccc;
+  padding: 10px;
+  font-size: 16px;
+`;
+
+const FoodButton = Styled.button`
+  width: 80px;
+  height: 35px;
+  margin-top: 10px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
 `;
 
 
 
+
 function Health() {
-  const [titleValue, setTitleValue] = useState('');
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
+  const navigate = useNavigate();
 
-  const handleTitle = (e) => {
-    setTitleValue(e.target.value);
-  }
-  const handleInput = (e) => {
-    setInputValue(e.target.value);
-  }
+  const handleChange = (e) => {
+    const value = e.target.value;
+    // 최대 28자까지 입력할 수 있도록 제한
+    if (value.length <= 28) {
+      setInputValue(value);
+    }
+  };
 
-  const hadleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    alert(`${titleValue},${inputValue}`);
-  }
+    // 여기서 form 데이터를 처리하거나 다음 단계로 이동할 수 있습니다.
+    navigate('/some-route'); // 예시: 다른 경로로 이동하는 방법
+  };
 
   return (
-    <Wrapper>
-      <form onSubmit={hadleSubmit}>
-        <h2>게시판 등록 페이지</h2>
-        <FloatingLabel
-          controlId="floatingTextarea"
-          label="제목"
-          className="mb-3"
-        >
-          <Form.Control
-            as="input" placeholder="Leave a comment here"
-            onChange={handleTitle}
-            value={titleValue}
-          />
-        </FloatingLabel>
-        <FloatingLabel controlId="floatingTextarea2" label="내용">
-          <Form.Control
-            as="textarea"
-            placeholder="Leave a comment here"
-            style={{ height: '300px', width: '500px' }}
-            onChange={handleInput}
-            value={inputValue}
-          />
-        </FloatingLabel>
-        <div>
-          <button type="submit" >등록</button>
-        </div>
-      </form>
-    </Wrapper>
+    <FoodForm onSubmit={handleSubmit}>
+      <FoodHeader
+        type="text"
+        placeholder="제목"
+        value={inputValue}
+        onChange={handleChange}
+        required
+      />
+      <FoodBoard
+        placeholder="내용을 입력하세요."
+        required
+      />
+      <FoodButton type="submit">버튼</FoodButton>
+    </FoodForm>
   );
 };
 
