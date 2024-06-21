@@ -34,7 +34,7 @@ function FoodSidebar() {
     <>
       <SidebarContainer show={show}>
         <CloseButton onClick={handleClose}>
-          <FaTimes />
+          <FaTimes /> {/*버튼입니다.*/}
         </CloseButton>
           <p>Sidebar</p>
           <p>맛집</p>
