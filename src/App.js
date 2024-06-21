@@ -34,11 +34,6 @@ function App() {
       <GlobalStyle/>
       <BrowserRouter>
         <Routes>
-<<<<<<< HEAD
-          <Route path='/' element={<Main/>}/>
-          <Route path='login' element={<Login/>}/>
-          <Route path='health' element={<Health/>}/>
-=======
           <Route path='/' element={<Layout/>} >
             <Route path='/main' element={<Main/>}/>
             <Route path='/login' element={<Login/>}/>
@@ -48,7 +43,6 @@ function App() {
             {/* 나중에 params로 아이디에 맞는 메뉴화면 나오도록 하기 */}
             {/* <Route path='health' element={<Health/>}/> */}
           </Route>
->>>>>>> develop
         </Routes>
       </BrowserRouter> 
     </>
