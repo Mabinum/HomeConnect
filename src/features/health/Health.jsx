@@ -32,9 +32,14 @@ function Health() {
     setInputValue(e.target.value);
   }
 
+  const hadleSubmit = (e) => {
+    e.preventDefault();
+    alert(`${titleValue},${inputValue}`);
+  }
+
   return (
     <Wrapper>
-      <from>
+      <form onSubmit={hadleSubmit}>
         <h2>게시판 등록 페이지</h2>
         <FloatingLabel
           controlId="floatingTextarea"
@@ -42,7 +47,7 @@ function Health() {
           className="mb-3"
         >
           <Form.Control
-            as="textarea" placeholder="Leave a comment here"
+            as="input" placeholder="Leave a comment here"
             onChange={handleTitle}
             value={titleValue}
           />
@@ -53,10 +58,13 @@ function Health() {
             placeholder="Leave a comment here"
             style={{ height: '300px', width: '500px' }}
             onChange={handleInput}
+            value={inputValue}
           />
         </FloatingLabel>
-        <button type="submit">등록</button>
-      </from>
+        <div>
+          <button type="submit" >등록</button>
+        </div>
+      </form>
     </Wrapper>
   );
 };
