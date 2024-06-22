@@ -22,10 +22,7 @@ import SignUp1 from './pages/login/SignUp1';
 import SignUp2 from './pages/login/SignUp2';
 import SignUp3 from './pages/login/SignUp3';
 import Signup4 from './pages/login/Signup4';
-<<<<<<< HEAD
 import HealthDetail from './features/health/HealthDetail';
-=======
->>>>>>> b114444c30454be9baa288e9eaa15afdf91ec95c
 
 const GlobalStyle = createGlobalStyle`
   
