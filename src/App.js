@@ -13,15 +13,15 @@ import MyPage from './components/MyPage';
 import SignUp from './pages/login/SignUp';
 import HealthList from './features/health/HealthList';
 import Health from './features/health/Health';
-// import Foodmain from "./features/food/Foodmain";
-// import FoodList from './features/food/FoodList';
+import Foodmain from "./features/food/Foodmain";
+import FoodList from './features/food/FoodList';
 
-// import Register from './pages/login/Register';
-// import NoMatchPage from './pages/NoMatchPage';
-// import SignUp1 from './pages/login/SignUp1';
-// import SignUp2 from './pages/login/SignUp2';
-// import SignUp3 from './pages/login/SignUp3';
-// import Signup4 from './pages/login/Signup4';
+import Register from './pages/login/Register';
+import NoMatchPage from './pages/NoMatchPage';
+import SignUp1 from './pages/login/SignUp1';
+import SignUp2 from './pages/login/SignUp2';
+import SignUp3 from './pages/login/SignUp3';
+import Signup4 from './pages/login/Signup4';
 
 const GlobalStyle = createGlobalStyle`
   
