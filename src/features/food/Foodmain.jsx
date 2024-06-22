@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import Styled from "styled-components";
 import { Outlet, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Food } from "../board/boardSlice";
 
 const FoodForm = Styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh; /* 화면 전체 높이를 차지하도록 설정 */
+  height: 73vh; // 화면 전체 높이를 차지하도록 설정
 `;
 
 const FoodHeader = Styled.input`
@@ -45,35 +47,66 @@ const FoodButton = Styled.button`
 `;
 
 function Foodmain() {
-  const [inputValue, setInputValue] = useState("");
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    const value = e.target.value;
-    // 최대 28자까지 입력할 수 있도록 제한
-    if (value.length <= 28) {
-      setInputValue(value);
+    const { name, value } = e.target;
+    if (name === "title") {
+      setTitle(value);
+    } else if (name === "content") {
+      setContent(value);
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // 여기서 form 데이터를 처리하거나 다음 단계로 이동할 수 있습니다.
-    navigate('/some-route'); // 예시: 다른 경로로 이동하는 방법
+  
+    if (title.trim() === "" || content.trim() === "") {
+      alert("제목과 내용을 모두 입력해주세요.");
+      return;
+    }
+
+    // 현재 날짜를 가져오는 부분
+    const currentDate = new Date();
+    const formattedDate = `${currentDate.getFullYear()}-${
+      currentDate.getMonth() + 1
+    }-${currentDate.getDate()}`;
+
+    // Redux에 액션 디스패치
+    dispatch(Food({ 
+      id: Date.now(), 
+      title, 
+      content, 
+      date: formattedDate
+    }));
+
+    // 폼 초기화
+    setTitle("");
+    setContent("");
+
+    // 다음 경로로 이동
+    navigate('/foodlist');
   };
 
   return (
-    <FoodForm onSubmit={handleSubmit}>
+    <FoodForm onSubmit={handleSubmit} > 
       <FoodHeader
         type="text"
+        name="title"
         placeholder="제목"
-        value={inputValue}
+        value={title}
         onChange={handleChange}
         required
       />
       <FoodBoard
-        placeholder="내용을 입력하세요."
-        required
+         name="content"
+         placeholder="내용을 입력하세요."
+         value={content}
+         onChange={handleChange}
+         required
       />
       <FoodButton type="submit">버튼</FoodButton>
       <Outlet />
@@ -82,3 +115,18 @@ function Foodmain() {
 }
 
 export default Foodmain;
+
+// const handleSubmit = (e) => {
+//   e.preventDefault();
+  
+//   const currentDate = new Date().toISOString(); // 현재 날짜를 ISO 형식으로 변환
+//   dispatch(Food({
+//     id: Date.now(),
+//     title,
+//     content,
+//     date: currentDate
+//   }));
+
+//   setInputValue(''); // 입력 필드 초기화
+//   navigate('/foodlist');
+// };

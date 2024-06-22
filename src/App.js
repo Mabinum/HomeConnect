@@ -13,6 +13,8 @@ import MyPage from './components/MyPage';
 import SignUp from './pages/SignUp';
 import HealthList from './features/health/HealthList';
 import Health from './features/health/Health';
+import Foodmain from "./features/food/Foodmain";
+import FoodList from './features/food/FoodList';
 
 const GlobalStyle = createGlobalStyle`
   
@@ -46,8 +48,12 @@ function App() {
             <Route path='mypage' element={<MyPage/>}/>
             <Route path='list' element={<HealthList/>}/>
             <Route path='dd' element={<Health/>}/>
+            <Route path='foodmain' element={<Foodmain />}/>
+            <Route path='foodlist' element={<FoodList />}/>
+            
             {/* 나중에 메뉴바에 해당하는 것들 수정하기 */}
             {/* <Route path='menu/:menuID' element={<MenuDetail/>}/> */}
+
             {/* 나중에 params로 아이디에 맞는 메뉴화면 나오도록 하기 */}
             {/* <Route path='health' element={<Health/>}/> */}
           </Route>
