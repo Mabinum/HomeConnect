@@ -1,6 +1,6 @@
 import { Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-
+  
 function SignUp3() {
   const navigate = useNavigate();
 
