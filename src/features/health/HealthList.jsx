@@ -1,10 +1,12 @@
-import { Table } from "react-bootstrap";
-
-import styled from "styled-components";
-
-
+import { Nav, Table } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { selectHealthInfo } from "../board/boardSlice";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 function HealthList() {
+  const healthInfo = useSelector(selectHealthInfo);
+  const navigate = useNavigate();
+
   return (
     <>
       <Table hover>
@@ -17,25 +19,16 @@ function HealthList() {
             <th>등록일</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>
-
-            </td>
-            <td>
-              No.1
-            </td>
-            <td>
-              헬스장 추천 드립니다.
-            </td>
-            <td>
-              1013호
-            </td>
-            <td>
-              2024년6월19일
-            </td>
-          </tr>
-          <tr></tr>
+        <tbody onClick={() => navigate('/healthdetail')}>
+          {healthInfo && healthInfo.map((health, index) => (
+            <tr key={index}>
+              <td></td>
+              <td>No.{index + 1}</td>
+              <td>{health.title}</td>
+              <td>작성자 불러오기</td>
+              <td>등록일 불러오기</td>
+            </tr>
+          ))}
         </tbody>
 
       </Table>

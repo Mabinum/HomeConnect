@@ -13,15 +13,16 @@ import MyPage from './components/MyPage';
 import SignUp from './pages/login/SignUp';
 import HealthList from './features/health/HealthList';
 import Health from './features/health/Health';
-// import Foodmain from "./features/food/Foodmain";
-// import FoodList from './features/food/FoodList';
+import Foodmain from "./features/food/Foodmain";
+import FoodList from './features/food/FoodList';
 
-// import Register from './pages/login/Register';
-// import NoMatchPage from './pages/NoMatchPage';
-// import SignUp1 from './pages/login/SignUp1';
-// import SignUp2 from './pages/login/SignUp2';
-// import SignUp3 from './pages/login/SignUp3';
-// import Signup4 from './pages/login/Signup4';
+import Register from './pages/login/Register';
+import NoMatchPage from './pages/NoMatchPage';
+import SignUp1 from './pages/login/SignUp1';
+import SignUp2 from './pages/login/SignUp2';
+import SignUp3 from './pages/login/SignUp3';
+import Signup4 from './pages/login/Signup4';
+import HealthDetail from './features/health/HealthDetail';
 
 const GlobalStyle = createGlobalStyle`
   
@@ -59,8 +60,9 @@ function App() {
             <Route path='menu3' element={<Menu3/>}/>
             <Route path='menu4' element={<Menu4/>}/>
             <Route path='mypage' element={<MyPage/>}/>
-            <Route path='list' element={<HealthList/>}/>
-            <Route path='dd' element={<Health/>}/>
+            <Route path='healthlist' element={<HealthList/>}/>
+            <Route path='health' element={<Health/>}/>
+            <Route path='healthdetail' element={<HealthDetail/>}/>
             <Route path='foodmain' element={<Foodmain />}/>
             <Route path='foodlist' element={<FoodList />}/>
             

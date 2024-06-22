@@ -2,13 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   foodList: [],
-  healthList: [
-    {
-      id:'',
-      title: '',
-      content: '',
-    }
-  ]
+  healthList: [],
 }
 
 const boardSlice = createSlice({
@@ -24,16 +18,22 @@ const boardSlice = createSlice({
       });
     },
 
-    Health: (state, actions) => {
-      
+    HealthContent: (state, action) => {
+      console.log(action.payload.title);
+      state.healthList.push({
+        title: action.payload.title,
+        content: action.payload.content
+      });
     }
   }
 });
 
 export const {
-  Food
+  Food,
+  HealthContent
 } = boardSlice.actions;
 
 export const selectBoardSlice = state => state.board.foodList;
+export const selectHealthInfo = state => state.board.healthList;
 
 export default boardSlice.reducer;
