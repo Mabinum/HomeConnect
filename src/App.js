@@ -23,7 +23,9 @@ import SignUp2 from './pages/login/SignUp2';
 import SignUp3 from './pages/login/SignUp3';
 import Signup4 from './pages/login/Signup4';
 import HealthDetail from './features/health/HealthDetail';
-import FoodListDetail from './features/food/FoodListDetail';
+
+// import FoodListDetail from './features/food/FoodListDetail';
+
 
 const GlobalStyle = createGlobalStyle`
   
