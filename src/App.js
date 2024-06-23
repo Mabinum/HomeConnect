@@ -24,6 +24,9 @@ import SignUp3 from './pages/login/SignUp3';
 import Signup4 from './pages/login/Signup4';
 import HealthDetail from './features/health/HealthDetail';
 
+// import FoodListDetail from './features/food/FoodListDetail';
+
+
 const GlobalStyle = createGlobalStyle`
   
   body{
@@ -64,8 +67,10 @@ function App() {
             <Route path='health' element={<Health/>}/>
             <Route path='healthdetail' element={<HealthDetail/>}/>
             <Route path='foodmain' element={<Foodmain />}/>
-            <Route path='foodlist' element={<FoodList />}/>
+            <Route path='/foodlist' element={<FoodList />} />
+            <Route path='/foodlist/:foodId' element={<FoodListDetail />} />
             
+ 
             {/* 나중에 메뉴바에 해당하는 것들 수정하기 */}
             {/* <Route path='menu/:menuID' element={<MenuDetail/>}/> */}
 
