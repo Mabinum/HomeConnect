@@ -22,10 +22,8 @@ import SignUp1 from './pages/login/SignUp1';
 import SignUp2 from './pages/login/SignUp2';
 import SignUp3 from './pages/login/SignUp3';
 import Signup4 from './pages/login/Signup4';
-<<<<<<< HEAD
 import HealthDetail from './features/health/HealthDetail';
-=======
->>>>>>> b114444c30454be9baa288e9eaa15afdf91ec95c
+import FoodListDetail from './features/food/FoodListDetail';
 
 const GlobalStyle = createGlobalStyle`
   
@@ -67,8 +65,10 @@ function App() {
             <Route path='health' element={<Health/>}/>
             <Route path='healthdetail' element={<HealthDetail/>}/>
             <Route path='foodmain' element={<Foodmain />}/>
-            <Route path='foodlist' element={<FoodList />}/>
+            <Route path='/foodlist' element={<FoodList />} />
+            <Route path='/foodlist/:foodId' element={<FoodListDetail />} />
             
+ 
             {/* 나중에 메뉴바에 해당하는 것들 수정하기 */}
             {/* <Route path='menu/:menuID' element={<MenuDetail/>}/> */}
 

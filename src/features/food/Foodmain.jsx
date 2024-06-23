@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import Styled from "styled-components";
-import { Outlet, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { Food } from "../board/boardSlice";
+import React, { useState } from 'react';
+import Styled from 'styled-components';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Food } from '../board/boardSlice';
+import { Modal, Button } from 'react-bootstrap';
 
 const FoodForm = Styled.form`
   display: flex;
@@ -35,98 +36,142 @@ const FoodBoard = Styled.textarea`
   font-size: 16px;
 `;
 
-const FoodButton = Styled.button`
-  width: 80px;
-  height: 35px;
-  margin-top: 10px;
+const FoodButton = Styled(Button)`
+  width: 100px; /* 버튼 너비 조정 */
+  height: 35px; /* 버튼 높이 조정 */
   font-size: 16px;
   background-color: #007bff;
   color: #fff;
   border: none;
   cursor: pointer;
+
+  &:hover {
+    background-color: #0056b3;
+    color: #fff;
+  }
+`;
+
+const ListButton = Styled(Button)`
+  width: 100px; /* 버튼 너비 조정 */
+  height: 35px; /* 버튼 높이 조정 */
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #0056b3;
+    color: #fff;
+  }
+`;
+
+const ButtonContainer = Styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 `;
 
 function Foodmain() {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name === "title") {
+    if (name === 'title') {
       setTitle(value);
-    } else if (name === "content") {
+    } else if (name === 'content') {
       setContent(value);
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  
-    if (title.trim() === "" || content.trim() === "") {
-      alert("제목과 내용을 모두 입력해주세요.");
-      return;
-    }
-
-    // 현재 날짜를 가져오는 부분
-    const currentDate = new Date();
-    const formattedDate = `${currentDate.getFullYear()}-${
-      currentDate.getMonth() + 1
-    }-${currentDate.getDate()}`;
-
-    // Redux에 액션 디스패치
-    dispatch(Food({ 
-      id: Date.now(), 
-      title, 
-      content, 
-      date: formattedDate
-    }));
-
-    // 폼 초기화
-    setTitle("");
-    setContent("");
-
-    // 다음 경로로 이동
+  const handleToList = () => {
     navigate('/foodlist');
   };
 
+  const handleModalClose = () => {
+    setShowModal(false);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (title.trim() === '' || content.trim() === '') {
+      alert('제목과 내용을 모두 입력해주세요.');
+      return;
+    }
+
+    setShowModal(true); // Modal 열기
+  };
+
+  const handleConfirmSubmit = () => {
+    dispatch(
+      Food({
+        id: Date.now(),
+        title,
+        content,
+        date: getCurrentDate(),
+      })
+    );
+
+    setTitle('');
+    setContent('');
+    setShowModal(false);
+    navigate('/foodlist');
+  };
+
+  const getCurrentDate = () => {
+    const currentDate = new Date();
+    return `${currentDate.getFullYear()}-${
+      currentDate.getMonth() + 1
+    }-${currentDate.getDate()}`;
+  };
+
   return (
-    <FoodForm onSubmit={handleSubmit} > 
-      <FoodHeader
-        type="text"
-        name="title"
-        placeholder="제목"
-        value={title}
-        onChange={handleChange}
-        required
-      />
-      <FoodBoard
-        name="content"
-        placeholder="내용을 입력하세요."
-        value={content}
-        onChange={handleChange}
-        required
-      />
-      <FoodButton type="submit">버튼</FoodButton>
-      <Outlet />
-    </FoodForm>
+    <>
+      <FoodForm onSubmit={handleSubmit}>
+        <FoodHeader
+          type="text"
+          name="title"
+          placeholder="제목"
+          value={title}
+          onChange={handleChange}
+          required
+        />
+        <FoodBoard
+          name="content"
+          placeholder="내용을 입력하세요."
+          value={content}
+          onChange={handleChange}
+          required
+        />
+        <ButtonContainer>
+          <FoodButton type="submit">등록</FoodButton>
+          <ListButton onClick={handleToList}>목록으로</ListButton>
+        </ButtonContainer>
+        <Outlet />
+      </FoodForm>
+
+      <Modal show={showModal} onHide={handleModalClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>등록 확인</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>등록하시겠습니까?</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleModalClose}>
+            취소
+          </Button>
+          <Button variant="primary" onClick={handleConfirmSubmit}>
+            확인
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
   );
 }
 
 export default Foodmain;
-
-// const handleSubmit = (e) => {
-//   e.preventDefault();
-  
-//   const currentDate = new Date().toISOString(); // 현재 날짜를 ISO 형식으로 변환
-//   dispatch(Food({
-//     id: Date.now(),
-//     title,
-//     content,
-//     date: currentDate
-//   }));
-
-//   setInputValue(''); // 입력 필드 초기화
-//   navigate('/foodlist');
-// };

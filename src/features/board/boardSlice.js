@@ -14,7 +14,7 @@ const boardSlice = createSlice({
         id: action.payload.id,
         title: action.payload.title,
         content: action.payload.content,
-        date: action.payload.date
+        date: action.payload.date 
       });
     },
 
