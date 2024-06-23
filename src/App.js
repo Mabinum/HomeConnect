@@ -25,6 +25,8 @@ import Signup4 from './pages/login/Signup4';
 import HealthDetail from './features/health/HealthDetail';
 
 import FoodListDetail from './features/food/FoodListDetail';
+import Car from './features/ParkingManagement/Car';
+import Management from './features/ParkingManagement/Management';
 
 
 const GlobalStyle = createGlobalStyle`
@@ -69,7 +71,8 @@ function App() {
             <Route path='foodmain' element={<Foodmain />}/>
             <Route path='/foodlist' element={<FoodList />} />
             <Route path='/foodlist/:foodId' element={<FoodListDetail />} />
-            
+            <Route path='/car' element={<Car />}/>
+            <Route path='/management' element={<Management />}/>
  
             {/* 나중에 메뉴바에 해당하는 것들 수정하기 */}
             {/* <Route path='menu/:menuID' element={<MenuDetail/>}/> */}
