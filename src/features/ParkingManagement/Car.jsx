@@ -112,10 +112,6 @@ function Car() {
                     </tr>
                 </tbody>
             </StyledTable>
-
-            <ReservationButtonWrapper>
-                <ReservationButton onClick={() => navigate('/management')}>예약하기</ReservationButton>
-            </ReservationButtonWrapper>
         </Container>
         
     );
