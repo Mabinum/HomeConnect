@@ -27,6 +27,7 @@ import HealthDetail from './features/health/HealthDetail';
 import FoodListDetail from './features/food/FoodListDetail';
 import FeeInputForm from './components/FeeInputForm';
 import FeeInputPage from './components/FeeInputPage';
+import Car from './features/ParkingManagement/Car';
 
 
 const GlobalStyle = createGlobalStyle`
@@ -72,7 +73,6 @@ function App() {
             <Route path='/foodlist' element={<FoodList />} />
             <Route path='/foodlist/:foodId' element={<FoodListDetail />} />
             <Route path='/car' element={<Car />}/>
-            <Route path='/management' element={<Management />}/>
   
             <Route path='/feeinput' element={<FeeInputPage/>}/>
 
