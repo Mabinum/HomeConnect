@@ -21,9 +21,9 @@ function Main() {
             {' '}
             공지 내용입니다.{' '}
           </p>
-          <footer className="blockquote-footer">
+          {/* <footer className="blockquote-footer">
             2024.06.21
-          </footer>
+          </footer> */}
         </blockquote>
       </Card.Body>
       </Card>
