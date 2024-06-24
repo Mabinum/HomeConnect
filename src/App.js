@@ -48,33 +48,35 @@ const GlobalStyle = createGlobalStyle`
 function App() {
   return (
     <>
-      <GlobalStyle/>
+      <GlobalStyle />
       <BrowserRouter>
         <Routes>
-          <Route path='/login' element={<Login/>}>
-            <Route index element={<Register/>} />
-            <Route path='signup' element={<SignUp/>}/>  
-            <Route path='signup1' element={<SignUp1/>}/>  
-            <Route path='signup2' element={<SignUp2/>}/>  
-            <Route path='signup3' element={<SignUp3/>}/>  
-            <Route path='signup4' element={<Signup4/>}/>  
+          <Route path='/login' element={<Login />}>
+            <Route index element={<Register />} />
+            <Route path='signup' element={<SignUp />} />
+            <Route path='signup1' element={<SignUp1 />} />
+            <Route path='signup2' element={<SignUp2 />} />
+            <Route path='signup3' element={<SignUp3 />} />
+            <Route path='signup4' element={<Signup4 />} />
           </Route>
-          <Route path='/' element={<Layout/>} >
-            <Route index element={<Main/>}/>
-            <Route path='menu1' element={<Menu1/>}/>
-            <Route path='menu2' element={<Menu2/>}/>
-            <Route path='menu3' element={<Menu3/>}/>
-            <Route path='menu4' element={<Menu4/>}/>
-            <Route path='mypage' element={<MyPage/>}/>
-            <Route path='health' element={<Health/>}/>
-            <Route path='healthlist' element={<HealthList/>}/>
-            <Route path='healthlist/:healthId' element={<HealthDetail/>}/>
-            <Route path='foodmain' element={<Foodmain />}/>
-            <Route path='/foodlist' element={<FoodList />} />
-            <Route path='/foodlist/:foodId' element={<FoodListDetail />} />
-            <Route path='/car' element={<Car />}/>
-  
-            <Route path='/feeinput' element={<FeeInputPage/>}/>
+          <Route path='/' element={<Layout />} >
+            <Route index element={<Main />} />
+            <Route path='mypage' element={<MyPage />} />
+            <Route path='menu1' element={<Menu1 />} />
+            <Route path='menu2' element={<Menu2 />} />
+            <Route path='menu3' element={<Menu3 />} />
+            <Route path='menu4' element={<Menu4 />}>
+              <Route index element={<FoodList />} />
+              <Route path='health' element={<Health />} />
+              <Route path='healthlist' element={<HealthList />} />
+              <Route path='healthlist/:healthId' element={<HealthDetail />} />
+              <Route path='foodmain' element={<Foodmain />} />
+              <Route path='foodlist' element={<FoodList />} />
+              <Route path='foodlist/:foodId' element={<FoodListDetail />} />
+            </Route>
+            {/* <Route path='/management' element={<Management />}/> */}
+
+            <Route path='/feeinput' element={<FeeInputPage />} />
 
             {/* 나중에 메뉴바에 해당하는 것들 수정하기 */}
             {/* <Route path='menu/:menuID' element={<MenuDetail/>}/> */}
@@ -82,9 +84,9 @@ function App() {
             {/* 나중에 params로 아이디에 맞는 메뉴화면 나오도록 하기 */}
             {/* <Route path='health' element={<Health/>}/> */}
           </Route>
-          <Route path="*" element = {<NoMatchPage/>}/>
+          <Route path="*" element={<NoMatchPage />} />
         </Routes>
-      </BrowserRouter> 
+      </BrowserRouter>
     </>
   );
 }

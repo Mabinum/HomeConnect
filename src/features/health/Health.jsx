@@ -90,7 +90,7 @@ function Health() {
   };
 
   const handleToList = () => {
-    navigate('/healthlist');
+    // navigate('menu4/healthlist');
   };
 
   const handleModalClose = () => {
@@ -120,7 +120,7 @@ function Health() {
     setTitle('');
     setContent('');
     setShowModal(false);
-    navigate('/healthlist');
+    navigate('menu4/healthlist');
   };
 
   const getCurrentDate = () => {
