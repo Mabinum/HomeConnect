@@ -1,13 +1,16 @@
-import React, { useState } from "react";
-import Styled from "styled-components";
-import { Outlet, useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import Styled from 'styled-components';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Food } from '../board/boardSlice';
+import { Modal, Button } from 'react-bootstrap';
 
 const FoodForm = Styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh; /* 화면 전체 높이를 차지하도록 설정 */
+  height: 73vh; // 화면 전체 높이를 차지하도록 설정
 `;
 
 const FoodHeader = Styled.input`
@@ -33,51 +36,141 @@ const FoodBoard = Styled.textarea`
   font-size: 16px;
 `;
 
-const FoodButton = Styled.button`
-  width: 80px;
-  height: 35px;
-  margin-top: 10px;
+const FoodButton = Styled(Button)`
+  width: 100px; /* 버튼 너비 조정 */
+  height: 35px; /* 버튼 높이 조정 */
   font-size: 16px;
   background-color: #007bff;
   color: #fff;
   border: none;
   cursor: pointer;
+
+  &:hover {
+    background-color: #0056b3;
+    color: #fff;
+  }
+`;
+
+const ListButton = Styled(Button)`
+  width: 100px; /* 버튼 너비 조정 */
+  height: 35px; /* 버튼 높이 조정 */
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #0056b3;
+    color: #fff;
+  }
+`;
+
+const ButtonContainer = Styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 `;
 
 function Foodmain() {
-  const [inputValue, setInputValue] = useState("");
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    const value = e.target.value;
-    // 최대 28자까지 입력할 수 있도록 제한
-    if (value.length <= 28) {
-      setInputValue(value);
+    const { name, value } = e.target;
+    if (name === 'title') {
+      setTitle(value);
+    } else if (name === 'content') {
+      setContent(value);
     }
+  };
+
+  const handleToList = () => {
+    navigate('/foodlist');
+  };
+
+  const handleModalClose = () => {
+    setShowModal(false);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // 여기서 form 데이터를 처리하거나 다음 단계로 이동할 수 있습니다.
-    navigate('/some-route'); // 예시: 다른 경로로 이동하는 방법
+    if (title.trim() === '' || content.trim() === '') {
+      alert('제목과 내용을 모두 입력해주세요.');
+      return;
+    }
+
+    setShowModal(true); // Modal 열기
+  };
+
+  const handleConfirmSubmit = () => {
+    dispatch(
+      Food({
+        id: Date.now(),
+        title,
+        content,
+        date: getCurrentDate(),
+      })
+    );
+
+    setTitle('');
+    setContent('');
+    setShowModal(false);
+    navigate('/foodlist');
+  };
+
+  const getCurrentDate = () => {
+    const currentDate = new Date();
+    return `${currentDate.getFullYear()}-${
+      currentDate.getMonth() + 1
+    }-${currentDate.getDate()}`;
   };
 
   return (
-    <FoodForm onSubmit={handleSubmit}>
-      <FoodHeader
-        type="text"
-        placeholder="제목"
-        value={inputValue}
-        onChange={handleChange}
-        required
-      />
-      <FoodBoard
-        placeholder="내용을 입력하세요."
-        required
-      />
-      <FoodButton type="submit">버튼</FoodButton>
-      <Outlet />
-    </FoodForm>
+    <>
+      <FoodForm onSubmit={handleSubmit}>
+        <FoodHeader
+          type="text"
+          name="title"
+          placeholder="제목"
+          value={title}
+          onChange={handleChange}
+          required
+        />
+        <FoodBoard
+          name="content"
+          placeholder="내용을 입력하세요."
+          value={content}
+          onChange={handleChange}
+          required
+        />
+        <ButtonContainer>
+          <FoodButton type="submit">등록</FoodButton>
+          <ListButton onClick={handleToList}>목록으로</ListButton>
+        </ButtonContainer>
+        <Outlet />
+      </FoodForm>
+
+      <Modal show={showModal} onHide={handleModalClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>등록 확인</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>등록하시겠습니까?</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleModalClose}>
+            취소
+          </Button>
+          <Button variant="primary" onClick={handleConfirmSubmit}>
+            확인
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
   );
 }
 

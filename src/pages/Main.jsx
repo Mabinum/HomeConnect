@@ -8,6 +8,7 @@ const StyledCard = styled.div`
 `
 
 function Main() {
+
   return (
     <>
       <Card>
