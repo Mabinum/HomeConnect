@@ -5,6 +5,9 @@ import { Outlet, useNavigate } from "react-router-dom";
 import Styled from "styled-components";
 import { HealthContent } from "../board/boardSlice";
 
+const Wrapper = Styled.div`
+`;
+
 const FoodForm = Styled.form`
   display: flex;
   flex-direction: column;
@@ -120,7 +123,7 @@ function Health() {
     setTitle('');
     setContent('');
     setShowModal(false);
-    navigate('menu4/healthlist');
+    navigate('/menu4/healthlist');
   };
 
   const getCurrentDate = () => {
