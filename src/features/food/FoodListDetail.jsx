@@ -63,7 +63,7 @@ const PostContent = Styled.div`
         font-weight: bold;
         margin-bottom: 10px;
         color: #333; 
-
+    }
     p {
         font-size: 16px;
         line-height: 1.6;
