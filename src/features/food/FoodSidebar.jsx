@@ -37,7 +37,8 @@ function FoodSidebar() {
         <CloseButton onClick={handleClose}>
           <FaTimes /> {/*버튼입니다.*/}
         </CloseButton>
-          <p>Sidebar</p>
+          <p>Sidebar</p><br />
+          <p>공지사항</p>
           <p>맛집</p>
           <p>운동</p>
       </SidebarContainer>
