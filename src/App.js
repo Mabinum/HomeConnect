@@ -27,6 +27,7 @@ import HealthDetail from './features/health/HealthDetail';
 import FoodListDetail from './features/food/FoodListDetail';
 import FeeInputForm from './components/FeeInputForm';
 import FeeInputPage from './components/FeeInputPage';
+import Car from './features/ParkingManagement/Car';
 
 
 const GlobalStyle = createGlobalStyle`
