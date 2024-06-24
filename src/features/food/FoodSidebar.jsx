@@ -23,6 +23,10 @@ const CloseButton = Styled.button`
   cursor: pointer;
   color: #333; /* 아이콘 색상 */
   font-size: 1.5rem;
+
+  .header{
+    font-size: 1.5rem;
+  }
 `;
 
 function FoodSidebar() {
@@ -35,9 +39,9 @@ function FoodSidebar() {
     <>
       <SidebarContainer show={show}>
         <CloseButton onClick={handleClose}>
-          <FaTimes /> {/*버튼입니다.*/}
+          {/* <FaTimes /> 버튼입니다. */}
         </CloseButton>
-          <p>Sidebar</p><br />
+          <p className='header'>게시판</p><br />
           <p>공지사항</p>
           <p>맛집</p>
           <p>운동</p>

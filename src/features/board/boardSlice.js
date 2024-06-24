@@ -25,13 +25,23 @@ const boardSlice = createSlice({
         title: action.payload.title,
         content: action.payload.content
       });
-    }
+    },
+    removeHealthList: (state, { payload: id }) => {
+      const newList = state.healthList.filter(list => list.id !== id);
+      state.healthList = newList;
+    },
+    removeFoodList: (state, { payload: id }) => {
+      const newList = state.foodList.filter(list => list.id !== id);
+      state.foodList = newList;
+    },
   }
 });
 
 export const {
   Food,
-  HealthContent
+  HealthContent,
+  removeHealthList,
+  removeFoodList
 } = boardSlice.actions;
 
 export const selectBoardSlice = state => state.board.foodList;

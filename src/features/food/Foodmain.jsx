@@ -162,10 +162,10 @@ function Foodmain() {
           <p>등록하시겠습니까?</p>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={handleModalClose}>
+          <Button variant="primary" onClick={handleConfirmSubmit}>
             확인
           </Button>
-          <Button variant="secondary" onClick={handleConfirmSubmit}>
+          <Button variant="secondary" onClick={handleModalClose}>
             취소
           </Button>
         </Modal.Footer>
