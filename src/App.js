@@ -66,7 +66,7 @@ function App() {
             <Route path='menu2' element={<Menu2 />} />
             <Route path='menu3' element={<Menu3 />} />
             <Route path='menu4' element={<Menu4 />}>
-              <Route index element={<FoodList />} />
+              <Route index element={<HealthList />} />
               <Route path='health' element={<Health />} />
               <Route path='healthlist' element={<HealthList />} />
               <Route path='healthlist/:healthId' element={<HealthDetail />} />

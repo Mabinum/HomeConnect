@@ -1,8 +1,9 @@
 import { Card, Button } from "react-bootstrap";
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import styled from "styled-components";
 import { store } from "../app/store";
 import FeeChart from '../components/FeeChart';
+import { selectHealthInfo } from "../features/board/boardSlice";
 
 const StyledCard = styled.div`
   display: flex;
@@ -11,6 +12,7 @@ const StyledCard = styled.div`
 `
 
 function Main() {
+  const healthInfo = useSelector(selectHealthInfo);
 
   return (
     <>
@@ -18,8 +20,7 @@ function Main() {
       <Card.Body>
         <blockquote className="blockquote mb-0 auto text-center">
           <p>
-            {' '}
-            공지 내용입니다.{' '}
+            공지 내용입니다.{healthInfo.content}
           </p>
           {/* <footer className="blockquote-footer">
             2024.06.21

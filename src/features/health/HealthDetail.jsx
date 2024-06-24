@@ -93,18 +93,18 @@ function FoodListDetail() {
     const { healthId } = useParams();
     const healthList = useSelector(selectHealthInfo);
     const dispatch = useDispatch();
-    
+
 
     // 로컬 스토리지에서 댓글 불러오기
-    useEffect(() => {
-        const storedComments = JSON.parse(localStorage.getItem('comments')) || [];
-        setComments(storedComments);
-    }, []);
+    // useEffect(() => {
+    //     const storedComments = JSON.parse(localStorage.getItem('comments')) || [];
+    //     setComments(storedComments);
+    // }, []);
 
     // 댓글 추가 시 로컬 스토리지 업데이트
-    useEffect(() => {
-        localStorage.setItem('comments', JSON.stringify(comments));
-    }, [comments]);
+    // useEffect(() => {
+    //     localStorage.setItem('comments', JSON.stringify(comments));
+    // }, [comments]);
 
     const handleAddComment = () => {
         if (comment.trim() !== '') {
@@ -155,13 +155,13 @@ function FoodListDetail() {
                 placeholder="댓글을 입력하세요."
             />
             <ButtonContainer>
-                <Link to="menu4/healthlist">
+                <Link to="/menu4/healthlist">
                     <Button>목록으로</Button>
                 </Link>
                 <Button onClick={handleAddComment}>댓글 추가</Button>
 
-                <Link to="menu4/healthlist">
-                <CloseButton onClick={() => dispatch(removeHealthList(post.id))}>삭제</CloseButton>
+                <Link to="/menu4/healthlist">
+                    <CloseButton onClick={() => dispatch(removeHealthList(post.id))}>삭제</CloseButton>
                 </Link>
             </ButtonContainer>
         </CommentContainer>
