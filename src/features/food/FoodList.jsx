@@ -34,7 +34,6 @@ function FoodList() {
                 <StyledTh>제목</StyledTh>
                 <StyledTh>작성일자</StyledTh>
                 <StyledTh>작성자ID</StyledTh>
-               
             </tr>
             </thead>
 
