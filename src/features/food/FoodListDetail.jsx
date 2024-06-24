@@ -138,6 +138,7 @@ function FoodListDetail() {
                     <Button>목록으로</Button>
                 </Link>
                 <Button onClick={handleAddComment}>댓글 추가</Button>
+                <Button>댓글 추가</Button>
             </ButtonContainer>
         </CommentContainer>
     );

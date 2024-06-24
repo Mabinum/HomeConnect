@@ -21,6 +21,7 @@ const boardSlice = createSlice({
     HealthContent: (state, action) => {
       console.log(action.payload.title);
       state.healthList.push({
+        id: action.payload.id,
         title: action.payload.title,
         content: action.payload.content
       });

@@ -65,15 +65,15 @@ function App() {
             <Route path='menu3' element={<Menu3/>}/>
             <Route path='menu4' element={<Menu4/>}/>
             <Route path='mypage' element={<MyPage/>}/>
-            <Route path='healthlist' element={<HealthList/>}/>
             <Route path='health' element={<Health/>}/>
-            <Route path='healthdetail' element={<HealthDetail/>}/>
+            <Route path='healthlist' element={<HealthList/>}/>
+            <Route path='healthlist/:healthId' element={<HealthDetail/>}/>
             <Route path='foodmain' element={<Foodmain />}/>
             <Route path='/foodlist' element={<FoodList />} />
             <Route path='/foodlist/:foodId' element={<FoodListDetail />} />
             <Route path='/car' element={<Car />}/>
             <Route path='/management' element={<Management />}/>
- 
+  
             {/* 나중에 메뉴바에 해당하는 것들 수정하기 */}
             {/* <Route path='menu/:menuID' element={<MenuDetail/>}/> */}
 
