@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
-import { selectBoardSlice } from '../board/boardSlice';
+import { removeFoodList ,selectBoardSlice } from '../board/boardSlice';
 import Styled from 'styled-components';
 
 const CommentContainer = Styled.div`
@@ -55,6 +55,22 @@ const Button = Styled.button`
     }
 `;
 
+const CloseButton = Styled.button`
+    width: 100px;
+    height: 35px;
+    font-size: 16px;
+    background-color: #fc0037;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-left: 10px;
+
+    &:hover {
+        background-color:#b30000;
+    }
+`;
+
 const PostContent = Styled.div`
     margin-bottom: 20px;
 
@@ -76,7 +92,7 @@ function FoodListDetail() {
     const [comments, setComments] = useState([]);
     const { foodId } = useParams();
     const foodList = useSelector(selectBoardSlice);
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
     // 로컬 스토리지에서 댓글 불러오기
     // useEffect(() => {
@@ -138,7 +154,9 @@ function FoodListDetail() {
                     <Button>목록으로</Button>
                 </Link>
                 <Button onClick={handleAddComment}>댓글 추가</Button>
-                <Button>댓글 추가</Button>
+                <Link to="/foodlist">
+                <CloseButton onClick={() => dispatch(removeFoodList(post.id))}>삭제</CloseButton>
+                </Link>
             </ButtonContainer>
         </CommentContainer>
     );

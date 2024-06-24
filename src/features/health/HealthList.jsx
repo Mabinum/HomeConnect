@@ -30,7 +30,7 @@ function HealthList() {
     <Table hover>
       <thead>
         <CenteredTh>
-          <StyledLinkButton to="/health">
+          <StyledLinkButton to="menu4/health">
             <Button variant="primary">게시글 작성</Button>
           </StyledLinkButton>
         </CenteredTh>
