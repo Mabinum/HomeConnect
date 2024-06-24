@@ -38,14 +38,14 @@ function HealthList() {
   const healthInfo = useSelector(selectHealthInfo);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const dbList = JSON.parse(localStorage.getItem('list')) || []; // 초기에 'todos'가 없으면 null을 반환함
-    setList(dbList);
-  }, []);
+  // useEffect(() => {
+  //   const dbList = JSON.parse(localStorage.getItem('list')) || []; // 초기에 'todos'가 없으면 null을 반환함
+  //   setList(dbList);
+  // }, []);
   
-  useEffect(() => {
-      localStorage.setItem('list', JSON.stringify(list));
-  }, [list]);
+  // useEffect(() => {
+  //     localStorage.setItem('list', JSON.stringify(list));
+  // }, [list]);
 
 
   return (
