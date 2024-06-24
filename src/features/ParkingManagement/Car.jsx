@@ -1,10 +1,7 @@
-import React from 'react';
-import Styled from 'styled-components';
-import Table from 'react-bootstrap/Table';
-import { Button } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import styled from 'styled-components';
 
-const Container = Styled.div`
+const Container = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -12,9 +9,9 @@ const Container = Styled.div`
     height: 73vh;
 `;
 
-const StyledTable = Styled(Table)`
-    width: 100%;
-    max-width: 2000px;
+const StyledTable = styled.table`
+    width: 90%;
+    max-width: 800px;
     margin-bottom: 20px; /* 테이블과 버튼 사이 여백 조정 */
     border-collapse: collapse;
 
@@ -31,33 +28,107 @@ const StyledTable = Styled(Table)`
     }
 `;
 
-const ReservationButtonWrapper = Styled.div`
-    display: flex;
-    justify-content: center;
-`;
-
-const ReservationButton = Styled(Button)`
-    width: 150px;
-    height: 40px; 
-    font-size: 16px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-
-    &:hover {
-        background-color: #0056b3;
-        color: #fff;
-    }
-`;
-
 function Car() {
+    const [parkingAvailability, setParkingAvailability] = useState({
+        'A-1': true,
+        'A-2': false,
+        'A-3': true,
+        'A-4': false,
+        'A-5': true,
+        'A-6': true,
+        'A-7': false,
+        'A-8': true,
+        'A-9': false,
+        'A-10': true,
+        'A-11': false,
+        'A-12': true,
+        'A-13': true,
+        'A-14': false,
+        'B-1': true,
+        'B-2': false,
+        'B-3': true,
+        'B-4': false,
+        'B-5': true,
+        'B-6': true,
+        'B-7': false,
+        'B-8': true,
+        'B-9': false,
+        'B-10': true,
+        'B-11': false,
+        'B-12': true,
+        'B-13': true,
+        'B-14': true,
+    });
 
-    const navigate = useNavigate();
+    const intervalRef = useRef(null); // interval ID를 저장할 useRef
 
-    return (    
+    useEffect(() => {
+        // 컴포넌트가 마운트될 때 시뮬레이션 시작
+        startSimulation();
+        // 컴포넌트가 언마운트될 때 interval 정리
+        return () => {
+            clearInterval(intervalRef.current);
+        };
+    }, []);
+
+    const startSimulation = () => {
+        // 20분마다 데이터를 업데이트하는 시뮬레이션 함수
+        intervalRef.current = setInterval(() => {
+            setParkingAvailability(prevAvailability => ({
+                ...prevAvailability,
+                'A-1': Math.random() < 0.5, // 0.5 즉 50%퍼센트 확률로 참 또는 거짓 값을 반환한다.
+                'A-2': Math.random() < 0.5,
+                'A-3': Math.random() < 0.5,
+                'A-4': Math.random() < 0.5,
+                'A-5': Math.random() < 0.5,
+                'A-6': Math.random() < 0.5,
+                'A-7': Math.random() < 0.5,
+                'A-8': Math.random() < 0.5,
+                'A-9': Math.random() < 0.5,
+                'A-10': Math.random() < 0.5,
+                'A-11': Math.random() < 0.5,
+                'A-12': Math.random() < 0.5,
+                'A-13': Math.random() < 0.5,
+                'A-14': Math.random() < 0.5,
+                'B-1': Math.random() < 0.5,
+                'B-2': Math.random() < 0.5,
+                'B-3': Math.random() < 0.5,
+                'B-4': Math.random() < 0.5,
+                'B-5': Math.random() < 0.5,
+                'B-6': Math.random() < 0.5,
+                'B-7': Math.random() < 0.5,
+                'B-8': Math.random() < 0.5,
+                'B-9': Math.random() < 0.5,
+                'B-10': Math.random() < 0.5,
+                'B-11': Math.random() < 0.5,
+                'B-12': Math.random() < 0.5,
+                'B-13': Math.random() < 0.5,
+                'B-14': Math.random() < 0.5,
+            }));
+        }, 1200000); // 20분마다 업데이트: 1200000
+    };
+
+    const renderParkingSpot = (spotName) => {
+        const isAvailable = parkingAvailability[spotName];
+
+        const tdStyle = {
+            textAlign: 'center',
+            padding: '10px',
+            border: '1px solid #ccc',
+            width: '120px',
+            height: '65px',
+            backgroundColor: isAvailable ? '#4CAF50' : '#f44336',
+            color: '#fff'
+        };
+
+        return (
+            <td style={tdStyle}>{spotName}</td>
+        );
+    };
+
+    return (
         <Container>
-            <StyledTable responsive="xl" size="md">
+            <StyledTable>
                 <thead>
                     <tr>
                         <th colSpan={7}>A 주차구역</th>
@@ -65,27 +136,27 @@ function Car() {
                 </thead>
                 <tbody>
                     <tr>
-                        <td>A-1</td>
-                        <td>A-2</td>
-                        <td>A-3</td>
-                        <td>A-4</td>
-                        <td>A-5</td>
-                        <td>A-6</td>
-                        <td>A-7</td>
+                        {renderParkingSpot('A-1')}
+                        {renderParkingSpot('A-2')}
+                        {renderParkingSpot('A-3')}
+                        {renderParkingSpot('A-4')}
+                        {renderParkingSpot('A-5')}
+                        {renderParkingSpot('A-6')}
+                        {renderParkingSpot('A-7')}
                     </tr>
                     <tr>
-                        <td>A-8</td>
-                        <td>A-9</td>
-                        <td>A-10</td>
-                        <td>A-11</td>
-                        <td>A-12</td>
-                        <td>A-13</td>
-                        <td>A-14</td>
+                        {renderParkingSpot('A-8')}
+                        {renderParkingSpot('A-9')}
+                        {renderParkingSpot('A-10')}
+                        {renderParkingSpot('A-11')}
+                        {renderParkingSpot('A-12')}
+                        {renderParkingSpot('A-13')}
+                        {renderParkingSpot('A-14')}
                     </tr>
                 </tbody>
             </StyledTable>
 
-            <StyledTable responsive="xl" size="md">
+            <StyledTable>
                 <thead>
                     <tr>
                         <th colSpan={7}>B 주차구역</th>
@@ -93,32 +164,213 @@ function Car() {
                 </thead>
                 <tbody>
                     <tr>
-                        <td>B-1</td>
-                        <td>B-2</td>
-                        <td>B-3</td>
-                        <td>B-4</td>
-                        <td>B-5</td>
-                        <td>B-6</td>
-                        <td>B-7</td>
+                        {renderParkingSpot('B-1')}
+                        {renderParkingSpot('B-2')}
+                        {renderParkingSpot('B-3')}
+                        {renderParkingSpot('B-4')}
+                        {renderParkingSpot('B-5')}
+                        {renderParkingSpot('B-6')}
+                        {renderParkingSpot('B-7')}
                     </tr>
                     <tr>
-                        <td>B-8</td>
-                        <td>B-9</td>
-                        <td>B-10</td>
-                        <td>B-11</td>
-                        <td>B-12</td>
-                        <td>B-13</td>
-                        <td>B-14</td>
+                        {renderParkingSpot('B-8')}
+                        {renderParkingSpot('B-9')}
+                        {renderParkingSpot('B-10')}
+                        {renderParkingSpot('B-11')}
+                        {renderParkingSpot('B-12')}
+                        {renderParkingSpot('B-13')}
+                        {renderParkingSpot('B-14')}
                     </tr>
                 </tbody>
             </StyledTable>
-
-            <ReservationButtonWrapper>
-                <ReservationButton onClick={() => navigate('/management')}>예약하기</ReservationButton>
-            </ReservationButtonWrapper>
         </Container>
-        
     );
 }
 
 export default Car;
+
+// 나중에 백엔드 스케줄러로 구현가능. 
+// 나중에 스케줄러로 일정을 짜서 보여줘
+// AWS에서 서버 배포
+
+// 스프링으로 코드들을 입력하면 될 것
+// package com.example.scheduler;
+
+// import org.springframework.scheduling.annotation.Scheduled;
+// import org.springframework.stereotype.Component;
+// import java.time.LocalDateTime;
+// import java.time.format.DateTimeFormatter;
+
+// @Component
+// public class EmailScheduler {
+
+//     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+
+//     // 매일 오전 10시에 실행되는 메서드
+//     @Scheduled(cron = "0 0 10 * * ?")
+//     public void sendEmail() {
+//         LocalDateTime now = LocalDateTime.now();
+//         String formattedTime = now.format(dateTimeFormatter);
+//         System.out.println("이메일 발송 스케줄러가 동작했습니다. 현재 시각: " + formattedTime);
+
+//         // 여기에 이메일 발송 코드를 추가할 수 있습니다.
+//         // 실제로는 JavaMailSender 등을 사용하여 이메일 발송을 구현합니다.
+//     }
+// }
+
+
+// 최종 코드
+
+// 백엔드
+// package com.example.scheduler;
+
+// import org.springframework.scheduling.annotation.Scheduled;
+// import org.springframework.stereotype.Component;
+
+// import java.time.LocalDateTime;
+// import java.time.format.DateTimeFormatter;
+// import java.util.HashMap;
+// import java.util.Map;
+
+// @Component
+// public class ParkingAvailabilityScheduler {
+
+//     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+
+//     private Map<String, Boolean> parkingAvailability = new HashMap<>();
+
+//     public ParkingAvailabilityScheduler() {
+//         // 초기 주차 공간 가용성 설정
+//         initializeParkingAvailability();
+//     }
+
+//     private void initializeParkingAvailability() {
+//         // 각 주차 공간의 초기 가용성 설정
+//         for (int i = 1; i <= 14; i++) {
+//             parkingAvailability.put("A-" + i, Math.random() < 0.5);
+//             parkingAvailability.put("B-" + i, Math.random() < 0.5);
+//         }
+//     }
+
+//     // 매 20분마다 주차 공간 가용성 업데이트
+//     @Scheduled(cron = "0 0/20 * * * ?")
+//     public void updateParkingAvailability() {
+//         for (String spot : parkingAvailability.keySet()) {
+//             parkingAvailability.put(spot, Math.random() < 0.5);
+//         }
+//         LocalDateTime now = LocalDateTime.now();
+//         String formattedTime = now.format(dateTimeFormatter);
+//         System.out.println("주차 공간 가용성 업데이트: " + formattedTime);
+//     }
+
+//     public Map<String, Boolean> getParkingAvailability() {
+//         return parkingAvailability;
+//     }
+// }
+
+// 프론트엔드
+// import React, { useState, useEffect } from 'react';
+// import axios from 'axios';
+// import styled from 'styled-components';
+
+// const Container = styled.div`
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     align-items: center;
+//     height: 100vh;
+// `;
+
+// const StyledTable = styled.table`
+//     width: 90%;
+//     max-width: 800px;
+//     margin-bottom: 20px;
+//     border-collapse: collapse;
+
+//     th, td {
+//         text-align: center;
+//         padding: 10px;
+//         border: 1px solid #ccc;
+//         width: 120px;
+//         height: 65px;
+//     }
+
+//     th {
+//         background-color: #f0f0f0;
+//     }
+// `;
+
+// const App = () => {
+//     const [parkingAvailability, setParkingAvailability] = useState({});
+
+//     useEffect(() => {
+//         const fetchParkingAvailability = async () => {
+//             try {
+//                 const response = await axios.get('http://localhost:8080/parking-availability');
+//                 setParkingAvailability(response.data);
+//             } catch (error) {
+//                 console.error('Error fetching parking availability:', error);
+//             }
+//         };
+
+//         fetchParkingAvailability();
+
+//         // 매 20분마다 주차 공간 가용성을 업데이트하기 위한 타이머 설정
+//         const interval = setInterval(fetchParkingAvailability, 1200000); // 20분마다
+
+//         return () => clearInterval(interval); // 컴포넌트 언마운트 시 타이머 정리
+//     }, []);
+
+//     const renderParkingSpot = (spotName, isAvailable) => {
+//         const tdStyle = {
+//             textAlign: 'center',
+//             padding: '10px',
+//             border: '1px solid #ccc',
+//             width: '120px',
+//             height: '65px',
+//             backgroundColor: isAvailable ? '#4CAF50' : '#f44336',
+//             color: '#fff'
+//         };
+
+//         return (
+//             <td style={tdStyle}>{spotName}</td>
+//         );
+//     };
+
+//     return (
+//         <Container>
+//             <h1>주차 공간 가용성</h1>
+//             <StyledTable>
+//                 <thead>
+//                     <tr>
+//                         <th colSpan={7}>A 주차구역</th>
+//                     </tr>
+//                 </thead>
+//                 <tbody>
+//                     <tr>
+//                         {Object.keys(parkingAvailability)
+//                             .filter(spot => spot.startsWith('A'))
+//                             .map(spot => renderParkingSpot(spot, parkingAvailability[spot]))}
+//                     </tr>
+//                 </tbody>
+//             </StyledTable>
+
+//             <StyledTable>
+//                 <thead>
+//                     <tr>
+//                         <th colSpan={7}>B 주차구역</th>
+//                     </tr>
+//                 </thead>
+//                 <tbody>
+//                     <tr>
+//                         {Object.keys(parkingAvailability)
+//                             .filter(spot => spot.startsWith('B'))
+//                             .map(spot => renderParkingSpot(spot, parkingAvailability[spot]))}
+//                     </tr>
+//                 </tbody>
+//             </StyledTable>
+//         </Container>
+//     );
+// };
+
+// export default App;
