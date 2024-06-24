@@ -1,5 +1,8 @@
 import { Card, Button } from "react-bootstrap";
+import { Provider } from "react-redux";
 import styled from "styled-components";
+import { store } from "../app/store";
+import FeeChart from '../components/FeeChart';
 
 const StyledCard = styled.div`
   display: flex;
@@ -63,6 +66,15 @@ function Main() {
       </Card.Body>
       </Card>
       </StyledCard>
+
+      <Provider store={store}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '50px' }}>
+          <h1>관리비</h1>
+          <div style={{ width: '80%', margin: '0 auto' }}>
+            <FeeChart />
+          </div>
+        </div>
+      </Provider>
     </>
   );
 };
