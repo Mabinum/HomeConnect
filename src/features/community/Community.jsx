@@ -56,7 +56,7 @@ function Community() {
           <Nav.Link eventKey="link-4">맛집투어</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Button variant="dark" onClick={() => navigate('/menu4/communitycreate')}>모임 개설하기</Button>
+          <Button variant="dark" onClick={() => navigate('/menu4/communitycategory')}>모임 개설하기</Button>
         </Nav.Item>
       </StyledNav>
       <CommunityContainer>
