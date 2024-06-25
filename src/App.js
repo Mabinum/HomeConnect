@@ -73,6 +73,9 @@ function App() {
               <Route path='foodmain' element={<Foodmain />} />
               <Route path='foodlist' element={<FoodList />} />
               <Route path='foodlist/:foodId' element={<FoodListDetail />} />
+              <Route path='noticemain' element={<Foodmain />} />
+              <Route path='noticelist' element={<FoodList />} />
+              <Route path='noticelist/:foodId' element={<FoodListDetail />} />
             </Route>
             {/* <Route path='/management' element={<Management />}/> */}
 

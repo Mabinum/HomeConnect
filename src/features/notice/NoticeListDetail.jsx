@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
-import { removeFoodList ,selectBoardSlice } from '../board/boardSlice';
+import { removeFoodList , selectNoticeInfo } from '../board/boardSlice';
 import Styled from 'styled-components';
 
 const CommentContainer = Styled.div`
@@ -87,11 +87,11 @@ const PostContent = Styled.div`
     }
 `;
 
-function FoodListDetail() {
+function NoticeListDetail() {
     const [comment, setComment] = useState('');
     const [comments, setComments] = useState([]);
     const { foodId } = useParams();
-    const foodList = useSelector(selectBoardSlice);
+    const noticeList = useSelector(selectNoticeInfo);
     const dispatch = useDispatch();
 
     // 로컬 스토리지에서 댓글 불러오기
@@ -124,7 +124,7 @@ function FoodListDetail() {
     //     }
     // };
 
-    const post = foodList.find((item) => item.id === parseInt(foodId));
+    const post = noticeList.find((item) => item.id === parseInt(foodId));
 
     return (
         <CommentContainer>
@@ -162,4 +162,4 @@ function FoodListDetail() {
     );
 }
 
-export default FoodListDetail;
+export default NoticeListDetail;
