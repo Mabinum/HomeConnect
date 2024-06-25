@@ -3,7 +3,7 @@ import Car from "../features/ParkingManagement/Car";
 function Menu3() {
   return (
     <>
-      <Car />
+      {/* <Car /> */}
     </>
   );
 };
