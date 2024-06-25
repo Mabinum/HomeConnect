@@ -3,22 +3,22 @@ import { Table, Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { selectBoardSlice } from '../board/boardSlice'; // boardSlice에서 foodList를 선택하는 selector 가져오기
 import { Link, useNavigate } from 'react-router-dom';
-import Styled from 'styled-components'; // styled-components 추가
+import styled from 'styled-components'; // styled-components 추가
 
-const StyledTh = Styled.th`
+const StyledTh = styled.th`
     vertical-align: middle;
 `;
 
-const CenteredTh = Styled(StyledTh)`
+const CenteredTh = styled(StyledTh)`
     text-align:  justify;
 `;
 
-const StyledLinkButton = Styled(Link)`
+const StyledLinkButton = styled(Link)`
     display: block;
     margin: 2px 0 2px;
 `;
 
-const StyledTbody = Styled.tbody`
+const StyledTbody = styled.tbody`
     cursor: pointer;
 `;
 

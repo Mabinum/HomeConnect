@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Bar, Line } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -25,7 +25,7 @@ ChartJS.register(
   Legend
 );
 
-function FeeChartDetail() {
+function FeeChart() {
   const fees = useSelector((state) => state.fees.fees);
 
   // 월별 합계 계산
@@ -60,10 +60,10 @@ function FeeChartDetail() {
   };
 
   return (
-    <div style={{ width: '80%', height: '500px', margin: '0 auto' }}>
+    <div style={{ width: '80%', height: '500px', margin: '0 auto', padding: '1rem' }}>
       <Bar data={data} options={options} />
     </div>
   );
 };
 
-export default FeeChartDetail;
+export default FeeChart;

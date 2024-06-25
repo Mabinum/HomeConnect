@@ -33,6 +33,7 @@ import FeeInputPage from './components/FeeInputPage';
 import Car from './features/ParkingManagement/Car';
 import Community from './features/community/Community';
 import CommunityCreate from './features/community/CommunityCreate';
+import FeeChartDetail from './components/FeeChartDetail';
 
 
 const GlobalStyle = createGlobalStyle`
@@ -67,7 +68,7 @@ function App() {
           <Route path='/' element={<Layout />} >
             <Route index element={<Main />} />
             <Route path='mypage' element={<MyPage />} />
-            <Route path='menu1' element={<Menu1 />} />
+            <Route path='feedetail' element={<FeeChartDetail />} />
             <Route path='menu2' element={<Menu2 />} />
             <Route path='menu3' element={<Menu3 />} />
             <Route path='menu4' element={<Menu4 />}>
@@ -102,3 +103,12 @@ function App() {
 }
 
 export default App;
+
+// 라이브러리, 변수명 정리, 사이트 디자인 관련, 아이디어, 사용 api 정리, 화면설계서, 
+// 요구사항정의서, 
+
+// 결제시스템, 소셜로그인, 실제 기능 구현가능한 것들, 관리비 통계(다른 사이트 참고)
+
+// 월별 관리비 통계
+
+// 스프링 브랜치 삭제 - 깃모드에서 로컬삭제하고 기본모드에서 팀-리모트-푸쉬 next-삭제할 브랜치 add하고 삭제 및 푸쉬

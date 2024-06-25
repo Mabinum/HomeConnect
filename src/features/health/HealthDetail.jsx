@@ -1,29 +1,27 @@
-// FoodListDetail.js
-
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import { removeHealthList, selectHealthInfo } from '../board/boardSlice';
-import Styled from 'styled-components';
+import styled from 'styled-components';
 
-const CommentContainer = Styled.div`
+const CommentContainer = styled.div`
     margin-top: 16px;
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 16px;
 `;
 
-const CommentList = Styled.ul`
+const CommentList = styled.ul`
     list-style: none;
     padding: 0;
 `;
 
-const CommentItem = Styled.li`
+const CommentItem = styled.li`
     margin-bottom: 8px;
     font-size: 16px;
 `;
 
-const TextInput = Styled.input`
+const TextInput = styled.input`
     width: 100%;
     height: 40px;
     padding: 10px;
@@ -33,13 +31,13 @@ const TextInput = Styled.input`
     margin-bottom: 10px;
 `;
 
-const ButtonContainer = Styled.div`
+const ButtonContainer = styled.div`
     display: flex;
     justify-content: flex-start; 
     margin-top: 10px;
 `;
 
-const Button = Styled.button`
+const Button = styled.button`
     width: 100px;
     height: 35px;
     font-size: 16px;
@@ -55,7 +53,7 @@ const Button = Styled.button`
     }
 `;
 
-const CloseButton = Styled.button`
+const CloseButton = styled.button`
     width: 100px;
     height: 35px;
     font-size: 16px;
@@ -71,7 +69,7 @@ const CloseButton = Styled.button`
     }
 `;
 
-const PostContent = Styled.div`
+const PostContent = styled.div`
     margin-bottom: 20px;
 
     h2 {
@@ -94,40 +92,12 @@ function FoodListDetail() {
     const healthList = useSelector(selectHealthInfo);
     const dispatch = useDispatch();
 
-
-    // 로컬 스토리지에서 댓글 불러오기
-    // useEffect(() => {
-    //     const storedComments = JSON.parse(localStorage.getItem('comments')) || [];
-    //     setComments(storedComments);
-    // }, []);
-
-    // 댓글 추가 시 로컬 스토리지 업데이트
-    // useEffect(() => {
-    //     localStorage.setItem('comments', JSON.stringify(comments));
-    // }, [comments]);
-
     const handleAddComment = () => {
         if (comment.trim() !== '') {
             setComments([...comments, comment]);
             setComment('');
         }
     };
-
-    // const handleRemoveContent = () => {
-    //     dispatch(removeList(healthList.id))
-    // };
-
-    // const handleFoodLike = (foodId) => {
-    //     const food = foodList.find((food) => food.id === foodId);
-    //     if (food) {
-    //         dispatch(
-    //             Food({
-    //                 ...food,
-    //                 likes: food.likes + 1,
-    //             })
-    //         );
-    //     }
-    // };
 
     const post = healthList.find((item) => item.id === parseInt(healthId));
 
@@ -137,8 +107,6 @@ function FoodListDetail() {
                 <PostContent>
                     <h2>{post.title}</h2>
                     <p>{post.content}</p>
-                    {/* <p>{post.date}</p>
-                    <Button onClick={() => handleFoodLike(post.id)}>좋아요</Button> */}
                 </PostContent>
             )}
 
