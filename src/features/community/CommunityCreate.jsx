@@ -4,17 +4,28 @@ const Wrapper = styled.div`
   margin: 50px;
   width: 90%;
   height: 500px;
+  padding: 50px;
   background-color: #f8f9fa;
+  border-radius: 20px;
+  text-align: center;
 `;
 
 const Container = styled.div`
   
+  div{
+    
+  }
 `;
 
 function CommunityCreate() {
   return (
     <Wrapper>
-      
+      <span>카테고리 고르기</span>
+      <Container>
+        <div>
+
+        </div>
+      </Container>
     </Wrapper>
   );
 };
