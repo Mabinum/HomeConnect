@@ -25,7 +25,7 @@ ChartJS.register(
   Legend
 );
 
-function FeeChartDetail() {
+function FeeChart() {
   const fees = useSelector((state) => state.fees.fees);
 
   // 월별 합계 계산
@@ -66,4 +66,4 @@ function FeeChartDetail() {
   );
 };
 
-export default FeeChartDetail;
+export default FeeChart;
