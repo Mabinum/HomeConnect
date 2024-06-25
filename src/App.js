@@ -31,6 +31,7 @@ import Signup4 from './pages/login/Signup4';
 import FeeInputForm from './components/FeeInputForm';
 import FeeInputPage from './components/FeeInputPage';
 import Car from './features/ParkingManagement/Car';
+import Map from './features/map/Map';
 
 
 const GlobalStyle = createGlobalStyle`
@@ -68,6 +69,7 @@ function App() {
             <Route path='menu1' element={<Menu1 />} />
             <Route path='menu2' element={<Menu2 />} />
             <Route path='menu3' element={<Menu3 />} />
+            
             <Route path='menu4' element={<Menu4 />}>
               <Route index element={<HealthList />} />
               <Route path='health' element={<Health />} />
@@ -83,7 +85,7 @@ function App() {
             {/* <Route path='/management' element={<Management />}/> */}
 
             <Route path='/feeinput' element={<FeeInputPage />} />
-
+            <Route path='/map' element={<Map />}/>
             {/* 나중에 메뉴바에 해당하는 것들 수정하기 */}
             {/* <Route path='menu/:menuID' element={<MenuDetail/>}/> */}
 
