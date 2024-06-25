@@ -32,11 +32,11 @@ import FeeInputForm from './components/FeeInputForm';
 import FeeInputPage from './components/FeeInputPage';
 import Car from './features/ParkingManagement/Car';
 
-// import Map from './features/map/Map';
+import Map from './features/map/Map';
 
-// import Community from './features/community/Community';
-// import CommunityCreate from './features/community/CommunityCreate';
-// import FeeChartDetail from './components/FeeChartDetail';
+import Community from './features/community/Community';
+import CommunityCreate from './features/community/CommunityCreate';
+import FeeChartDetail from './components/FeeChartDetail';
 
 
 
