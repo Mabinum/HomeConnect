@@ -8,23 +8,30 @@ const Wrapper = styled.div`
   background-color: #f8f9fa;
   border-radius: 20px;
   text-align: center;
+  display: flex;
 `;
 
 const Container = styled.div`
-  
-  div{
-
-  }
+  border: 2px solid black;
+  border-radius: 20px;
+  flex: 1;
+  margin: 2px;
 `;
 
 function CommunityCreate() {
   return (
     <Wrapper>
-      <span>카테고리 고르기</span>
       <Container>
-        <img src="../../image/communityimg/002.png" alt="여행"/>
-          <label htmlFor="">여행</label>
-        
+        <img src="../../image/002.png" alt="여행" />
+        <p>여행</p>
+      </Container>
+      <Container>
+        <img src="../../image/002.png" alt="여행" />
+        <p>여행</p>
+      </Container>
+      <Container>
+        <img src="../../image/002.png" alt="여행" />
+        <p>여행</p>
       </Container>
     </Wrapper>
   );
