@@ -5,9 +5,20 @@ const initialState = {
   healthList: [],
   noticeList: [
     {
-      title: '공지사항입니다.',
-      content: '전기점검 날짜입니다.'
-    }
+      id : 1,
+      title: '공지사항입니다.1',
+      content: '전기점검 날짜입니다.1'
+    },
+    {
+      id : 2,
+      title: '공지사항입니다.2',
+      content: '전기점검 날짜입니다.2'
+    },
+    {
+      id : 3,
+      title: '공지사항입니다.3',
+      content: '전기점검 날짜입니다.3'
+    },
   ]
 }
 
