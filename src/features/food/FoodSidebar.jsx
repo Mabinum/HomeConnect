@@ -45,9 +45,10 @@ function FoodSidebar() {
           {/* <FaTimes /> 버튼입니다. */}
         </CloseButton>
         <p className='header'>게시판</p><br />
-        <p onClick={() => navigate('/')}>공지사항</p>
+        <p onClick={() => navigate('noticelist')}>공지사항</p>
         <p onClick={() => navigate('foodlist')}>맛집</p>
         <p onClick={() => navigate('healthlist')}>운동</p>
+        <p onClick={() => navigate('')}>모임</p>
       </SidebarContainer>
     </>
   )

@@ -13,8 +13,13 @@ import MyPage from './components/MyPage';
 import SignUp from './pages/login/SignUp';
 import HealthList from './features/health/HealthList';
 import Health from './features/health/Health';
+import HealthDetail from './features/health/HealthDetail';
 import Foodmain from "./features/food/Foodmain";
 import FoodList from './features/food/FoodList';
+import FoodListDetail from './features/food/FoodListDetail';
+import NoticeMain from "./features/notice/NoticeMain";
+import NoticeList from './features/notice/NoticeList';
+import NoticeListDetail from './features/notice/NoticeListDetail';
 
 import Register from './pages/login/Register';
 import NoMatchPage from './pages/NoMatchPage';
@@ -22,9 +27,7 @@ import SignUp1 from './pages/login/SignUp1';
 import SignUp2 from './pages/login/SignUp2';
 import SignUp3 from './pages/login/SignUp3';
 import Signup4 from './pages/login/Signup4';
-import HealthDetail from './features/health/HealthDetail';
 
-import FoodListDetail from './features/food/FoodListDetail';
 import FeeInputForm from './components/FeeInputForm';
 import FeeInputPage from './components/FeeInputPage';
 import Car from './features/ParkingManagement/Car';
@@ -73,9 +76,9 @@ function App() {
               <Route path='foodmain' element={<Foodmain />} />
               <Route path='foodlist' element={<FoodList />} />
               <Route path='foodlist/:foodId' element={<FoodListDetail />} />
-              <Route path='noticemain' element={<Foodmain />} />
-              <Route path='noticelist' element={<FoodList />} />
-              <Route path='noticelist/:foodId' element={<FoodListDetail />} />
+              <Route path='noticemain' element={<NoticeMain />} />
+              <Route path='noticelist' element={<NoticeList />} />
+              <Route path='noticelist/:foodId' element={<NoticeListDetail />} />
             </Route>
             {/* <Route path='/management' element={<Management />}/> */}
 

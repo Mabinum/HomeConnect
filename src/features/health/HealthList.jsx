@@ -2,35 +2,31 @@ import { Button, Nav, Table } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { selectHealthInfo } from "../board/boardSlice";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import Styled, { styled } from 'styled-components';
+import styled  from 'styled-components';
 import FoodSidebar from "../food/FoodSidebar";
 import { useEffect, useState } from "react";
 
-const StyledTh = Styled.th`
+const StyledTh = styled.th`
     vertical-align: middle;
 `;
 
-const CenteredTh = Styled(StyledTh)`
+const CenteredTh = styled(StyledTh)`
     text-align:  justify;
 `;
 
-const StyledLinkButton = Styled(Link)`
+const StyledLinkButton = styled(Link)`
     display: block;
     margin: 2px 0 2px;
 `;
 
-const StyledTbody = Styled.tbody`
+const StyledTbody = styled.tbody`
   cursor: pointer;
 `;
 
-const StyledTable = styled(Table)`
-  /* width: 80%; */
-  
+const Wrapper = styled.div`
 
-  div {
-    display: flex;
-  }
 `;
+  
 
 function HealthList() {
   const [list, setList] = useState();
@@ -49,7 +45,9 @@ function HealthList() {
 
 
   return (
-    <StyledTable hover>
+    <Wrapper>
+
+    <Table hover>
       <thead>
         <CenteredTh>
           <StyledLinkButton to="/menu4/health">
@@ -76,7 +74,8 @@ function HealthList() {
           </tr>
         </StyledTbody>
       ))}
-    </StyledTable>
+    </Table>
+    </Wrapper>
   );
 };
 
