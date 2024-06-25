@@ -31,7 +31,7 @@ import Signup4 from './pages/login/Signup4';
 import FeeInputForm from './components/FeeInputForm';
 import FeeInputPage from './components/FeeInputPage';
 import Car from './features/ParkingManagement/Car';
-import FeeChartDetail from './components/FeeChart';
+import FeeChartDetail from './components/FeeChartDetail';
 
 
 const GlobalStyle = createGlobalStyle`

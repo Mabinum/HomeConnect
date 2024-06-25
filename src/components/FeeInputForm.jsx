@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setFee } from '../features/fee/feeSlice';
 
-const FeeInputForm = () => {
+function FeeInputForm() {
   const [month, setMonth] = useState('');
   const [type, setType] = useState('');
   const [amount, setAmount] = useState('');
