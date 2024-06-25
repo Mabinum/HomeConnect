@@ -31,8 +31,9 @@ import FeeInputPage from './components/FeeInputPage';
 import Map from './features/map/Map';
 
 import Community from './features/community/Community';
-import CommunityCreate from './features/community/CommunityCreate';
 import FeeChartDetail from './components/FeeChartDetail';
+import CommunityCategory from './features/community/CommunityCategory';
+import CommunityRegister from './features/community/CommunityRegister.jsx';
 
 
 
@@ -81,7 +82,8 @@ function App() {
               <Route path='noticelist' element={<NoticeList />} />
               <Route path='noticelist/:foodId' element={<NoticeListDetail />} />
               <Route path='community' element={<Community />}/>
-              <Route path='communitycreate' element={<CommunityCreate />}/>
+              <Route path='communitycategory' element={<CommunityCategory />}/>
+              <Route path='communityregister' element={<CommunityRegister />}/>
               <Route path='map' element={<Map />}/>
             </Route>
             {/* <Route path='/management' element={<Management />}/> */}
