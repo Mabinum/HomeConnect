@@ -31,12 +31,15 @@ function FoodSidebar() {
   const navigate = useNavigate();
 
   return (
-    <SidebarContainer >
-      {/* <p className='header'>게시판</p><br /> */}
-      <p onClick={() => navigate('noticelist')} className='textcolor'>공지사항</p>
-      <p onClick={() => navigate('foodlist')} className='cursor-pointer'>게시판</p>
-      <p onClick={() => navigate('')} className='cursor-pointer'>모임</p>
-    </SidebarContainer>
+    <>
+      <SidebarContainer>
+        <p onClick={() => navigate('noticelist')} className='textcolor'>공지사항</p>
+        <p onClick={() => navigate('foodlist')} className='cursor-pointer'>게시판</p>
+        <p onClick={() => navigate('')} className='cursor-pointer'>모임</p>
+        <p onClick={() => navigate('community')}>모임</p>
+        <p onClick={() => navigate('map')}>지도</p>
+      </SidebarContainer>
+    </>
   )
 }
 
