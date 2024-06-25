@@ -10,14 +10,14 @@ const FoodForm = styled.form`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 73vh; // 화면 전체 높이를 차지하도록 설정
+  height: 100vh; /* 화면 전체 높이를 차지하도록 설정 */
 `;
 
 const FoodHeader = styled.input`
   width: 80%;
-  max-width: 465px; /* 최대 너비 설정 */
+  max-width: 465px;
   height: 50px;
-  margin-bottom: 10px;
+  margin: 0 auto 10px; /* 수정 */
   font-size: 16px;
   padding: 10px;
   border: 1px solid #ccc;
@@ -25,10 +25,10 @@ const FoodHeader = styled.input`
 
 const FoodBoard = styled.textarea`
   width: 80%;
-  max-width: 465px; /* 최대 너비 설정 */
-  height: 300px; /* 높이 수정 */
-  margin-bottom: 10px;
-  overflow: auto; /* 스크롤바가 필요할 때만 보이도록 설정 */
+  max-width: 465px;
+  height: 300px;
+  margin: 0 auto 10px; /* 수정 */
+  overflow: auto;
   vertical-align: top;
   resize: none;
   border: 1px solid #ccc;
@@ -44,6 +44,7 @@ const FoodButton = styled(Button)`
   color: #fff;
   border: none;
   cursor: pointer;
+  margin: 0 5px; /* 추가 */
 
   &:hover {
     background-color: #0056b3;
@@ -59,6 +60,7 @@ const ListButton = styled(Button)`
   color: #fff;
   border: none;
   cursor: pointer;
+  margin: 0 5px; /* 추가 */
 
   &:hover {
     background-color: #0056b3;
@@ -70,7 +72,9 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   gap: 10px;
+  margin-top: 10px; /* 추가 */
 `;
+
 
 function Foodmain() {
   const [title, setTitle] = useState('');
@@ -175,3 +179,4 @@ function Foodmain() {
 }
 
 export default Foodmain;
+

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
-import { styled } from 'styled-components';
+import styled from 'styled-components';
 
 
 const SidebarContainer = styled.div`
