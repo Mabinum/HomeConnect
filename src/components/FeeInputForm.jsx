@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setFee } from '../features/fee/feeSlice';
 
-function FeeInputForm() {
+const FeeInputForm = () => {
   const [month, setMonth] = useState('');
   const [type, setType] = useState('');
   const [amount, setAmount] = useState('');
@@ -24,7 +24,6 @@ function FeeInputForm() {
     <form onSubmit={handleSubmit}>
       <div>
         <label>월:</label>
-        {/* month - 월 */}
         <select value={month} onChange={(e) => setMonth(e.target.value)}>
           <option value="">선택</option>
           {Array.from({ length: 12 }, (_, i) => (
@@ -34,8 +33,7 @@ function FeeInputForm() {
       </div>
       <div>
         <label>항목:</label>
-        {/* type - 관리비 항목 */}
-        <select value={type} onChange={(e) => setType(e.target.value)}> 
+        <select value={type} onChange={(e) => setType(e.target.value)}>
           <option value="">선택</option>
           <option value="electric">전기세</option>
           <option value="water">수도세</option>
@@ -46,7 +44,7 @@ function FeeInputForm() {
         <label>금액:</label>
         <input
           type="number"
-          value={amount} // amount - 금액
+          value={amount}
           onChange={(e) => setAmount(e.target.value)}
         />
       </div>

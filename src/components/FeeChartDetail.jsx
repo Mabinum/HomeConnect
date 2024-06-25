@@ -21,7 +21,7 @@ ChartJS.register(
   Legend
 );
 
-const FeeChartDetail = () => {
+const FeeDetail = () => {
   const fees = useSelector((state) => state.fees.fees);
 
   const data = {
@@ -68,4 +68,4 @@ const FeeChartDetail = () => {
   );
 };
 
-export default FeeChartDetail;
+export default FeeDetail;
