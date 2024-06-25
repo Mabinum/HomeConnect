@@ -1,53 +1,37 @@
-import { Button, Nav, Table } from "react-bootstrap";
+import { Button , Table } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { selectHealthInfo } from "../board/boardSlice";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled  from 'styled-components';
-import FoodSidebar from "../food/FoodSidebar";
-import { useEffect, useState } from "react";
 
 const StyledTh = styled.th`
-    vertical-align: middle;
+  vertical-align: middle;
 `;
 
 const CenteredTh = styled(StyledTh)`
-    text-align:  justify;
+  text-align:  justify;
 `;
 
 const StyledLinkButton = styled(Link)`
-    display: block;
-    margin: 2px 0 2px;
+  display: block;
+  margin: 2px 0 2px;
 `;
 
 const StyledTbody = styled.tbody`
   cursor: pointer;
 `;
 
-const Wrapper = styled.div`
-
+const TableWrapper = styled(Table)`
+  width: 100%;
 `;
   
 
 function HealthList() {
-  const [list, setList] = useState();
-  
   const healthInfo = useSelector(selectHealthInfo);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const dbList = JSON.parse(localStorage.getItem('list')) || []; // 초기에 'todos'가 없으면 null을 반환함
-  //   setList(dbList);
-  // }, []);
-  
-  // useEffect(() => {
-  //     localStorage.setItem('list', JSON.stringify(list));
-  // }, [list]);
-
-
   return (
-    <Wrapper>
-
-    <Table hover>
+    <TableWrapper className="a">
       <thead>
         <CenteredTh>
           <StyledLinkButton to="/menu4/health">
@@ -59,7 +43,6 @@ function HealthList() {
           <StyledTh>제목</StyledTh>
           <StyledTh>작성일자</StyledTh>
           <StyledTh>작성자ID</StyledTh>
-
         </tr>
       </thead>
 
@@ -74,8 +57,7 @@ function HealthList() {
           </tr>
         </StyledTbody>
       ))}
-    </Table>
-    </Wrapper>
+    </TableWrapper>
   );
 };
 

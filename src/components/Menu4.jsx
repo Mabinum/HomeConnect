@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 const Wrapper = styled.div`
   display: flex;
+  position: relative;
   justify-content: flex-start; /* 왼쪽 정렬 */
   height: 100vh; /* 화면 전체 높이를 차지하도록 설정 */
 `;

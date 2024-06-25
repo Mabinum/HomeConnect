@@ -1,8 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { store } from '../app/store';
-import FeeInputForm from './FeeInputForm';
-import FeeChart from './FeeChart';
 import FeeChartDetail from './FeeChartDetail';
 
 function Menu1() {

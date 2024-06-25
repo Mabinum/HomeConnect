@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import Styled from 'styled-components';
+import styled from 'styled-components';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Food } from '../board/boardSlice';
 import { Modal, Button } from 'react-bootstrap';
 
-const FoodForm = Styled.form`
+const FoodForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,7 +13,7 @@ const FoodForm = Styled.form`
   height: 100vh; /* 화면 전체 높이를 차지하도록 설정 */
 `;
 
-const FoodHeader = Styled.input`
+const FoodHeader = styled.input`
   width: 80%;
   max-width: 465px;
   height: 50px;
@@ -23,7 +23,7 @@ const FoodHeader = Styled.input`
   border: 1px solid #ccc;
 `;
 
-const FoodBoard = Styled.textarea`
+const FoodBoard = styled.textarea`
   width: 80%;
   max-width: 465px;
   height: 300px;
@@ -36,9 +36,9 @@ const FoodBoard = Styled.textarea`
   font-size: 16px;
 `;
 
-const FoodButton = Styled(Button)`
-  width: 100px;
-  height: 35px;
+const FoodButton = styled(Button)`
+  width: 100px; /* 버튼 너비 조정 */
+  height: 35px; /* 버튼 높이 조정 */
   font-size: 16px;
   background-color: #007bff;
   color: #fff;
@@ -52,9 +52,9 @@ const FoodButton = Styled(Button)`
   }
 `;
 
-const ListButton = Styled(Button)`
-  width: 100px;
-  height: 35px;
+const ListButton = styled(Button)`
+  width: 100px; /* 버튼 너비 조정 */
+  height: 35px; /* 버튼 높이 조정 */
   font-size: 16px;
   background-color: #007bff;
   color: #fff;
@@ -68,7 +68,7 @@ const ListButton = Styled(Button)`
   }
 `;
 
-const ButtonContainer = Styled.div`
+const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   gap: 10px;

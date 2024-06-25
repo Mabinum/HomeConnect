@@ -21,8 +21,7 @@ ChartJS.register(
   Legend
 );
 
-
-function FeeChart() {
+function FeeChartDetail() {
   const fees = useSelector((state) => state.fees.fees);
 
   const data = {
@@ -63,10 +62,10 @@ function FeeChart() {
   };
 
   return (
-    <div style={{ width: '80%', height: '500px', margin: '0 auto' }}>
-      <Bar data={data} options={options}/>
+    <div style={{ width: '80%', height: '500px', margin: '0 auto', padding: '1rem' }}>
+      <Bar data={data} options={options} />
     </div>
   );
 };
 
-export default FeeChart;
+export default FeeChartDetail;
