@@ -20,7 +20,8 @@ function Register() {
   };
 
   const handleSubmitINFO = () => {
-    dispatch(getIDPWInfo({ID : IDvalue , PW : PWvalue}))
+    dispatch(getIDPWInfo({ID : IDvalue , PW : PWvalue}));
+    navigate('/');
   };
   
   return (
