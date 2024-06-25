@@ -1,19 +1,22 @@
 import { useState } from "react";
-import { FloatingLabel, Form, InputGroup } from "react-bootstrap";
+import { Button, FloatingLabel, Form, InputGroup, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Styled from "styled-components";
 import { HealthContent } from "../board/boardSlice";
 
-const HealthForm = Styled.form`
+const Wrapper = Styled.div`
+`;
+
+const FoodForm = Styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh; /* 화면 전체 높이를 차지하도록 설정 */
+  height: 73vh; // 화면 전체 높이를 차지하도록 설정
 `;
 
-const HealthHeader = Styled.input`
+const FoodHeader = Styled.input`
   width: 80%;
   max-width: 465px; /* 최대 너비 설정 */
   height: 50px;
@@ -23,7 +26,7 @@ const HealthHeader = Styled.input`
   border: 1px solid #ccc;
 `;
 
-const HealthBoard = Styled.textarea`
+const FoodBoard = Styled.textarea`
   width: 80%;
   max-width: 465px; /* 최대 너비 설정 */
   height: 300px; /* 높이 수정 */
@@ -36,71 +39,142 @@ const HealthBoard = Styled.textarea`
   font-size: 16px;
 `;
 
-const HealthButton = Styled.button`
-  width: 80px;
-  height: 35px;
-  margin-top: 10px;
+const FoodButton = Styled(Button)`
+  width: 100px; /* 버튼 너비 조정 */
+  height: 35px; /* 버튼 높이 조정 */
   font-size: 16px;
   background-color: #007bff;
   color: #fff;
   border: none;
   cursor: pointer;
+
+  &:hover {
+    background-color: #0056b3;
+    color: #fff;
+  }
+`;
+
+const ListButton = Styled(Button)`
+  width: 100px; /* 버튼 너비 조정 */
+  height: 35px; /* 버튼 높이 조정 */
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #0056b3;
+    color: #fff;
+  }
+`;
+
+const ButtonContainer = Styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 `;
 
 
 function Health() {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const navigate = useNavigate();
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleTitleChange = (e) => {
-    const value = e.target.value;
-    // 최대 28자까지 입력할 수 있도록 제한
-    if (value.length <= 28) {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name === 'title') {
       setTitle(value);
+    } else if (name === 'content') {
+      setContent(value);
     }
   };
-  
-  const handleContentChange = (e) => {
-    setContent(e.target.value);
+
+  const handleToList = () => {
+    // navigate('menu4/healthlist');
+  };
+
+  const handleModalClose = () => {
+    setShowModal(false);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // 여기서 form 데이터를 처리하거나 다음 단계로 이동할 수 있습니다.
-    navigate('/some-route'); // 예시: 다른 경로로 이동하는 방법
-    setTitle('');
-    setContent('');
+    if (title.trim() === '' || content.trim() === '') {
+      alert('제목과 내용을 모두 입력해주세요.');
+      return;
+    }
 
-    // dispatch로 title과 content 내용 넘김
-    dispatch(HealthContent({
-      content,
-      title
-    }))
-
-    navigate('/healthlist');
+    setShowModal(true); // Modal 열기
   };
 
+  const handleConfirmSubmit = () => {
+    dispatch(
+      HealthContent({
+        id: Date.now(),
+        title,
+        content,
+        date: getCurrentDate(),
+      })
+    );
+
+    setTitle('');
+    setContent('');
+    setShowModal(false);
+    navigate('/menu4/healthlist');
+  };
+
+  const getCurrentDate = () => {
+    const currentDate = new Date();
+    return `${currentDate.getFullYear()}-${
+      currentDate.getMonth() + 1
+    }-${currentDate.getDate()}`;
+  };
 
   return (
-    <HealthForm onSubmit={handleSubmit}>
-      <HealthHeader
-        type="text"
-        placeholder="제목"
-        value={title}
-        onChange={handleTitleChange}
-        required
-      />
-      <HealthBoard
-        type="text"
-        placeholder="내용을 입력하세요."
-        value={content}
-        onChange={handleContentChange}
-        required
-      />
-      <HealthButton type="submit">등록</HealthButton>
-    </HealthForm>
+    <>
+      <FoodForm onSubmit={handleSubmit}>
+        <FoodHeader
+          type="text"
+          name="title"
+          placeholder="제목"
+          value={title}
+          onChange={handleChange}
+          required
+        />
+        <FoodBoard
+          name="content"
+          placeholder="내용을 입력하세요."
+          value={content}
+          onChange={handleChange}
+          required
+        />
+        <ButtonContainer>
+          <FoodButton type="submit">등록</FoodButton>
+          <ListButton onClick={handleToList}>목록으로</ListButton>
+        </ButtonContainer>
+        <Outlet />
+      </FoodForm>
+
+      <Modal show={showModal} onHide={handleModalClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>등록 확인</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>등록하시겠습니까?</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleConfirmSubmit}>
+            확인
+          </Button>
+          <Button variant="secondary" onClick={handleModalClose}>
+            취소
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
   );
 };
 

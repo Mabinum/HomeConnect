@@ -1,8 +1,32 @@
+import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { getAddressInfo } from "../../features/main/mainSlice";
 
 function Signup4() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [value, setValue] = useState(``);
+  const handleAddressChange = (e) => {
+    setValue(e.target.value);
+  };
+  
+  const [value2, setValue2] = useState(``);
+  const handleDongChange = (e) => {
+    setValue2(e.target.value);
+  };
+
+  const [value3, setValue3] = useState(``);
+  const handleHosuChange = (e) => {
+    setValue3(e.target.value);
+  };
+  
+  const overInfo = () => {
+    dispatch(getAddressInfo({address : `${value}` , dong : `${value2}`, hosu : `${value3}`}));
+    navigate('/');
+  };
 
 
   return (
@@ -13,18 +37,18 @@ function Signup4() {
       {/* 지도랑 연동하여 주소확인하기 */}
       <div>
         <label htmlFor="loginId">주소:</label>
-        <Form.Control type="text" placeholder="주소"/>
+        <Form.Control type="text" placeholder="주소" value={value} onChange={handleAddressChange}/>
       </div>
       <div>
         <label htmlFor="loginId">동 :</label>
-        <Form.Control type="text" placeholder="동"/>
+        <Form.Control type="text" placeholder="동" value={value2} onChange={handleDongChange}/>
       </div>
       <div>
         <label htmlFor="loginId">호수 :</label>
-        <Form.Control type="text" placeholder="호수 "/>
+        <Form.Control type="text" placeholder="호수" value={value3} onChange={handleHosuChange}/>
       </div>
       <div>
-        <Button type="button" onClick={()=>{navigate('/')}}>완료</Button>
+        <Button type="button" onClick={overInfo}>완료</Button>
       </div>
     </>
   );

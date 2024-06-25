@@ -27,6 +27,7 @@ import HealthDetail from './features/health/HealthDetail';
 import FoodListDetail from './features/food/FoodListDetail';
 import FeeInputForm from './components/FeeInputForm';
 import FeeInputPage from './components/FeeInputPage';
+import Car from './features/ParkingManagement/Car';
 
 
 const GlobalStyle = createGlobalStyle`
@@ -47,16 +48,16 @@ const GlobalStyle = createGlobalStyle`
 function App() {
   return (
     <>
-      <GlobalStyle/>
+      <GlobalStyle />
       <BrowserRouter>
         <Routes>
-          <Route path='/login' element={<Login/>}>
-            <Route index element={<Register/>} />
-            <Route path='signup' element={<SignUp/>}/>  
-            <Route path='signup1' element={<SignUp1/>}/>  
-            <Route path='signup2' element={<SignUp2/>}/>  
-            <Route path='signup3' element={<SignUp3/>}/>  
-            <Route path='signup4' element={<Signup4/>}/>  
+          <Route path='/login' element={<Login />}>
+            <Route index element={<Register />} />
+            <Route path='signup' element={<SignUp />} />
+            <Route path='signup1' element={<SignUp1 />} />
+            <Route path='signup2' element={<SignUp2 />} />
+            <Route path='signup3' element={<SignUp3 />} />
+            <Route path='signup4' element={<Signup4 />} />
           </Route>
           <Route path='/' element={<Layout/>} >
             <Route index element={<Main/>}/>
@@ -79,9 +80,9 @@ function App() {
             {/* 나중에 params로 아이디에 맞는 메뉴화면 나오도록 하기 */}
             {/* <Route path='health' element={<Health/>}/> */}
           </Route>
-          <Route path="*" element = {<NoMatchPage/>}/>
+          <Route path="*" element={<NoMatchPage />} />
         </Routes>
-      </BrowserRouter> 
+      </BrowserRouter>
     </>
   );
 }

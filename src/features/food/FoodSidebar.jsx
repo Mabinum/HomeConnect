@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
-import Styled from 'styled-components';
+import { Link, useNavigate } from 'react-router-dom';
+import { styled } from 'styled-components';
 
 
-const SidebarContainer = Styled.div`
-  position: fixed;
-  left: ${props => (props.show ? '0' : '-250px')};
+const SidebarContainer = styled.div`
+  position: relative;
+  left: 0;
   height: 100%;
-  width: 250px;
+  width: 150px;
   background-color: #f0f0f0;
   padding: 20px;
   transition: left 0.3s ease-in-out;
   z-index: 5;
 `;
 
-const CloseButton = Styled.button`
+const CloseButton = styled.button`
   position: absolute;
   top: 10px;
   right: 10px;
@@ -23,6 +24,10 @@ const CloseButton = Styled.button`
   cursor: pointer;
   color: #333; /* 아이콘 색상 */
   font-size: 1.5rem;
+
+  .header{
+    font-size: 1.5rem;
+  }
 `;
 
 function FoodSidebar() {
@@ -31,15 +36,18 @@ function FoodSidebar() {
   const handleClose = () => setShow(false);
   const handleOpen = () => setShow(true);
 
+  const navigate = useNavigate();
+
   return (
     <>
       <SidebarContainer show={show}>
         <CloseButton onClick={handleClose}>
-          <FaTimes /> {/*버튼입니다.*/}
+          {/* <FaTimes /> 버튼입니다. */}
         </CloseButton>
-          <p>Sidebar</p>
-          <p>맛집</p>
-          <p>운동</p>
+        <p className='header'>게시판</p><br />
+        <p onClick={() => navigate('/')}>공지사항</p>
+        <p onClick={() => navigate('foodlist')}>맛집</p>
+        <p onClick={() => navigate('healthlist')}>운동</p>
       </SidebarContainer>
     </>
   )

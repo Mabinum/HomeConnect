@@ -1,10 +1,20 @@
 import Car from "../features/ParkingManagement/Car";
+import FoodSidebar from "../features/food/FoodSidebar";
+import FoodList from "../features/food/FoodList";
+import { Outlet } from "react-router-dom";
+import { Container } from "react-bootstrap";
+import styled from "styled-components";
+
+const Wrapper = styled.div`
+  display: flex;
+`;
 
 function Menu4() {
   return (
-    <>
-      <Car />
-    </>
+    <Wrapper>
+      <FoodSidebar />
+      <Outlet />
+    </Wrapper>
   );
 };
 
