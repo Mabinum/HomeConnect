@@ -13,7 +13,7 @@ const Wrapper = styled.div`
 const Container = styled.div`
   
   div{
-    
+
   }
 `;
 
@@ -22,9 +22,9 @@ function CommunityCreate() {
     <Wrapper>
       <span>카테고리 고르기</span>
       <Container>
-        <div>
-
-        </div>
+        <img src="../../image/communityimg/002.png" alt="여행"/>
+          <label htmlFor="">여행</label>
+        
       </Container>
     </Wrapper>
   );
