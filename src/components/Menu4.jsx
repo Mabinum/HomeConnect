@@ -5,13 +5,16 @@ import { Outlet } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import styled from "styled-components";
 
+const Wrapper = styled.div`
+  display: flex;
+`;
 
 function Menu4() {
   return (
-    <>
+    <Wrapper>
       <FoodSidebar />
       <Outlet />
-    </>
+    </Wrapper>
   );
 };
 

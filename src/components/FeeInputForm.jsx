@@ -2,22 +2,29 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setFee } from '../features/fee/feeSlice';
 
-const FeeInputForm = () => {
+function FeeInputForm() {
   const [month, setMonth] = useState('');
+  const [type, setType] = useState('');
   const [amount, setAmount] = useState('');
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(setFee({ month: parseInt(month), amount: parseFloat(amount) }));
-    setMonth('');
-    setAmount('');
+    if (month && type && amount) {
+      dispatch(setFee({ month: parseInt(month), type, amount: parseFloat(amount) }));
+      setMonth('');
+      setType('');
+      setAmount('');
+    } else {
+      alert('월, 항목 및 금액을 입력해주세요.');
+    }
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <div>
         <label>월:</label>
+        {/* month - 월 */}
         <select value={month} onChange={(e) => setMonth(e.target.value)}>
           <option value="">선택</option>
           {Array.from({ length: 12 }, (_, i) => (
@@ -26,10 +33,20 @@ const FeeInputForm = () => {
         </select>
       </div>
       <div>
+        <label>항목:</label>
+        {/* type - 관리비 항목 */}
+        <select value={type} onChange={(e) => setType(e.target.value)}> 
+          <option value="">선택</option>
+          <option value="electric">전기세</option>
+          <option value="water">수도세</option>
+          <option value="maintenance">관리비</option>
+        </select>
+      </div>
+      <div>
         <label>금액:</label>
         <input
           type="number"
-          value={amount}
+          value={amount} // amount - 금액
           onChange={(e) => setAmount(e.target.value)}
         />
       </div>
