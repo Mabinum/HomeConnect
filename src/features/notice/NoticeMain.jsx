@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Styled from 'styled-components';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { Food } from '../board/boardSlice';
+import { NoticeContent } from '../board/boardSlice';
 import { Modal, Button } from 'react-bootstrap';
 
 const FoodForm = Styled.form`
@@ -72,7 +72,7 @@ const ButtonContainer = Styled.div`
   gap: 10px;
 `;
 
-function Foodmain() {
+function NoticeMain() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [showModal, setShowModal] = useState(false);
@@ -108,7 +108,7 @@ function Foodmain() {
 
   const handleConfirmSubmit = () => {
     dispatch(
-      Food({
+      NoticeContent({
         id: Date.now(),
         title,
         content,
@@ -174,4 +174,4 @@ function Foodmain() {
   );
 }
 
-export default Foodmain;
+export default NoticeMain;

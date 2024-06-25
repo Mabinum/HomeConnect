@@ -1,18 +1,27 @@
 import React, { useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
+<<<<<<< HEAD
+import styled from 'styled-components';
+
+
+const SidebarContainer = styled.div`
+  /* position: fixed; */
+  left: ${props => (props.show ? '0' : '-250px')};
+=======
 import { styled } from 'styled-components';
 
 
 const SidebarContainer = styled.div`
   position: relative;
   left: 0;
+>>>>>>> develop
   height: 100%;
   width: 150px;
   background-color: #f0f0f0;
   padding: 20px;
   transition: left 0.3s ease-in-out;
-  z-index: 5;
+  /* z-index: 5; */
 `;
 
 const CloseButton = styled.button`

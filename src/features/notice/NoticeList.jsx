@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table, Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import { selectBoardSlice } from '../board/boardSlice'; // boardSlice에서 foodList를 선택하는 selector 가져오기
+import { selectNoticeInfo } from '../board/boardSlice'; // boardSlice에서 foodList를 선택하는 selector 가져오기
 import { Link, useNavigate } from 'react-router-dom';
 import Styled from 'styled-components'; // styled-components 추가
 
@@ -22,8 +22,8 @@ const StyledTbody = Styled.tbody`
     cursor: pointer;
 `;
 
-function FoodList() {
-    const foodList = useSelector(selectBoardSlice);
+function NoticeList() {
+    const noticeList = useSelector(selectNoticeInfo);
     const navigate = useNavigate();
 
     return (
@@ -43,7 +43,7 @@ function FoodList() {
                 </tr>
             </thead>
 
-            {foodList.map((post, index) => (
+            {noticeList.map((post, index) => (
                 <StyledTbody onClick={() => navigate(`${post.id}`)}>
                     <tr key={post.id}>
                         <td>{index + 1}</td>
@@ -58,4 +58,4 @@ function FoodList() {
     );
 }
 
-export default FoodList;
+export default NoticeList;
