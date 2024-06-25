@@ -31,6 +31,7 @@ import Signup4 from './pages/login/Signup4';
 import FeeInputForm from './components/FeeInputForm';
 import FeeInputPage from './components/FeeInputPage';
 import Car from './features/ParkingManagement/Car';
+import FeeChartDetail from './components/FeeChart';
 
 
 const GlobalStyle = createGlobalStyle`
@@ -65,7 +66,7 @@ function App() {
           <Route path='/' element={<Layout />} >
             <Route index element={<Main />} />
             <Route path='mypage' element={<MyPage />} />
-            <Route path='menu1' element={<Menu1 />} />
+            <Route path='feedetail' element={<FeeChartDetail />} />
             <Route path='menu2' element={<Menu2 />} />
             <Route path='menu3' element={<Menu3 />} />
             <Route path='menu4' element={<Menu4 />}>
