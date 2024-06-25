@@ -31,6 +31,8 @@ import Signup4 from './pages/login/Signup4';
 import FeeInputForm from './components/FeeInputForm';
 import FeeInputPage from './components/FeeInputPage';
 import Car from './features/ParkingManagement/Car';
+import Community from './features/community/Community';
+import CommunityCreate from './features/community/CommunityCreate';
 
 
 const GlobalStyle = createGlobalStyle`
@@ -79,6 +81,8 @@ function App() {
               <Route path='noticemain' element={<NoticeMain />} />
               <Route path='noticelist' element={<NoticeList />} />
               <Route path='noticelist/:foodId' element={<NoticeListDetail />} />
+              <Route path='community' element={<Community />}/>
+              <Route path='communitycreate' element={<CommunityCreate />}/>
             </Route>
             {/* <Route path='/management' element={<Management />}/> */}
 

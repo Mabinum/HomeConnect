@@ -48,7 +48,7 @@ function FoodSidebar() {
         <p onClick={() => navigate('noticelist')}>공지사항</p>
         <p onClick={() => navigate('foodlist')}>맛집</p>
         <p onClick={() => navigate('healthlist')}>운동</p>
-        <p onClick={() => navigate('')}>모임</p>
+        <p onClick={() => navigate('community')}>모임</p>
       </SidebarContainer>
     </>
   )

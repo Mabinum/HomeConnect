@@ -22,6 +22,10 @@ const Mypage = styled(Navbar.Text)`
     width: 50px;
     margin-right: 10px;
   }
+  footer{
+    position: absolute;
+    bottom: 0;
+  }
 `;
 
 function Layout() {
