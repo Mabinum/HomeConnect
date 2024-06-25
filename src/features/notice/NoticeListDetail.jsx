@@ -1,9 +1,7 @@
-// FoodListDetail.js
-
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
-import { removeFoodList , selectNoticeInfo } from '../board/boardSlice';
+import { removeFoodList ,selectBoardSlice } from '../board/boardSlice';
 import styled from 'styled-components';
 
 const CommentContainer = styled.div`
@@ -87,11 +85,11 @@ const PostContent = styled.div`
     }
 `;
 
-function NoticeListDetail() {
+function FoodListDetail() {
     const [comment, setComment] = useState('');
     const [comments, setComments] = useState([]);
     const { foodId } = useParams();
-    const noticeList = useSelector(selectNoticeInfo);
+    const foodList = useSelector(selectBoardSlice);
     const dispatch = useDispatch();
 
     // 로컬 스토리지에서 댓글 불러오기
@@ -124,7 +122,7 @@ function NoticeListDetail() {
     //     }
     // };
 
-    const post = noticeList.find((item) => item.id === parseInt(foodId));
+    const post = foodList.find((item) => item.id === parseInt(foodId));
 
     return (
         <CommentContainer>
@@ -150,11 +148,11 @@ function NoticeListDetail() {
                 placeholder="댓글을 입력하세요."
             />
             <ButtonContainer>
-                <Link to="/menu4/noticelist">
+                <Link to="/menu4/foodlist">
                     <Button>목록으로</Button>
                 </Link>
                 <Button onClick={handleAddComment}>댓글 추가</Button>
-                <Link to="/menu4/noticelist">
+                <Link to="/menu4/foodlist">
                 <CloseButton onClick={() => dispatch(removeFoodList(post.id))}>삭제</CloseButton>
                 </Link>
             </ButtonContainer>
@@ -162,4 +160,4 @@ function NoticeListDetail() {
     );
 }
 
-export default NoticeListDetail;
+export default FoodListDetail;

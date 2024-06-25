@@ -43,7 +43,12 @@ const boardSlice = createSlice({
       });
     },
     NoticeContent: (state, action) => {
-
+      state.noticeList.push({
+        id: action.payload.id,
+        title: action.payload.title,
+        content: action.payload.content,
+        date: action.payload.date 
+      });
     },
     removeHealthList: (state, { payload: id }) => {
       const newList = state.healthList.filter(list => list.id !== id);

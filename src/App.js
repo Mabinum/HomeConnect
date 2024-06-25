@@ -11,9 +11,6 @@ import Menu2 from './components/Menu2';
 import Menu3 from './components/Menu3';
 import MyPage from './components/MyPage';
 import SignUp from './pages/login/SignUp';
-import HealthList from './features/health/HealthList';
-import Health from './features/health/Health';
-import HealthDetail from './features/health/HealthDetail';
 import Foodmain from "./features/food/Foodmain";
 import FoodList from './features/food/FoodList';
 import FoodListDetail from './features/food/FoodListDetail';
@@ -30,7 +27,6 @@ import Signup4 from './pages/login/Signup4';
 
 import FeeInputForm from './components/FeeInputForm';
 import FeeInputPage from './components/FeeInputPage';
-import Car from './features/ParkingManagement/Car';
 
 
 const GlobalStyle = createGlobalStyle`
@@ -69,10 +65,7 @@ function App() {
             <Route path='menu2' element={<Menu2 />} />
             <Route path='menu3' element={<Menu3 />} />
             <Route path='menu4' element={<Menu4 />}>
-              <Route index element={<HealthList />} />
-              <Route path='health' element={<Health />} />
-              <Route path='healthlist' element={<HealthList />} />
-              <Route path='healthlist/:healthId' element={<HealthDetail />} />
+              <Route index element={<FoodList />} />
               <Route path='foodmain' element={<Foodmain />} />
               <Route path='foodlist' element={<FoodList />} />
               <Route path='foodlist/:foodId' element={<FoodListDetail />} />
@@ -83,9 +76,6 @@ function App() {
             {/* <Route path='/management' element={<Management />}/> */}
 
             <Route path='/feeinput' element={<FeeInputPage />} />
-
-            {/* 나중에 메뉴바에 해당하는 것들 수정하기 */}
-            {/* <Route path='menu/:menuID' element={<MenuDetail/>}/> */}
 
             {/* 나중에 params로 아이디에 맞는 메뉴화면 나오도록 하기 */}
             {/* <Route path='health' element={<Health/>}/> */}

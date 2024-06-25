@@ -1,80 +1,51 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Food } from '../board/boardSlice';
 import { Modal, Button } from 'react-bootstrap';
 
-const FoodForm = styled.form`
+const Container = styled.form`
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  height: 100vh; /* 화면 전체 높이를 차지하도록 설정 */
+  align-items: center;
 `;
 
 const FoodHeader = styled.input`
-  width: 80%;
-  max-width: 465px;
+  width: 1000px;
   height: 50px;
-  margin: 0 auto 10px; /* 수정 */
+  margin: 0 auto 10px;
   font-size: 16px;
   padding: 10px;
   border: 1px solid #ccc;
 `;
 
 const FoodBoard = styled.textarea`
-  width: 80%;
-  max-width: 465px;
+  width: 1000px;
   height: 300px;
-  margin: 0 auto 10px; /* 수정 */
+  margin: 0 auto 10px;
   overflow: auto;
-  vertical-align: top;
-  resize: none;
-  border: 1px solid #ccc;
   padding: 10px;
   font-size: 16px;
 `;
 
 const FoodButton = styled(Button)`
-  width: 100px; /* 버튼 너비 조정 */
-  height: 35px; /* 버튼 높이 조정 */
+  width: 100px; 
+  height: 35px; 
   font-size: 16px;
   background-color: #007bff;
   color: #fff;
   border: none;
-  cursor: pointer;
-  margin: 0 5px; /* 추가 */
+  margin: 30px 5px; 
 
   &:hover {
     background-color: #0056b3;
     color: #fff;
   }
 `;
-
-const ListButton = styled(Button)`
-  width: 100px; /* 버튼 너비 조정 */
-  height: 35px; /* 버튼 높이 조정 */
-  font-size: 16px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  margin: 0 5px; /* 추가 */
-
-  &:hover {
-    background-color: #0056b3;
-    color: #fff;
-  }
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 10px; /* 추가 */
-`;
-
 
 function Foodmain() {
   const [title, setTitle] = useState('');
@@ -92,10 +63,6 @@ function Foodmain() {
     }
   };
 
-  const handleToList = () => {
-    navigate('/menu4/foodlist');
-  };
-
   const handleModalClose = () => {
     setShowModal(false);
   };
@@ -106,7 +73,7 @@ function Foodmain() {
       alert('제목과 내용을 모두 입력해주세요.');
       return;
     }
-
+    console.log(showModal);
     setShowModal(true); // Modal 열기
   };
 
@@ -114,6 +81,7 @@ function Foodmain() {
     dispatch(
       Food({
         id: Date.now(),
+        // uuid로 나중에 수정할것 // 데이터 받아와서
         title,
         content,
         date: getCurrentDate(),
@@ -135,14 +103,13 @@ function Foodmain() {
 
   return (
     <>
-      <FoodForm onSubmit={handleSubmit}>
+      <Container onSubmit={handleSubmit}>
         <FoodHeader
           type="text"
           name="title"
           placeholder="제목"
           value={title}
           onChange={handleChange}
-          required
         />
         <FoodBoard
           name="content"
@@ -151,12 +118,11 @@ function Foodmain() {
           onChange={handleChange}
           required
         />
-        <ButtonContainer>
+        <div>
           <FoodButton type="submit">등록</FoodButton>
-          <ListButton onClick={handleToList}>목록으로</ListButton>
-        </ButtonContainer>
-        <Outlet />
-      </FoodForm>
+          <FoodButton onClick={()=>navigate('/menu4/foodlist')}>목록으로</FoodButton>
+        </div>
+      </Container>
 
       <Modal show={showModal} onHide={handleModalClose}>
         <Modal.Header closeButton>

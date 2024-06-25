@@ -1,49 +1,45 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { NoticeContent } from '../board/boardSlice';
+import { Food, NoticeContent } from '../board/boardSlice';
 import { Modal, Button } from 'react-bootstrap';
 
-const FoodForm = styled.form`
+const Container = styled.form`
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  justify-content: center;
-  height: 73vh; // 화면 전체 높이를 차지하도록 설정
 `;
 
-const FoodHeader = styled.input`
-  width: 80%;
-  max-width: 465px; /* 최대 너비 설정 */
+const NoticeHeader = styled.input`
+  width: 1000px;
   height: 50px;
-  margin-bottom: 10px;
+  margin: 0 auto 10px;
   font-size: 16px;
   padding: 10px;
   border: 1px solid #ccc;
 `;
 
-const FoodBoard = styled.textarea`
-  width: 80%;
-  max-width: 465px; /* 최대 너비 설정 */
-  height: 300px; /* 높이 수정 */
-  margin-bottom: 10px;
-  overflow: auto; /* 스크롤바가 필요할 때만 보이도록 설정 */
-  vertical-align: top;
-  resize: none;
-  border: 1px solid #ccc;
+const NoticeBoard = styled.textarea`
+  width: 1000px;
+  height: 300px;
+  margin: 0 auto 10px;
+  overflow: auto;
   padding: 10px;
   font-size: 16px;
 `;
 
-const FoodButton = styled(Button)`
-  width: 100px; /* 버튼 너비 조정 */
-  height: 35px; /* 버튼 높이 조정 */
+const NoticeButton = styled(Button)`
+  width: 100px; 
+  height: 35px; 
   font-size: 16px;
   background-color: #007bff;
   color: #fff;
   border: none;
-  cursor: pointer;
+  margin: 30px 5px; 
 
   &:hover {
     background-color: #0056b3;
@@ -51,28 +47,7 @@ const FoodButton = styled(Button)`
   }
 `;
 
-const ListButton = styled(Button)`
-  width: 100px; /* 버튼 너비 조정 */
-  height: 35px; /* 버튼 높이 조정 */
-  font-size: 16px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #0056b3;
-    color: #fff;
-  }
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-`;
-
-function NoticeMain() {
+function Noticemain() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [showModal, setShowModal] = useState(false);
@@ -88,10 +63,6 @@ function NoticeMain() {
     }
   };
 
-  const handleToList = () => {
-    navigate('/menu4/noticelist');
-  };
-
   const handleModalClose = () => {
     setShowModal(false);
   };
@@ -102,7 +73,7 @@ function NoticeMain() {
       alert('제목과 내용을 모두 입력해주세요.');
       return;
     }
-
+    console.log(showModal);
     setShowModal(true); // Modal 열기
   };
 
@@ -110,6 +81,7 @@ function NoticeMain() {
     dispatch(
       NoticeContent({
         id: Date.now(),
+        // uuid로 나중에 수정할것 // 데이터 받아와서
         title,
         content,
         date: getCurrentDate(),
@@ -131,28 +103,26 @@ function NoticeMain() {
 
   return (
     <>
-      <FoodForm onSubmit={handleSubmit}>
-        <FoodHeader
+      <Container onSubmit={handleSubmit}>
+        <NoticeHeader
           type="text"
           name="title"
           placeholder="제목"
           value={title}
           onChange={handleChange}
-          required
         />
-        <FoodBoard
+        <NoticeBoard
           name="content"
           placeholder="내용을 입력하세요."
           value={content}
           onChange={handleChange}
           required
         />
-        <ButtonContainer>
-          <FoodButton type="submit">등록</FoodButton>
-          <ListButton onClick={handleToList}>목록으로</ListButton>
-        </ButtonContainer>
-        <Outlet />
-      </FoodForm>
+        <div>
+          <NoticeButton type="submit">등록</NoticeButton>
+          <NoticeButton onClick={()=>navigate('/menu4/noticelist')}>목록으로</NoticeButton>
+        </div>
+      </Container>
 
       <Modal show={showModal} onHide={handleModalClose}>
         <Modal.Header closeButton>
@@ -174,4 +144,5 @@ function NoticeMain() {
   );
 }
 
-export default NoticeMain;
+export default Noticemain;
+
