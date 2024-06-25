@@ -24,6 +24,7 @@ function FeeInputForm() {
     <form onSubmit={handleSubmit}>
       <div>
         <label>월:</label>
+        {/* month - 월 */}
         <select value={month} onChange={(e) => setMonth(e.target.value)}>
           <option value="">선택</option>
           {Array.from({ length: 12 }, (_, i) => (
@@ -33,7 +34,8 @@ function FeeInputForm() {
       </div>
       <div>
         <label>항목:</label>
-        <select value={type} onChange={(e) => setType(e.target.value)}>
+        {/* type - 관리비 항목 */}
+        <select value={type} onChange={(e) => setType(e.target.value)}> 
           <option value="">선택</option>
           <option value="electric">전기세</option>
           <option value="water">수도세</option>
@@ -44,7 +46,7 @@ function FeeInputForm() {
         <label>금액:</label>
         <input
           type="number"
-          value={amount}
+          value={amount} // amount - 금액
           onChange={(e) => setAmount(e.target.value)}
         />
       </div>
