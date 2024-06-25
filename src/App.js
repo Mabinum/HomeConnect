@@ -89,11 +89,11 @@ function App() {
               <Route path='noticelist/:foodId' element={<NoticeListDetail />} />
               <Route path='community' element={<Community />}/>
               <Route path='communitycreate' element={<CommunityCreate />}/>
+              <Route path='map' element={<Map />}/>
             </Route>
             {/* <Route path='/management' element={<Management />}/> */}
 
             <Route path='/feeinput' element={<FeeInputPage />} />
-            <Route path='/map' element={<Map />}/>
             {/* 나중에 메뉴바에 해당하는 것들 수정하기 */}
             {/* <Route path='menu/:menuID' element={<MenuDetail/>}/> */}
 

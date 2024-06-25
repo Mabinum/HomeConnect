@@ -49,6 +49,7 @@ function FoodSidebar() {
         <p onClick={() => navigate('foodlist')}>맛집</p>
         <p onClick={() => navigate('healthlist')}>운동</p>
         <p onClick={() => navigate('community')}>모임</p>
+        <p onClick={() => navigate('map')}>지도</p>
       </SidebarContainer>
     </>
   )
