@@ -11,6 +11,7 @@ import {
   Legend,
 } from 'chart.js';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 // Chart.js에 필요한 구성 요소 등록
 ChartJS.register(
@@ -26,12 +27,14 @@ const StyledDiv = styled.div`
   width: 70%;
   height: 700px;
   margin: 0 auto;
+  margin-top: 20px;
   padding: '1rem'; 
   text-align: center;
 `
 
 function FeeChartDetail() {
   const fees = useSelector((state) => state.fees.fees);
+  const navigate = useNavigate();
 
    // 항목별 총합과 평균 계산
   const totalFees = fees.reduce((acc, fee) => {
