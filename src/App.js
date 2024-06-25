@@ -59,24 +59,20 @@ function App() {
             <Route path='signup3' element={<SignUp3 />} />
             <Route path='signup4' element={<Signup4 />} />
           </Route>
-          <Route path='/' element={<Layout />} >
-            <Route index element={<Main />} />
-            <Route path='mypage' element={<MyPage />} />
-            <Route path='menu1' element={<Menu1 />} />
-            <Route path='menu2' element={<Menu2 />} />
-            <Route path='menu3' element={<Menu3 />} />
-            <Route path='menu4' element={<Menu4 />}>
-              <Route index element={<HealthList />} />
-              <Route path='health' element={<Health />} />
-              <Route path='healthlist' element={<HealthList />} />
-              <Route path='healthlist/:healthId' element={<HealthDetail />} />
-              <Route path='foodmain' element={<Foodmain />} />
-              <Route path='foodlist' element={<FoodList />} />
-              <Route path='foodlist/:foodId' element={<FoodListDetail />} />
-            </Route>
-            {/* <Route path='/management' element={<Management />}/> */}
-
-            <Route path='/feeinput' element={<FeeInputPage />} />
+          <Route path='/' element={<Layout/>} >
+            <Route index element={<Main/>}/>
+            <Route path='feedetail' element={<Menu1/>}/>
+            <Route path='menu2' element={<Menu2/>}/>
+            <Route path='menu3' element={<Menu3/>}/>
+            <Route path='menu4' element={<Menu4/>}/>
+            <Route path='mypage' element={<MyPage/>}/>
+            <Route path='healthlist' element={<HealthList/>}/>
+            <Route path='health' element={<Health/>}/>
+            <Route path='healthdetail' element={<HealthDetail/>}/>
+            <Route path='foodmain' element={<Foodmain />}/>
+            <Route path='/foodlist' element={<FoodList />} />
+            <Route path='/foodlist/:foodId' element={<FoodListDetail />} />
+            <Route path='/feeinput' element={<FeeInputPage/>}/>
 
             {/* 나중에 메뉴바에 해당하는 것들 수정하기 */}
             {/* <Route path='menu/:menuID' element={<MenuDetail/>}/> */}

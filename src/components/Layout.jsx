@@ -35,7 +35,7 @@ function Layout() {
         <Navbar.Collapse>
           <IoIosHome onClick={() => navigate('/')} className="cursor-pointer"/>
         </Navbar.Collapse>
-          <StyledNavbar onClick={()=>{navigate('/menu1')}} className="cursor-pointer">MENU1</StyledNavbar>
+          <StyledNavbar onClick={()=>{navigate('/feedetail')}} className="cursor-pointer">관리비</StyledNavbar>
           <StyledNavbar onClick={()=>{navigate('/menu2')}} className="cursor-pointer">MENU2</StyledNavbar>
           <StyledNavbar onClick={()=>{navigate('/menu3')}} className="cursor-pointer">MENU3</StyledNavbar>
           <StyledNavbar onClick={()=>{navigate('/menu4')}} className="cursor-pointer">MENU4</StyledNavbar>
