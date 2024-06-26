@@ -1,13 +1,18 @@
-import { Button, Nav, Table } from "react-bootstrap";
 import styled from "styled-components";
+import { Button, Nav, Table } from "react-bootstrap";
 import CommunityItem from "./CommunityItem";
 import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
-  padding-top: 30px 30px 30px 30px;
+  /* padding-top: 30px 30px 30px 30px;
   width: 90%;
-  height: 100vh;
+  height: 100vh; */
   margin: 0 auto;
+  margin: 50px;
+  width: 90%;
+  padding: 50px;
+  background-color: #f8f9fa;
+  border-radius: 20px;
 `;
 
 const CommunityContainer = styled.div`
@@ -15,7 +20,6 @@ const CommunityContainer = styled.div`
   margin: 0 auto;
   margin-top: 50px;
   padding: 50px;
-  /* height: 700px; */
   display: flex;
   border: 3px solid black;
   border-radius: 10px;
@@ -44,8 +48,8 @@ const Constyle = styled.div`
 `;
 
 const StyledNav = styled(Nav)`
-  font-weight: bold;
   text-decoration: none;
+  font-weight: bold;
   color: black;
   `;
 
