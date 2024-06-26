@@ -47,7 +47,7 @@ function Layout() {
             <Navbar.Toggle />
             <Navbar.Collapse className="justify-content-end">
               <Mypage>
-                <img src="image/profile.png" alt="profile" />
+                <img src="../../image/profile.png" alt="profile" />
                 <Nav.Link onClick={()=>{navigate('/mypage')}} className="cursor-pointer">000호 입주자</Nav.Link>
                 <button type='text' onClick={() => navigate('/feeinput')}>관리비 입력</button>
               </Mypage>

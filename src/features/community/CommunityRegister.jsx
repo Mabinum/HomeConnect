@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
+import Community from "./Community";
 
-const Wrapper = styled.div`
+const Wrapper = styled.form`
   margin: 50px;
   width: 90%;
   padding: 50px;
@@ -70,21 +72,78 @@ const RegisterButton = styled(Button)`
 
 function CommunityRegister() {
   const navigate = useNavigate()
+  const [titleValue, setTitleValue] = useState('');
+  const [contentValue, setContentValue] = useState('');
+  const [img, setImg] = useState(null);
+
+  const handleTitleValues = (e) => {
+    setTitleValue(e.target.value);
+  };
+
+  const handleChangeContent = (e) => {
+    setContentValue(e.target.value);
+  };
+
+  const handleChangFile = (e) => {
+    e.preventDefault();
+
+    // 확장자 유효성 검사 만들기 (검토해야함)
+    // const file = e.target.files[0];
+    // const fileExt = e.target.value.substring(e.target.value.lastIndexOf('.') + 1).toLowerCase();
+    // const fileExt = file.lastIndexOf('.');
+    // const newFileExt = file.substring().toLowerCase();
+    // if (fileExt === 'jpg' || fileExt === 'png' || fileExt === 'jpeg') {
+    //   const imageUrl = URL.createObjectURL(fileExt);
+    //   setImg(imageUrl);
+    // } else {
+    //   return alert('이미지 파일만 선택해주세요');
+    // }
+
+    const file = e.target.files[0];
+    const imageUrl = URL.createObjectURL(file);
+    setImg(imageUrl);
+
+  };
 
 
   return (
     <Wrapper>
-      <Title type="text" placeholder="모임제목" />
-      <Content type="text" placeholder="모임내용" />
+      <Title
+        type="text"
+        placeholder="모임제목"
+        value={titleValue}
+        onChange={handleTitleValues}
+      />
+      <Content
+        type="text"
+        placeholder="모임내용"
+        value={contentValue}
+        onChange={handleChangeContent}
+      />
       <div>
-        <FileLabel for="file-input">
-          썸네일올리기
-        </FileLabel>
-        <FileInput type="file" id="file-input" />
+        <div>
+          <img
+            src={img}
+            alt=""
+            style={{ width: "100px", height: "100px" }} />
+          <FileLabel htmlFor="file-input">
+            썸네일올리기
+          </FileLabel>
+          <FileInput
+            type="file"
+            id="file-input"
+            accept="image/jpg, image/jpeg, image/png"
+            onChange={handleChangFile}
+          />
+        </div>
       </div>
-      
+
       <div>
-        <RegisterButton onClick={() => navigate('/menu4/community')}>등록</RegisterButton>
+        <RegisterButton
+          onClick={() => navigate('/menu4/community')}
+        >
+          등록
+        </RegisterButton>
         <RegisterButton>뒤로가기</RegisterButton>
       </div>
     </Wrapper>
