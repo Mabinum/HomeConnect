@@ -34,6 +34,7 @@ import Community from './features/community/Community';
 import FeeChartDetail from './components/FeeChartDetail';
 import CommunityCategory from './features/community/CommunityCategory';
 import CommunityRegister from './features/community/CommunityRegister.jsx';
+import CommunitySignUp from './features/community/CommunitySignUp.jsx';
 
 
 
@@ -84,6 +85,7 @@ function App() {
               <Route path='community' element={<Community />}/>
               <Route path='communitycategory' element={<CommunityCategory />}/>
               <Route path='communityregister' element={<CommunityRegister />}/>
+              <Route path='communitysignup' element={<CommunitySignUp />}/>
               <Route path='map' element={<Map />}/>
             </Route>
             {/* <Route path='/management' element={<Management />}/> */}

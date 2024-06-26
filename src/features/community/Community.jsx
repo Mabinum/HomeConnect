@@ -4,9 +4,9 @@ import CommunityItem from "./CommunityItem";
 import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
-  padding-top: 30px;
+  padding-top: 30px 30px 30px 30px;
   width: 90%;
-  height: 1000px;
+  height: 100vh;
   margin: 0 auto;
 `;
 
