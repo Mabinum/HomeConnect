@@ -39,7 +39,6 @@ function Layout() {
     <>
       <header>
         <Navbar className="bg-body-tertiary">
-          <Container>
             <Navbar.Collapse>
               <IoIosHome onClick={() => navigate('/')} className="cursor-pointer"/>
             </Navbar.Collapse>
@@ -55,7 +54,6 @@ function Layout() {
                 <button type='text' onClick={() => navigate('/feeinput')}>관리비 입력</button>
               </Mypage>
             </Navbar.Collapse>
-          </Container>
         </Navbar>
       </header>
 
