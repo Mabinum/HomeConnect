@@ -29,7 +29,6 @@ const Mypage = styled(Navbar.Text)`
 `;
 
 const ContentContainer = styled.div`
-  flex: 1;
   padding-bottom: 100px; // 하단 여백 추가
 `;
 
