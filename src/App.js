@@ -6,7 +6,6 @@ import { createGlobalStyle } from 'styled-components';
 import 'bootstrap/dist/css/bootstrap.css';
 import Layout from './components/Layout';
 import Menu4 from './components/Menu4';
-import Menu1 from './components/Menu1';
 import Menu2 from './components/Menu2';
 import Menu3 from './components/Menu3';
 import MyPage from './components/MyPage';
@@ -70,6 +69,7 @@ function App() {
           <Route path='/' element={<Layout />} >
             <Route index element={<Main />} />
             <Route path='mypage' element={<MyPage />} />
+            <Route path='feeinput' element={<FeeInputPage />} />
             <Route path='feedetail' element={<FeeChartDetail />} />
             <Route path='menu2' element={<Menu2 />} />
             <Route path='menu3' element={<Menu3 />} />
@@ -90,7 +90,6 @@ function App() {
             </Route>
             {/* <Route path='/management' element={<Management />}/> */}
 
-            <Route path='/feeinput' element={<FeeInputPage />} />
 
             {/* 나중에 params로 아이디에 맞는 메뉴화면 나오도록 하기 */}
             {/* <Route path='health' element={<Health/>}/> */}

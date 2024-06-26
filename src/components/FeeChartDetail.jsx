@@ -27,11 +27,11 @@ ChartJS.register(
 );
 
 const StyledDiv = styled.div`
-  width: 70%;
-  height: 700px;
-  margin: 0 auto;
+  width: 80%;
+  max-height: 750px;
+  margin: 0 auto ;
   margin-top: 20px;
-  padding: '1rem'; 
+  padding: 2rem; 
   text-align: center;
 `
 
@@ -130,26 +130,30 @@ function FeeChartDetail() {
     <StyledDiv>
       <h2>관리비 상세내역</h2>
       <Bar data={data} options={options} />
-      <div style={{ height: '90px', fontSize: '1rem', display: 'flex', textAlign: 'center' }}>
-        <p>전기세 총합: {totalFees.electric} 원, 평균: {averageFees.electric} 원 / </p>
-        <p>수도세 총합: {totalFees.water} 원, 평균: {averageFees.water} 원 / </p>
-        <p>관리비 총합: {totalFees.maintenance} 원, 평균: {averageFees.maintenance} 원</p>
+      <div style={{ height: '30px', fontSize: '1rem', textAlign: 'center', fontWeight: '900' }}>
+        <p>전기세 총합: {totalFees.electric}원, 평균: {averageFees.electric}원  </p>
+      </div>
+      <div style={{ height: '30px', fontSize: '1rem', textAlign: 'center', fontWeight: '900' }}>
+        <p>수도세 총합: {totalFees.water}원, 평균: {averageFees.water}원  </p>
+      </div>
+      <div style={{ height: '30px', fontSize: '1rem', textAlign: 'center', fontWeight: '900' }}>
+        <p>관리비 총합: {totalFees.maintenance}원, 평균: {averageFees.maintenance}원 </p>
       </div>
 
       {/* <div style={{ marginTop: '20px', height: '500px' }}>
         <h3>월 별 내역</h3>
         <Form.Group controlId="monthSelect">
-          <Form.Label>월 선택</Form.Label>
-          <Form.Control as="select" value={selectedMonth} onChange={(e) => setSelectedMonth(parseInt(e.target.value))}>
-            {data.labels.map((label, index) => (
-              <option key={index} value={index}>{label}</option>
-            ))}
+        <Form.Label>월 선택</Form.Label>
+        <Form.Control as="select" value={selectedMonth} onChange={(e) => setSelectedMonth(parseInt(e.target.value))}>
+        {data.labels.map((label, index) => (
+          <option key={index} value={index}>{label}</option>
+          ))}
           </Form.Control>
-        </Form.Group>
-        <Doughnut data={doughnutData} />
-      </div> */}
-    </StyledDiv>
+          </Form.Group>
+          <Doughnut data={doughnutData} />
+          </div> */}
     
+    </StyledDiv>
   );
 };
 
