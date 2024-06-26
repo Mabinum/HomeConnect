@@ -4,7 +4,7 @@ import CommunityItem from "./CommunityItem";
 import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
-  padding-top: 20px;
+  padding-top: 30px;
   width: 90%;
   height: 1000px;
   margin: 0 auto;
@@ -13,9 +13,9 @@ const Wrapper = styled.div`
 const CommunityContainer = styled.div`
   width: 90%;
   margin: 0 auto;
-  margin-top: 30px;
+  margin-top: 50px;
   padding: 50px;
-  height: 700px;
+  /* height: 700px; */
   display: flex;
   border: 3px solid black;
   border-radius: 10px;
@@ -23,11 +23,20 @@ const CommunityContainer = styled.div`
 `;
 
 const ItemContainer = styled.div`
+  height: 400px;
   flex: 1;
   border: 2px solid black;
   margin: 2px;
   padding: 10px;
   border-radius: 10px;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: #000000;
+  }
 `;
 
 const StyledNav = styled(Nav)`

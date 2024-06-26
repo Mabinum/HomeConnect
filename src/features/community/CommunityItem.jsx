@@ -33,6 +33,12 @@ function CommunityItem() {
           <div>여행 모임</div>
         </tr>
       </table>
+      <table>
+        <tr>
+          <td><img src="../../image/여행.jpg" alt="여행" /></td>
+          <div>여행 모임</div>
+        </tr>
+      </table>
     </Wrapper>
   );
 };

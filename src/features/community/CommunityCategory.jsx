@@ -14,11 +14,20 @@ const Wrapper = styled.div`
 `;
 
 const Container = styled.div`
+  height: 400px;
   border: 3.5px solid black;
-  border-radius: 20px;
+  border-radius: 15px;
   flex: 1;
   margin: 4px;
   padding: 10px;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 15px;
+    background: #000000;
+  }
 `;
 
 const Category = styled.div`
