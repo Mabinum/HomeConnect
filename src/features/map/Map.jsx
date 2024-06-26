@@ -28,7 +28,7 @@ const Map = () => {
   }, []);
 
   return (
-    <div id="map" style={{ width: "500px", height: "400px" }}>
+    <div id="map" style={{ width: "100vh", height: "100vh" }}>
       {/* 지도가 표시될 영역 */}
     </div>
   );
