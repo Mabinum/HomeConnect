@@ -6,7 +6,6 @@ import { createGlobalStyle } from 'styled-components';
 import 'bootstrap/dist/css/bootstrap.css';
 import Layout from './components/Layout';
 import Menu4 from './components/Menu4';
-import Menu1 from './components/Menu1';
 import Menu2 from './components/Menu2';
 import Menu3 from './components/Menu3';
 import MyPage from './components/MyPage';
