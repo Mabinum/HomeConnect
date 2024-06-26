@@ -1,4 +1,5 @@
 import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 
 const Wrapper = styled.div`
@@ -68,6 +69,9 @@ const RegisterButton = styled(Button)`
 
 
 function CommunityRegister() {
+  const navigate = useNavigate()
+
+
   return (
     <Wrapper>
       <Title type="text" placeholder="모임제목" />
@@ -80,7 +84,7 @@ function CommunityRegister() {
       </div>
       
       <div>
-        <RegisterButton>등록</RegisterButton>
+        <RegisterButton onClick={() => navigate('/menu4/community')}>등록</RegisterButton>
         <RegisterButton>뒤로가기</RegisterButton>
       </div>
     </Wrapper>
