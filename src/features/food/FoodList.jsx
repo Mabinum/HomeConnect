@@ -16,7 +16,7 @@ function FoodList() {
 
     return (
     <>
-        <Button variant="primary" onClick={()=>{navigate('/menu4/foodmain')}}>게시글 작성</Button>
+        <Button variant="primary" onClick={()=>{navigate('/menu4/foodmain')}} style={{ margin: "12px" }}>게시글 작성</Button>
         <TableWrapper>
             <thead>
                 <tr>
