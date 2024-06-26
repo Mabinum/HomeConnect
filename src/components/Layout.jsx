@@ -28,6 +28,11 @@ const Mypage = styled(Navbar.Text)`
   }
 `;
 
+const ContentContainer = styled.div`
+  flex: 1;
+  padding-bottom: 100px; // 하단 여백 추가
+`;
+
 function Layout() {
   const navigate = useNavigate();
 
@@ -56,7 +61,9 @@ function Layout() {
       </header>
 
       {/* 자식컴포넌트들이 나올 자리들 */}
+      <ContentContainer>
         <Outlet />
+      </ContentContainer>
   
 
       <footer>
