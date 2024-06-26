@@ -3,10 +3,11 @@ import styled from 'styled-components';
 
 
 const SidebarContainer = styled.div`
-  width: 200px;
-  background-color: #F8F9FA;
-  padding: 30px;
-  transition: 1s;
+width: 200px;
+height: 100vh;
+background-color: #F8F9FA;
+padding: 30px;
+transition: 1s;
 
   p{
     text-align: center;

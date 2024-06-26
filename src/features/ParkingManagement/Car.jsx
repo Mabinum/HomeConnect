@@ -12,7 +12,7 @@ const Container = styled.div`
 const StyledTable = styled.table`
     width: 90%;
     max-width: 800px;
-    margin-bottom: 20px; /* 테이블과 버튼 사이 여백 조정 */
+    margin-bottom: 20px; //테이블과 버튼 사이 여백 조정
     border-collapse: collapse;
 
     th, td {

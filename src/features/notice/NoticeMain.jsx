@@ -14,6 +14,7 @@ const Container = styled.form`
   align-items: center;
 `;
 
+
 const NoticeHeader = styled.input`
   width: 1000px;
   height: 50px;
