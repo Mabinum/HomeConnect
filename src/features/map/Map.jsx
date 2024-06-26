@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -6,23 +6,75 @@ const Container = styled.div`
   position: relative;
 `;
 
-const ButtonContainer = styled.div`
-  margin-bottom: 10px;
+const SearchContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  padding: 5px 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+`;
+
+const Input = styled.input`
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 25px;
+  outline: none;
+
+  &::placeholder {
+    color: #bbb;
+  }
 `;
 
 const Button = styled.button`
-  margin-right: 10px;
-  padding: 10px 20px;
-  font-size: 16px;
+  background-color: transparent;
+  border: none;
   cursor: pointer;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+`;
+
+const SearchIcon = styled.span`
+  font-size: 20px;
+  color: #007bff;
+`;
+
+const TagContainer = styled.ul`
+  margin-top: 20px;
+  list-style-type: none;
+  padding: 0;
+`;
+
+const Tag = styled.li`
+  display: inline-block;
+  padding: 5px 10px;
+  margin: 5px;
+  font-size: 14px;
+  background-color: #f1f1f1;
+  border-radius: 20px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #ddd;
+  }
 `;
 
 const MapContainer = styled.div`
-  width: 170vh;
-  height: 940px;
+  width: 100%;
+  height: 870px;
 `;
 
 const Map = () => {
+  const [inputValue, setInputValue] = useState("");
+
+  const handleTagClick = (tag) => {
+    setInputValue(tag);
+  };
+
   useEffect(() => {
     const initMap = () => {
       const container = document.getElementById("map"); // 지도를 표시할 div 요소
@@ -50,22 +102,31 @@ const Map = () => {
   }, []);
 
   return (
-    <>
-      <Container>
-        <ButtonContainer>
-          <Button>헬스</Button>
-          <Button>맛집</Button>
-        </ButtonContainer> 
-        <MapContainer id = "map">
+    <Container>
+      <SearchContainer>
+        <Input 
+          value={inputValue} 
+          onChange={(e) => setInputValue(e.target.value)}
+          placeholder="검색어를 입력하세요" 
+        />
 
-        </MapContainer>
-      </Container>
-    </>
+        <Button>
+          <SearchIcon>🔍</SearchIcon>
+        </Button>
+
+      </SearchContainer>
+    
+      <TagContainer>
+        <Tag onClick={() => handleTagClick("#헬스")}>#헬스</Tag>
+        <Tag onClick={() => handleTagClick("#맛집")}>#맛집</Tag>
+        <Tag onClick={() => handleTagClick("#병원")}>#병원</Tag>
+      </TagContainer>
+
+      <MapContainer id="map">
+        {/* 지도가 표시될 영역 */}
+      </MapContainer>
+    </Container>
   );
 };
 
 export default Map;
-
-// {/* <div id="map" style={{ width: "170vh", height: "940px", margin: "30px" }}>
-// {/* 지도가 표시될 영역 */}
-// </div> */}
