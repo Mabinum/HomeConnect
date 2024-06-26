@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Bar } from 'react-chartjs-2';
+import { Bar, Doughnut } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -9,14 +9,17 @@ import {
   Title,
   Tooltip,
   Legend,
+  ArcElement,
 } from 'chart.js';
 import styled from 'styled-components';
+import { Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 // Chart.js에 필요한 구성 요소 등록
 ChartJS.register(
   CategoryScale,
   LinearScale,
+  ArcElement,
   BarElement,
   Title,
   Tooltip,
@@ -35,6 +38,16 @@ const StyledDiv = styled.div`
 function FeeChartDetail() {
   const fees = useSelector((state) => state.fees.fees);
   const navigate = useNavigate();
+  const [visibleDatasets, setVisibleDatasets] = useState(['electric', 'water', 'maintenance']);
+  const [selectedMonth, setSelectedMonth] = useState(0);
+
+  const toggleDataset = (label) => {
+    setVisibleDatasets((prev) => 
+      prev.includes(label)
+        ? prev.filter((dataset) => dataset !== label)
+        : [...prev, label]
+    );
+  };
 
    // 항목별 총합과 평균 계산
   const totalFees = fees.reduce((acc, fee) => {
@@ -50,27 +63,31 @@ function FeeChartDetail() {
     maintenance: (totalFees.maintenance / fees.length).toFixed(2),
   };
 
+  const datasets = [
+    {
+      label: '전기세',
+      data: fees.map(fee => fee.electric),
+      backgroundColor: 'rgba(255, 99, 132, 0.6)',
+      hidden: !visibleDatasets.includes('electric'),
+    },
+    {
+      label: '수도세',
+      data: fees.map(fee => fee.water),
+      backgroundColor: 'rgba(54, 162, 235, 0.6)',
+      hidden: !visibleDatasets.includes('water'),
+    },
+    {
+      label: '관리비',
+      data: fees.map(fee => fee.maintenance),
+      backgroundColor: 'rgba(75, 192, 192, 0.6)',
+      hidden: !visibleDatasets.includes('maintenance'),
+    },
+  ];
+
   const data = {
     labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-    datasets: [
-      {
-        label: '전기세',
-        data: fees.map(fee => fee.electric),
-        backgroundColor: 'rgba(255, 99, 132, 0.6)',
-      },
-      {
-        label: '수도세',
-        data: fees.map(fee => fee.water),
-        backgroundColor: 'rgba(54, 162, 235, 0.6)',
-      },
-      {
-        label: '관리비',
-        data: fees.map(fee => fee.maintenance),
-        backgroundColor: 'rgba(75, 192, 192, 0.6)',
-      },
-    ],
+    datasets: datasets,
   };
-
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -85,6 +102,28 @@ function FeeChartDetail() {
         beginAtZero: true,
       },
     },
+    plugins: {
+      legend: {
+        onClick: (e, legendItem, legend) => {
+          const index = legendItem.datasetIndex;
+          const label = datasets[index].label;
+          toggleDataset(label === '전기세' ? 'electric' : label === '수도세' ? 'water' : 'maintenance');
+        },
+      },
+    },
+  };
+
+  // 도넛 차트
+  const selectedMonthData = fees[selectedMonth] || { electric: 0, water: 0, maintenance: 0 };
+
+  const doughnutData = {
+    labels: ['전기세', '수도세', '관리비'],
+    datasets: [
+      {
+        data: [selectedMonthData.electric, selectedMonthData.water, selectedMonthData.maintenance],
+        backgroundColor: ['rgba(255, 99, 132, 0.6)', 'rgba(54, 162, 235, 0.6)', 'rgba(75, 192, 192, 0.6)'],
+      },
+    ],
   };
 
   return (
@@ -96,7 +135,21 @@ function FeeChartDetail() {
         <p>수도세 총합: {totalFees.water} 원, 평균: {averageFees.water} 원 / </p>
         <p>관리비 총합: {totalFees.maintenance} 원, 평균: {averageFees.maintenance} 원</p>
       </div>
+
+      {/* <div style={{ marginTop: '20px', height: '500px' }}>
+        <h3>월 별 내역</h3>
+        <Form.Group controlId="monthSelect">
+          <Form.Label>월 선택</Form.Label>
+          <Form.Control as="select" value={selectedMonth} onChange={(e) => setSelectedMonth(parseInt(e.target.value))}>
+            {data.labels.map((label, index) => (
+              <option key={index} value={index}>{label}</option>
+            ))}
+          </Form.Control>
+        </Form.Group>
+        <Doughnut data={doughnutData} />
+      </div> */}
     </StyledDiv>
+    
   );
 };
 

@@ -29,7 +29,6 @@ const Mypage = styled(Navbar.Text)`
 `;
 
 function Layout() {
-
   const navigate = useNavigate();
 
   return (
@@ -70,5 +69,3 @@ function Layout() {
 };
 
 export default Layout;
-
-// 홈버튼, 메인페이지 껍데기, 메뉴 컴포넌트
