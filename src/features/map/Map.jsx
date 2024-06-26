@@ -1,4 +1,26 @@
 import React, { useEffect } from "react";
+import styled from "styled-components";
+
+const Container = styled.div`
+  margin: 30px;
+  position: relative;
+`;
+
+const ButtonContainer = styled.div`
+  margin-bottom: 10px;
+`;
+
+const Button = styled.button`
+  margin-right: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+`;
+
+const MapContainer = styled.div`
+  width: 174vh;
+  height: 940px;
+`;
 
 const Map = () => {
   useEffect(() => {
@@ -28,10 +50,22 @@ const Map = () => {
   }, []);
 
   return (
-    <div id="map" style={{ width: "100vh", height: "100vh" }}>
-      {/* 지도가 표시될 영역 */}
-    </div>
+    <>
+      <Container>
+        <ButtonContainer>
+          <Button>헬스</Button>
+          <Button>맛집</Button>
+        </ButtonContainer> 
+        <MapContainer id = "map">
+
+        </MapContainer>
+      </Container>
+    </>
   );
 };
 
 export default Map;
+
+// {/* <div id="map" style={{ width: "170vh", height: "940px", margin: "30px" }}>
+// {/* 지도가 표시될 영역 */}
+// </div> */}
