@@ -18,7 +18,7 @@ const Button = styled.button`
 `;
 
 const MapContainer = styled.div`
-  width: 174vh;
+  width: 170vh;
   height: 940px;
 `;
 
