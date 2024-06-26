@@ -65,6 +65,7 @@ function App() {
           <Route path='/' element={<Layout />} >
             <Route index element={<Main />} />
             <Route path='mypage' element={<MyPage />} />
+            <Route path='feeinput' element={<FeeInputPage />} />
             <Route path='feedetail' element={<FeeChartDetail />} />
             <Route path='menu2' element={<Menu2 />} />
             <Route path='menu3' element={<Menu3 />} />
@@ -82,7 +83,6 @@ function App() {
             </Route>
             {/* <Route path='/management' element={<Management />}/> */}
 
-            <Route path='/feeinput' element={<FeeInputPage />} />
 
             {/* 나중에 메뉴바에 해당하는 것들 수정하기 */}
             {/* <Route path='menu/:menuID' element={<MenuDetail/>}/> */}
