@@ -93,17 +93,6 @@ function BoardListDetail() {
     const dispatch = useDispatch();
 		console.log(boardList);
 		
-    // 로컬 스토리지에서 댓글 불러오기
-    // useEffect(() => {
-    //     const storedComments = JSON.parse(localStorage.getItem('comments')) || [];
-    //     setComments(storedComments);
-    // }, []);
-
-    // 댓글 추가 시 로컬 스토리지 업데이트
-    // useEffect(() => {
-    //     localStorage.setItem('comments', JSON.stringify(comments));
-    // }, [comments]);
-
     const handleAddComment = () => {
         if (comment.trim() !== '') {
             setComments([...comments, comment]);
@@ -111,19 +100,7 @@ function BoardListDetail() {
         }
     };
 
-    // const handleFoodLike = (foodId) => {
-    //     const food = foodList.find((food) => food.id === foodId);
-    //     if (food) {
-    //         dispatch(
-    //             Food({
-    //                 ...food,
-    //                 likes: food.likes + 1,
-    //             })
-    //         );
-    //     }
-    // };
-
-    const boardItem = boardList.find((item) => item.writer === parseInt(boardId));
+    const boardItem = boardList.find((item) => item.no === parseInt(boardId));
 		console.log(boardItem);
     return (
         <CommentContainer>
@@ -154,7 +131,7 @@ function BoardListDetail() {
                 </Link>
                 <Button onClick={handleAddComment}>댓글 추가</Button>
                 <Link to="/menu4/boardlist">
-                <CloseButton onClick={() => dispatch(removeFoodList(boardItem.id))}>삭제</CloseButton>
+                <CloseButton onClick={() => dispatch(removeFoodList(boardItem.writer))}>삭제</CloseButton>
                 </Link>
             </ButtonContainer>
         </CommentContainer>
