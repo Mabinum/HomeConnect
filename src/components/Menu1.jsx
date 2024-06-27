@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Form } from 'react-bootstrap';
-import { LineChart, Line ,XAxis, YAxis, Tooltip} from 'recharts';
+import { LineChart, Line ,XAxis, YAxis, Tooltip, ResponsiveContainer, BarChart, Bar} from 'recharts';
 import styled from 'styled-components';
 
 const Wrapper = styled.section`
@@ -42,10 +42,41 @@ function Menu1() {
       ];
       setData(chartData);
     };
-
+    
     fetchData();
   }, [data]);
 
+  const [data1, setData1] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      // 실제 데이터 가져오기. 임시 데이터 사용 중.
+      const chartData = [
+        {
+          name: 'Page A',
+          uv: 40,
+          pv: 24,
+          amt: 24,
+        },
+        {
+          name: 'Page B',
+          uv: 30,
+          pv: 13,
+          amt: 22,
+        },
+        {
+          name: 'Page C',
+          uv: 20,
+          pv: 98,
+          amt: 22,
+        },
+      ];
+      setData1(chartData);
+    };
+    
+    fetchData();
+  });
+  
   return (
     <Wrapper>
       <LineChart width={600} height={300} data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
@@ -75,6 +106,11 @@ function Menu1() {
           <label htmlFor="year">의 관리비는 %%%%%원 입니다.</label> 
         </div>
       </section>
+      <ResponsiveContainer>
+        <BarChart width={15} height={4} data={data1}>
+          <Bar dataKey="uv" fill="#8884d8" />
+        </BarChart>
+      </ResponsiveContainer>
     </Wrapper>
   );
 };
