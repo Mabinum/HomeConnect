@@ -2,15 +2,14 @@ import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getAddressInfo, selectBirthdateAndSex, selectIDPW, selectName, selectSignup, selectaddress } from "../../features/main/mainSlice";
-import { addProduct } from "../../api/productAPI";
+import {getAddressInfo, selectSignup, selectaddress} from "../../features/main/mainSlice";
 import axios from "axios";
 
 function Signup4() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const signup = useSelector(selectSignup);
-
+  const address = useSelector(selectaddress);
   const [value, setValue] = useState(``);
   const handleAddressChange = (e) => {
     setValue(e.target.value);
@@ -26,28 +25,40 @@ function Signup4() {
     setValue3(e.target.value);
   };
   
-  const overInfo = () => {
-    dispatch(getAddressInfo({address : `${value}` , dong : `${value2}`, hosu : `${value3}`}));
-    addProduct({...signup.birthdateAndSex,name: signup.name,...signup.idpw,...signup.address});
-    navigate('/');
-  };
-
-  const addProduct = async() => {
-    try {
-      await dispatch(getAddressInfo({address : `${value}` , dong : `${value2}`, hosu : `${value3}`}));
-      const response = await axios.post('http://localhost:8080/login/signup4', {...signup.birthdateAndSex,name: signup.name,...signup.idpw,...signup.address} );
-      if (response.status === 201) {
-        navigate('/');
-        return response.data;
-      } else {
-        throw new Error(`api error: ${response.status} ${response.statusText}`);
+  useEffect(() => {
+    if (address.length == 0) return; 
+    const exportsignup = async () => {
+      try {
+        const response = await axios.post('http://localhost:8080/login/signup4', {
+          ...signup.birthdateAndSex,
+          name: signup.name,
+          ...signup.idpw,
+          ...signup.address
+        });
+        
+        if (response.status === 201) {
+          alert("회원가입 처리되었습니다.");
+          navigate('/');
+          return response.data;
+        } else {
+          throw new Error(`api error: ${response.status} ${response.statusText}`);
+        }
+      } catch (error) {
+        console.error(error);
+        throw error;
       }
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
-  };
+    };
+    exportsignup();
+    return () => {
+      
+    };
+  }, [address]);
 
+  const overInfo = () => {
+    dispatch(getAddressInfo({ address: `${value}`, dong: `${value2}`, hosu: `${value3}` }));
+  };
+  
+  
   return (
     <>
       <h1>
