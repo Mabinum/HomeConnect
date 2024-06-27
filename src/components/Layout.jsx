@@ -3,6 +3,11 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Outlet } from "react-router-dom";
 import { IoIosHome } from "react-icons/io";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getmyInfo, selectmyInfo } from "../features/main/mainSlice";
+import axios from "axios";
+
 
 const StyledNavbar = styled(Navbar.Brand)`
   text-align: center;
@@ -32,8 +37,30 @@ const ContentContainer = styled.div`
   padding-bottom: 100px; // 하단 여백 추가
 `;
 
+
+
 function Layout() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const myInfo = useSelector(selectmyInfo);
+
+  useEffect(() => {
+
+    const myInfo = async () => {
+      try {
+        const response = await axios.get('http://localhost:8080/');
+        if (response.status === 200) { 
+          return dispatch(getmyInfo(response.data));
+        } else { 
+          throw new Error(`api error: ${response.status} ${response.statusText}`);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    myInfo();
+
+  }, []);
 
   return (
     <>
@@ -51,7 +78,7 @@ function Layout() {
           <Navbar.Collapse className="justify-content-end">
             <Mypage>
               <img src="image/profile.png" alt="profile" />
-              <Nav.Link onClick={()=>{navigate('/mypage')}} className="cursor-pointer">000호 입주자</Nav.Link>
+              <Nav.Link onClick={()=>{navigate('/mypage')}} className="cursor-pointer">{myInfo.name}님</Nav.Link>
               <button type='text' onClick={() => navigate('/feeinput')}>관리비 입력</button>
             </Mypage>
           </Navbar.Collapse>

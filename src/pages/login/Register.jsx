@@ -3,6 +3,7 @@ import { Button, Form, Nav } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getIDPWInfo } from "../../features/main/mainSlice";
+import axios from "axios";
 
 function Register() {
   const dispatch = useDispatch();
@@ -20,12 +21,28 @@ function Register() {
   };
 
   const handleSubmitINFO = () => {
-    // dispatch(getIDPWInfo({userId : IDvalue , PW : PWvalue}));
-    navigate('/');
+    const myInfo = async () => {
+        try {
+          const response = await axios.get('http://localhost:8080/login');
+          if (response.status === 200) { 
+            // navigate('/');
+            alert("불러오기 성공");
+            console.log(response.data);
+            return response.data;
+          } else { 
+            throw new Error(`api error: ${response.status} ${response.statusText}`);
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      };
+    myInfo();
   };
 
+  // { "userId" : IDvalue , "pw" : PWvalue}
   
-  
+
+
   return (
     <>
       <h1>

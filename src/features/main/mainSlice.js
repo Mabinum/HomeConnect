@@ -7,6 +7,7 @@ const initialState = {
   idpw : [],
   // PhoneNumber : {},
   address : [],
+  myInfo : [],
 };
 
 const mainSlice = createSlice({
@@ -31,10 +32,13 @@ const mainSlice = createSlice({
     getAddressInfo : (state,{payload : address}) => {
       state.address = address;
     },
+    getmyInfo : (state,{payload : myInfo}) => {
+      state.myInfo = myInfo;
+    }
   } 
 });
 
-export const {getNameInfo,getBirthdateAndSex,getSignupIDPWInfo,getAddressInfo} = mainSlice.actions;
+export const {getNameInfo,getBirthdateAndSex,getSignupIDPWInfo,getAddressInfo,getmyInfo} = mainSlice.actions;
 
 // export const selectIDPWInfo = state => state.main.IDPWInfo;
 export const selectName = state => state.main.name;
@@ -43,6 +47,7 @@ export const selectIDPW = state => state.main.idpw;
 // export const selectPhoneNumber = state => state.main.PhoneNumber;
 export const selectaddress = state => state.main.address;
 export const selectSignup = state => state.main;
+export const selectmyInfo = state => state.main.myInfo;
 
 export default mainSlice.reducer;
 

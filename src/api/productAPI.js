@@ -22,6 +22,19 @@ export const getMoreProducts = async () => {
   }
 };
 
+// export const myInfo = async () => {
+//   try {
+//     const response = await axios.get('http://localhost:8080/');
+//     if (response.status === 200) { 
+//       return response.data;
+//     } else { 
+//       throw new Error(`api error: ${response.status} ${response.statusText}`);
+//     }
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
+
 // 만약 서버로 데이터를 보내야 한다면??
 // json-server 이용 시 테스트 가능
 
