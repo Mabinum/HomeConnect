@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Food } from '../board/boardSlice';
 import { Modal, Button } from 'react-bootstrap';
+import axios from 'axios';
 
 const Container = styled.form`
   width: 100%;
@@ -77,28 +78,45 @@ function Boardmain() {
     setShowModal(true); // Modal 열기
   };
 
-  const handleConfirmSubmit = () => {
-    dispatch(
-      Food({
-        id: Date.now(),
-        // uuid로 나중에 수정할것 // 데이터 받아와서
-        title,
-        content,
-        date: getCurrentDate(),
-      })
-    );
+  // const handleConfirmSubmit = () => {
+  //   dispatch(
+  //     Food({
+  //       id: Date.now(),
+  //       // uuid로 나중에 수정할것 // 데이터 받아와서
+  //       title,
+  //       content,
+  //       date: getCurrentDate(),
+  //     })
+  //   );
 
-    setTitle('');
-    setContent('');
-    setShowModal(false);
-    navigate('/menu4/boardlist');
-  };
+  //   setTitle('');
+  //   setContent('');
+  //   setShowModal(false);
+  //   navigate('/menu4/boardlist');
+  // };
 
   const getCurrentDate = () => {
     const currentDate = new Date();
-    return `${currentDate.getFullYear()}-${
-      currentDate.getMonth() + 1
-    }-${currentDate.getDate()}`;
+    return `${currentDate.getFullYear()}-${currentDate.getMonth() + 1
+      }-${currentDate.getDate()}`;
+  };
+
+  const addBoardComment = async () => {
+    try {
+      const response = await axios.post('http://localhost:8080/menu4/board', { "no": 0, "title": title, "content": content, "writer": "user" });
+      if (response.status === 200) {
+        setTitle('');
+        setContent('');
+        setShowModal(false);
+        navigate('/menu4/boardlist');
+        return response.data;
+      } else {
+        throw new Error(`api error: ${response.status} ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   };
 
   return (
@@ -120,7 +138,7 @@ function Boardmain() {
         />
         <div>
           <FoodButton type="submit">등록</FoodButton>
-          <FoodButton onClick={()=>navigate('/menu4/boardlist')}>목록으로</FoodButton>
+          <FoodButton onClick={() => navigate('/menu4/boardlist')}>목록으로</FoodButton>
         </div>
       </Container>
 
@@ -132,14 +150,14 @@ function Boardmain() {
           <p>등록하시겠습니까?</p>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={handleConfirmSubmit}>
-            확인
-          </Button>
-          <Button variant="secondary" onClick={handleModalClose}>
-            취소
-          </Button>
-        </Modal.Footer>
-      </Modal>
+          <Button variant="primary" onClick={addBoardComment}>
+          확인
+        </Button>
+        <Button variant="secondary" onClick={handleModalClose}>
+          취소
+        </Button>
+      </Modal.Footer>
+    </Modal >
     </>
   );
 }

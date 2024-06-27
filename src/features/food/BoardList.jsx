@@ -17,9 +17,8 @@ function BoardList() {
         width: 100%;
     `;
 
-	// 서버에서 boardlist 목록 요청
-	useEffect(() => {
-		// 서버에 상품 목록 요청
+useEffect(() => {
+		// 서버에서 boardlist 목록 요청
 		axios.get('http://localhost:8080/menu4/boardlist')
 			.then((response) => {
 				dispatch(Food(response.data));
@@ -27,7 +26,7 @@ function BoardList() {
 			.catch((err) => {
 				console.error(err);
 			});
-	}, [dispatch]);
+	}, []);
 
 	return (
 		<>
@@ -44,14 +43,13 @@ function BoardList() {
 
 				{boardList.map((post) => (
 					<tbody onClick={() => {
-						navigate(`/menu4/boardlist/${post.writer}`)
+						navigate(`/menu4/boardlist/${post.no}`)
 						}}>
 						<tr key={post.writer}>
 							<td>{post.no}</td>
 							<td>{post.title}</td>
 							<td>{post.regDate}</td>
 							<td>{post.writer}</td>
-							{/* <td>{post.authorId}</td> */}
 						</tr>
 					</tbody>
 				))}
