@@ -29,7 +29,7 @@ const Mypage = styled(Navbar.Text)`
 `;
 
 const ContentContainer = styled.div`
-  padding-bottom: 100px; // 하단 여백 추가
+  /* padding-bottom: 100px; // 하단 여백 추가 */
 `;
 
 function Layout() {
