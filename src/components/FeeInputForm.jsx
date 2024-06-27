@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setFee } from '../features/fee/feeSlice';
+import { addData } from '../api/feeAPI';
 
 function FeeInputForm() {
   const [month, setMonth] = useState('');
@@ -21,7 +22,7 @@ function FeeInputForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} onClick={addData}>
       <div>
         <label>월:</label>
         <select value={month} onChange={(e) => setMonth(e.target.value)}>
