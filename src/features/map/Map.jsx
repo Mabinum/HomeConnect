@@ -65,26 +65,25 @@ const Tag = styled.li`
 
 const MapContainer = styled.div`
   width: 100%;
-  height: 85vh;
+  height: 600px; /* 수정: 더 작은 값으로 조정 */
 `;
 
 const Map = () => {
   const [inputValue, setInputValue] = useState("");
-
-  const handleTagClick = (tag) => {
-    setInputValue(tag);
-  };
+  const [map, setMap] = useState(null);
+  const [markers, setMarkers] = useState([]);
 
   useEffect(() => {
     const initMap = () => {
       const container = document.getElementById("map"); // 지도를 표시할 div 요소
       const options = {
-        center: new window.kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심 좌표 (제주시청)
-        level: 3, // 지도의 확대 레벨
+        center: new window.kakao.maps.LatLng(37.566826, 126.9786567), // 서울시청을 중심으로 초기화
+        level: 5, // 지도의 확대 레벨
       };
 
       // 지도 생성 및 객체 리턴
-      const map = new window.kakao.maps.Map(container, options);
+      const kakaoMap = new window.kakao.maps.Map(container, options);
+      setMap(kakaoMap); // 상태에 지도 객체 저장
     };
 
     // Kakao 지도 API가 로드된 후 실행될 콜백 함수
@@ -95,27 +94,75 @@ const Map = () => {
       const script = document.createElement("script");
       script.async = true;
       script.src =
-        "//dapi.kakao.com/v2/maps/sdk.js?appkey=8eb4e510757118f8218df5b91c7413bf";
+        "//dapi.kakao.com/v2/maps/sdk.js?appkey=8eb4e510757118f8218df5b91c7413bf&libraries=services";
       script.onload = initMap; // 스크립트 로드 후 initMap 함수 실행
       document.head.appendChild(script);
     }
   }, []);
 
+  // 태그 클릭 핸들러
+  const handleTagClick = (tag) => {
+    setInputValue(tag);
+    searchPlaces(tag);
+  };
+
+  // 검색어 입력 핸들러
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  // 검색 함수
+  const searchPlaces = (keyword) => {
+    if (!map) return;
+
+    const ps = new window.kakao.maps.services.Places(map);
+    ps.keywordSearch(keyword, placesSearchCB);
+  };
+
+  // 검색 결과 콜백 함수
+  const placesSearchCB = (data, status, pagination) => {
+    if (status === window.kakao.maps.services.Status.OK) {
+      displayPlaces(data);
+    } else if (status === window.kakao.maps.services.Status.ZERO_RESULT) {
+      // 검색 결과 없음 처리
+      console.log("검색 결과가 없습니다.");
+    } else if (status === window.kakao.maps.services.Status.ERROR) {
+      // 검색 오류 처리
+      console.error("검색 중 오류가 발생했습니다.");
+    }
+  };
+
+  // 검색 결과를 지도에 표시하는 함수
+  const displayPlaces = (places) => {
+    // 기존 마커 삭제
+    markers.forEach((marker) => marker.setMap(null));
+
+    // 새로운 마커 추가
+    const newMarkers = places.map((place) => {
+      const marker = new window.kakao.maps.Marker({
+        position: new window.kakao.maps.LatLng(place.y, place.x),
+      });
+      marker.setMap(map);
+      return marker;
+    });
+
+    // 상태 업데이트
+    setMarkers(newMarkers);
+  };
+
   return (
     <Container>
       <SearchContainer>
-        <Input 
-          value={inputValue} 
-          onChange={(e) => setInputValue(e.target.value)}
-          placeholder="검색어를 입력하세요" 
+        <Input
+          value={inputValue}
+          onChange={handleInputChange}
+          placeholder="검색어를 입력하세요"
         />
-
-        <Button>
+        <Button onClick={() => searchPlaces(inputValue)}>
           <SearchIcon>🔍</SearchIcon>
         </Button>
-
       </SearchContainer>
-    
+
       <TagContainer>
         <Tag onClick={() => handleTagClick("#헬스")}>#헬스</Tag>
         <Tag onClick={() => handleTagClick("#맛집")}>#맛집</Tag>
