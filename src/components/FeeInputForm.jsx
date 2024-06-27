@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setFee } from '../features/fee/feeSlice';
 import { addData } from '../api/feeAPI';
-import axios from 'axios';
 
 function FeeInputForm() {
   const [month, setMonth] = useState('');
