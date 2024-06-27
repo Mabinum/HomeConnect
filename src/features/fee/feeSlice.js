@@ -14,6 +14,7 @@ import { createSlice } from '@reduxjs/toolkit';
 //     },
 //   },
 // });
+
 export const feeSlice = createSlice({
   name: 'fees',
   initialState: {
@@ -48,3 +49,21 @@ export const feeSlice = createSlice({
 });
 export const { setFee } = feeSlice.actions;
 export default feeSlice.reducer;
+
+// const initialState = {
+//   fees: [],
+// };
+
+// const feeSlice = createSlice({
+//   name: 'fees',
+//   initialState,
+//   reducers: {
+//     setFee: (state, action) => {
+//       state.fees.push(action.payload);
+//     },
+//     // 다른 리듀서 추가 가능
+//   },
+// });
+
+// export const { setFee } = feeSlice.actions;
+// export default feeSlice.reducer;
