@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setFee } from '../features/fee/feeSlice';
 import { addData } from '../api/feeAPI';
+import axios from 'axios';
 
 function FeeInputForm() {
   const [month, setMonth] = useState('');
@@ -22,7 +23,7 @@ function FeeInputForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} onClick={addData}>
+    <form onSubmit={handleSubmit}>
       <div>
         <label>월:</label>
         <select value={month} onChange={(e) => setMonth(e.target.value)}>
@@ -49,7 +50,7 @@ function FeeInputForm() {
           onChange={(e) => setAmount(e.target.value)}
         />
       </div>
-      <button type="submit">추가</button>
+      <button type="submit" onClick={addData}>추가</button>
     </form>
   );
 };
