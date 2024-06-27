@@ -3,6 +3,7 @@ import { Button, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getNameInfo } from "../../features/main/mainSlice";
+import { addProduct } from "../../api/productAPI";
 
 function SignUp() {
   const navigate = useNavigate();

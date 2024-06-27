@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getAddressInfo } from "../../features/main/mainSlice";
+import { getAddressInfo, selectBirthdateAndSex, selectIDPW, selectName, selectSignup, selectaddress } from "../../features/main/mainSlice";
+import { addProduct } from "../../api/productAPI";
+import axios from "axios";
 
 function Signup4() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const signup = useSelector(selectSignup);
 
   const [value, setValue] = useState(``);
   const handleAddressChange = (e) => {
@@ -25,9 +28,25 @@ function Signup4() {
   
   const overInfo = () => {
     dispatch(getAddressInfo({address : `${value}` , dong : `${value2}`, hosu : `${value3}`}));
+    addProduct({...signup.birthdateAndSex,name: signup.name,...signup.idpw,...signup.address});
     navigate('/');
   };
 
+  const addProduct = async() => {
+    try {
+      await dispatch(getAddressInfo({address : `${value}` , dong : `${value2}`, hosu : `${value3}`}));
+      const response = await axios.post('http://localhost:8080/login/signup4', {...signup.birthdateAndSex,name: signup.name,...signup.idpw,...signup.address} );
+      if (response.status === 201) {
+        navigate('/');
+        return response.data;
+      } else {
+        throw new Error(`api error: ${response.status} ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
 
   return (
     <>

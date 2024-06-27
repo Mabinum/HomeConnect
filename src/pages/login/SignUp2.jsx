@@ -23,8 +23,8 @@ function SignUp2() {
 
   const overInfo = () => {
     if (value2===value3) {
-      dispatch(getSignupIDPWInfo({ID : `${value}`, PW : `${value3}`}));
-      navigate('/login/signup3');
+      dispatch(getSignupIDPWInfo({userId : `${value}`, pw : `${value3}`}));
+      navigate('/login/signup4');
       return 0;
     } else { 
       return alert("패스워드를 다시 확인해주세요");

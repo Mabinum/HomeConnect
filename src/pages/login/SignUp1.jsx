@@ -34,7 +34,7 @@ function SignUp1() {
 
   const overInfo = () => {
     navigate('/login/signup2');
-    dispatch(getBirthdateAndSex({Birthdate : `${value}.${value2}.${value3}`, Sex : `${value4}`}))
+    dispatch(getBirthdateAndSex({birthdate : `${value}-${value2}-${value3}`, sex : `${value4}`}))
   }
 
   return (
