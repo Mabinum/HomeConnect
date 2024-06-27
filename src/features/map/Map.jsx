@@ -153,26 +153,32 @@ const Map = () => {
   return (
     <Container>
       <SearchContainer>
+        
         <Input
           value={inputValue}
           onChange={handleInputChange}
           placeholder="검색어를 입력하세요"
         />
+
         <Button onClick={() => searchPlaces(inputValue)}>
           <SearchIcon>🔍</SearchIcon>
         </Button>
+        
       </SearchContainer>
 
       <TagContainer>
         <Tag onClick={() => handleTagClick("#헬스")}>#헬스</Tag>
         <Tag onClick={() => handleTagClick("#식당")}>#맛집</Tag>
         <Tag onClick={() => handleTagClick("#병원")}>#병원</Tag>
+        <Tag onClick={() => handleTagClick("#카페")}>#카페</Tag>
         <Tag onClick={() => handleTagClick("#편의점")}>#편의점</Tag>
+        <Tag onClick={() => handleTagClick("#버스정류장")}>#버스정류장</Tag>
       </TagContainer>
 
       <MapContainer id="map">
         {/* 지도가 표시될 영역 */}
       </MapContainer>
+
     </Container>
   );
 };
