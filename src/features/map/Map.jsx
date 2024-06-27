@@ -65,7 +65,7 @@ const Tag = styled.li`
 
 const MapContainer = styled.div`
   width: 100%;
-  height: 84vh;
+  height: 85vh;
 `;
 
 const Map = () => {
