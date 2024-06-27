@@ -11,9 +11,7 @@ import Menu2 from './components/Menu2';
 import Menu3 from './components/Menu3';
 import MyPage from './components/MyPage';
 import SignUp from './pages/login/SignUp';
-import Foodmain from "./features/food/Foodmain";
-import FoodList from './features/food/FoodList';
-import FoodListDetail from './features/food/FoodListDetail';
+// import FoodList from './features/food/FoodList';
 import NoticeMain from "./features/notice/NoticeMain";
 import NoticeList from './features/notice/NoticeList';
 import NoticeListDetail from './features/notice/NoticeListDetail';
@@ -35,6 +33,9 @@ import FeeChartDetail from './components/FeeChartDetail';
 import CommunityCategory from './features/community/CommunityCategory';
 import CommunityRegister from './features/community/CommunityRegister.jsx';
 import CommunitySignUp from './features/community/CommunitySignUp.jsx';
+import Boardmain from './features/food/Boardmain.jsx';
+import BoardList from './features/food/BoardList.jsx';
+import BoardListDetail from './features/food/BoardListDetail.jsx';
 
 
 
@@ -75,10 +76,10 @@ function App() {
             <Route path='menu3' element={<Menu3 />} />
             
             <Route path='menu4' element={<Menu4 />}>
-              <Route index element={<FoodList />} />
-              <Route path='foodmain' element={<Foodmain />} />
-              <Route path='foodlist' element={<FoodList />} />
-              <Route path='foodlist/:foodId' element={<FoodListDetail />} />
+              <Route index element={<BoardList />} />
+              <Route path='board' element={<Boardmain />} />
+              <Route path='boardlist' element={<BoardList />} />
+              <Route path='boardlist/:foodId' element={<BoardListDetail />} />
               <Route path='noticemain' element={<NoticeMain />} />
               <Route path='noticelist' element={<NoticeList />} />
               <Route path='noticelist/:foodId' element={<NoticeListDetail />} />

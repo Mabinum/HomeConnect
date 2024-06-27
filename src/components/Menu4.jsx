@@ -1,7 +1,7 @@
 import React from "react";
-import FoodSidebar from "../features/food/FoodSidebar";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
+import BoardSidebar from "../features/food/BoardSidebar";
 
 const Wrapper = styled.div`
   display: flex;
@@ -16,7 +16,7 @@ const ContentWrapper = styled.div`
 function Menu4() {
   return (
     <Wrapper>
-      <FoodSidebar />
+      <BoardSidebar />
       <ContentWrapper>
         < Outlet />
       </ContentWrapper>

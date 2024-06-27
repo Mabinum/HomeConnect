@@ -47,7 +47,7 @@ const FoodButton = styled(Button)`
   }
 `;
 
-function Foodmain() {
+function Boardmain() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [showModal, setShowModal] = useState(false);
@@ -91,7 +91,7 @@ function Foodmain() {
     setTitle('');
     setContent('');
     setShowModal(false);
-    navigate('/menu4/foodlist');
+    navigate('/menu4/boardlist');
   };
 
   const getCurrentDate = () => {
@@ -120,7 +120,7 @@ function Foodmain() {
         />
         <div>
           <FoodButton type="submit">등록</FoodButton>
-          <FoodButton onClick={()=>navigate('/menu4/foodlist')}>목록으로</FoodButton>
+          <FoodButton onClick={()=>navigate('/menu4/boardlist')}>목록으로</FoodButton>
         </div>
       </Container>
 
@@ -144,5 +144,5 @@ function Foodmain() {
   );
 }
 
-export default Foodmain;
+export default Boardmain;
 

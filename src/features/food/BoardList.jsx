@@ -5,7 +5,7 @@ import { selectBoardSlice } from '../board/boardSlice';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-function FoodList() {
+function BoardList() {
     const foodList = useSelector(selectBoardSlice);
     const navigate = useNavigate();
 
@@ -16,7 +16,7 @@ function FoodList() {
 
     return (
     <>
-        <Button variant="primary" onClick={()=>{navigate('/menu4/foodmain')}}>게시글 작성</Button>
+        <Button variant="primary" onClick={()=>{navigate('/menu4/board')}}>게시글 작성</Button>
         <TableWrapper>
             <thead>
                 <tr>
@@ -43,4 +43,4 @@ function FoodList() {
     );
 }
 
-export default FoodList;
+export default BoardList;
