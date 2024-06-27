@@ -22,14 +22,14 @@ const Mypage = styled(Navbar.Text)`
     width: 50px;
     margin-right: 10px;
   }
-  footer{
+  /* footer{
     position: absolute;
     bottom: 0;
-  }
+  } */
 `;
 
 const ContentContainer = styled.div`
-  /* padding-bottom: 100px; // 하단 여백 추가 */
+  padding-bottom: 100px; // 하단 여백 추가
 `;
 
 function Layout() {
