@@ -28,15 +28,17 @@ const Mypage = styled(Navbar.Text)`
   }
 `;
 
-function Layout() {
+const ContentContainer = styled.div`
+  /* padding-bottom: 100px; // 하단 여백 추가 */
+`;
 
+function Layout() {
   const navigate = useNavigate();
 
   return (
     <>
       <header>
         <Navbar className="bg-body-tertiary">
-          <Container>
             <Navbar.Collapse>
               <IoIosHome onClick={() => navigate('/')} className="cursor-pointer"/>
             </Navbar.Collapse>
@@ -52,13 +54,13 @@ function Layout() {
                 <button type='text' onClick={() => navigate('/feeinput')}>관리비 입력</button>
               </Mypage>
             </Navbar.Collapse>
-          </Container>
         </Navbar>
       </header>
 
       {/* 자식컴포넌트들이 나올 자리들 */}
+      <ContentContainer>
         <Outlet />
-  
+      </ContentContainer>
 
       <footer>
         <p className="py-5 mb-0 bg-dark text-white text-center">
@@ -70,5 +72,3 @@ function Layout() {
 };
 
 export default Layout;
-
-// 홈버튼, 메인페이지 껍데기, 메뉴 컴포넌트

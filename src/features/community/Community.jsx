@@ -43,6 +43,10 @@ const ItemContainer = styled.div`
   }
 `;
 
+const Constyle = styled.div`
+  padding-top: 30px;
+`;
+
 const StyledNav = styled(Nav)`
   text-decoration: none;
   font-weight: bold;
@@ -55,6 +59,7 @@ function Community() {
 
   return (
     <Wrapper>
+      <Constyle>
       <StyledNav justify variant="tabs" defaultActiveKey="/home">
         <Nav.Item>
           <Nav.Link eventKey="link-1">독서</Nav.Link>
@@ -72,6 +77,7 @@ function Community() {
           <Button variant="dark" onClick={() => navigate('/menu4/communitycategory')}>모임 개설하기</Button>
         </Nav.Item>
       </StyledNav>
+      </Constyle>
       <CommunityContainer>
         <ItemContainer>
           <Button variant="dark">맛집투어</Button>

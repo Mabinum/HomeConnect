@@ -8,7 +8,7 @@ const Wrapper = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-  padding: 20px;
+  /* padding: 20px; */
   flex: 1;
   /* 왜 된거지? */
 `;
