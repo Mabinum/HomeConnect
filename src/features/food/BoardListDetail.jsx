@@ -85,7 +85,7 @@ const PostContent = styled.div`
     }
 `;
 
-function FoodListDetail() {
+function BoardListDetail() {
     const [comment, setComment] = useState('');
     const [comments, setComments] = useState([]);
     const { foodId } = useParams();
@@ -148,11 +148,11 @@ function FoodListDetail() {
                 placeholder="댓글을 입력하세요."
             />
             <ButtonContainer>
-                <Link to="/menu4/foodlist">
+                <Link to="/menu4/boardlist">
                     <Button>목록으로</Button>
                 </Link>
                 <Button onClick={handleAddComment}>댓글 추가</Button>
-                <Link to="/menu4/foodlist">
+                <Link to="/menu4/boardlist">
                 <CloseButton onClick={() => dispatch(removeFoodList(post.id))}>삭제</CloseButton>
                 </Link>
             </ButtonContainer>
@@ -160,4 +160,4 @@ function FoodListDetail() {
     );
 }
 
-export default FoodListDetail;
+export default BoardListDetail;

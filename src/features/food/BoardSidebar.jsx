@@ -28,14 +28,14 @@ transition: 1s;
   }
 `;
 
-function FoodSidebar() {
+function BoardSidebar() {
   const navigate = useNavigate();
 
   return (
     <>
       <SidebarContainer>
         <p onClick={() => navigate('noticelist')} className='textcolor'>공지사항</p>
-        <p onClick={() => navigate('foodlist')} className='cursor-pointer'>게시판</p>
+        <p onClick={() => navigate('boardlist')} className='cursor-pointer'>게시판</p>
         <p onClick={() => navigate('')} className='cursor-pointer'>모임</p>
         <p onClick={() => navigate('community')}>모임</p>
         <p onClick={() => navigate('map')}>지도</p>
@@ -44,4 +44,4 @@ function FoodSidebar() {
   )
 }
 
-export default FoodSidebar;
+export default BoardSidebar;
