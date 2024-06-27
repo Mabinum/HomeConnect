@@ -65,7 +65,7 @@ const Tag = styled.li`
 
 const MapContainer = styled.div`
   width: 100%;
-  height: 600px; /* 수정: 더 작은 값으로 조정 */
+  height: 100vh; /* 수정: 더 작은 값으로 조정 */
 `;
 
 const Map = () => {
@@ -77,7 +77,7 @@ const Map = () => {
     const initMap = () => {
       const container = document.getElementById("map"); // 지도를 표시할 div 요소
       const options = {
-        center: new window.kakao.maps.LatLng(37.566826, 126.9786567), // 서울시청을 중심으로 초기화
+        center: new window.kakao.maps.LatLng(37.452381, 126.699562), // 서울시청을 중심으로 초기화
         level: 5, // 지도의 확대 레벨
       };
 
@@ -120,7 +120,7 @@ const Map = () => {
   };
 
   // 검색 결과 콜백 함수
-  const placesSearchCB = (data, status, pagination) => {
+  const placesSearchCB = (data, status) => {
     if (status === window.kakao.maps.services.Status.OK) {
       displayPlaces(data);
     } else if (status === window.kakao.maps.services.Status.ZERO_RESULT) {
@@ -165,8 +165,9 @@ const Map = () => {
 
       <TagContainer>
         <Tag onClick={() => handleTagClick("#헬스")}>#헬스</Tag>
-        <Tag onClick={() => handleTagClick("#맛집")}>#맛집</Tag>
+        <Tag onClick={() => handleTagClick("#식당")}>#맛집</Tag>
         <Tag onClick={() => handleTagClick("#병원")}>#병원</Tag>
+        <Tag onClick={() => handleTagClick("#편의점")}>#편의점</Tag>
       </TagContainer>
 
       <MapContainer id="map">
