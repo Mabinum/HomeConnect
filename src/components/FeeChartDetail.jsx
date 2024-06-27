@@ -49,6 +49,8 @@ function FeeChartDetail() {
     );
   };
 
+  const formatter = new Intl.NumberFormat('ko-KR', {currency: 'KRW'});
+  
    // 항목별 총합과 평균 계산
   const totalFees = fees.reduce((acc, fee) => {
     acc.electric += fee.electric;
@@ -58,9 +60,9 @@ function FeeChartDetail() {
   }, { electric: 0, water: 0, maintenance: 0 });
 
   const averageFees = {
-    electric: (totalFees.electric / fees.length).toFixed(2),
-    water: (totalFees.water / fees.length).toFixed(2),
-    maintenance: (totalFees.maintenance / fees.length).toFixed(2),
+    electric: (totalFees.electric / fees.length).toFixed(0),
+    water: (totalFees.water / fees.length).toFixed(0),
+    maintenance: (totalFees.maintenance / fees.length).toFixed(0),
   };
 
   const datasets = [
@@ -113,46 +115,19 @@ function FeeChartDetail() {
     },
   };
 
-  // 도넛 차트
-  const selectedMonthData = fees[selectedMonth] || { electric: 0, water: 0, maintenance: 0 };
-
-  const doughnutData = {
-    labels: ['전기세', '수도세', '관리비'],
-    datasets: [
-      {
-        data: [selectedMonthData.electric, selectedMonthData.water, selectedMonthData.maintenance],
-        backgroundColor: ['rgba(255, 99, 132, 0.6)', 'rgba(54, 162, 235, 0.6)', 'rgba(75, 192, 192, 0.6)'],
-      },
-    ],
-  };
-
   return (
     <StyledDiv>
       <h2>관리비 상세내역</h2>
       <Bar data={data} options={options} />
       <div style={{ height: '30px', fontSize: '1rem', textAlign: 'center', fontWeight: '900' }}>
-        <p>전기세 총합: {totalFees.electric}원, 평균: {averageFees.electric}원  </p>
+        <p>전기세 총합: {formatter.format(totalFees.electric)}원, 평균: {formatter.format(averageFees.electric)}원  </p>
       </div>
       <div style={{ height: '30px', fontSize: '1rem', textAlign: 'center', fontWeight: '900' }}>
-        <p>수도세 총합: {totalFees.water}원, 평균: {averageFees.water}원  </p>
+        <p>수도세 총합: {formatter.format(totalFees.water)}원, 평균: {formatter.format(averageFees.water)}원  </p>
       </div>
       <div style={{ height: '30px', fontSize: '1rem', textAlign: 'center', fontWeight: '900' }}>
-        <p>관리비 총합: {totalFees.maintenance}원, 평균: {averageFees.maintenance}원 </p>
+        <p>관리비 총합: {formatter.format(totalFees.maintenance)}원, 평균: {formatter.format(averageFees.maintenance)}원 </p>
       </div>
-
-      {/* <div style={{ marginTop: '20px', height: '500px' }}>
-        <h3>월 별 내역</h3>
-        <Form.Group controlId="monthSelect">
-        <Form.Label>월 선택</Form.Label>
-        <Form.Control as="select" value={selectedMonth} onChange={(e) => setSelectedMonth(parseInt(e.target.value))}>
-        {data.labels.map((label, index) => (
-          <option key={index} value={index}>{label}</option>
-          ))}
-          </Form.Control>
-          </Form.Group>
-          <Doughnut data={doughnutData} />
-          </div> */}
-    
     </StyledDiv>
   );
 };

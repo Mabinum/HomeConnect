@@ -88,10 +88,11 @@ const PostContent = styled.div`
 function BoardListDetail() {
     const [comment, setComment] = useState('');
     const [comments, setComments] = useState([]);
-    const { foodId } = useParams();
-    const foodList = useSelector(selectBoardSlice);
+    const { boardId } = useParams();
+    const boardList = useSelector(selectBoardSlice);
     const dispatch = useDispatch();
-
+		console.log(boardList);
+		
     // 로컬 스토리지에서 댓글 불러오기
     // useEffect(() => {
     //     const storedComments = JSON.parse(localStorage.getItem('comments')) || [];
@@ -122,14 +123,14 @@ function BoardListDetail() {
     //     }
     // };
 
-    const post = foodList.find((item) => item.id === parseInt(foodId));
-
+    const boardItem = boardList.find((item) => item.writer === parseInt(boardId));
+		console.log(boardItem);
     return (
         <CommentContainer>
-            {post && (
+            {boardItem && (
                 <PostContent>
-                    <h2>{post.title}</h2>
-                    <p>{post.content}</p>
+                    <h2>{boardItem.title}</h2>
+                    <p>{boardItem.content}</p>
                     {/* <p>{post.date}</p>
                     <Button onClick={() => handleFoodLike(post.id)}>좋아요</Button> */}
                 </PostContent>
@@ -153,7 +154,7 @@ function BoardListDetail() {
                 </Link>
                 <Button onClick={handleAddComment}>댓글 추가</Button>
                 <Link to="/menu4/boardlist">
-                <CloseButton onClick={() => dispatch(removeFoodList(post.id))}>삭제</CloseButton>
+                <CloseButton onClick={() => dispatch(removeFoodList(boardItem.id))}>삭제</CloseButton>
                 </Link>
             </ButtonContainer>
         </CommentContainer>

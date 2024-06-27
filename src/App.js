@@ -79,10 +79,10 @@ function App() {
               <Route index element={<BoardList />} />
               <Route path='board' element={<Boardmain />} />
               <Route path='boardlist' element={<BoardList />} />
-              <Route path='boardlist/:foodId' element={<BoardListDetail />} />
+              <Route path='boardlist/:boardId' element={<BoardListDetail />} />
               <Route path='noticemain' element={<NoticeMain />} />
               <Route path='noticelist' element={<NoticeList />} />
-              <Route path='noticelist/:foodId' element={<NoticeListDetail />} />
+              <Route path='noticelist/:boardId' element={<NoticeListDetail />} />
               <Route path='community' element={<Community />}/>
               <Route path='communitycategory' element={<CommunityCategory />}/>
               <Route path='communityregister' element={<CommunityRegister />}/>
