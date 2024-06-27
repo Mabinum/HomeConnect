@@ -37,6 +37,20 @@ export const addProduct = async (product) => {
     throw error;
   }
 };
+
+// boardList 정보 가져오기
+export const getBoardListInfo = async () => {
+  try {
+    const response = await axios.get('http://localhost:8080/menu4/boardlist');
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      throw new Error(`api error: ${response.status} ${response.statusText}`);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
 // 개념 정리: 서버와 데이터를 주고 받을 때, 텍스트(문자)만 주고 받을 수 있음
 // array, object 같은 데이터 타입은 서버가 모름 그래서 JSON이라는 포맷으로 변환해서 보냄
 
