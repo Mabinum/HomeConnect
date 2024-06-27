@@ -12,7 +12,7 @@ function FeeInputForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (month && type && amount) {
-      dispatch(setFee({ month: parseInt(month), type, amount: parseFloat(amount) }));
+      dispatch(setFee({ month: parseInt(month), type, amount: parseInt(amount) }));
       setMonth('');
       setType('');
       setAmount('');
@@ -22,7 +22,7 @@ function FeeInputForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} onClick={addData}>
+    <form onSubmit={handleSubmit} >
       <div>
         <label>월:</label>
         <select value={month} onChange={(e) => setMonth(e.target.value)}>
@@ -53,5 +53,58 @@ function FeeInputForm() {
     </form>
   );
 };
+
+// const FeeInputForm = () => {
+//   const [month, setMonth] = useState('');
+//   const [water, setWater] = useState('');
+//   const [electric, setElectric] = useState('');
+//   const [maintenance, setMaintenance] = useState('');
+//   const dispatch = useDispatch();
+
+//   const handleSubmit = async (event) => {
+//     event.preventDefault();
+
+//     const feeData = {
+//       month: parseInt(month),
+//       water: parseInt(water),
+//       electric: parseInt(electric),
+//       maintenance: parseInt(maintenance),
+//     };
+
+//     try {
+//       const data = await addData(feeData);
+//       dispatch(setFee(data));
+//       // Clear form fields
+//       setMonth('');
+//       setWater('');
+//       setElectric('');
+//       setMaintenance('');
+//     } catch (error) {
+//       console.error('Error adding fee data:', error);
+//     }
+//   };
+
+//   return (
+//     <form onSubmit={handleSubmit} onClick={addData}>
+//       <div>
+//         <label>월:</label>
+//         <input type="number" value={month} onChange={(e) => setMonth(e.target.value)} required />
+//       </div>
+//       <div>
+//         <label>수도세:</label>
+//         <input type="number" value={water} onChange={(e) => setWater(e.target.value)} required />
+//       </div>
+//       <div>
+//         <label>전기료:</label>
+//         <input type="number" value={electric} onChange={(e) => setElectric(e.target.value)} required />
+//       </div>
+//       <div>
+//         <label>관리비:</label>
+//         <input type="number" value={maintenance} onChange={(e) => setMaintenance(e.target.value)} required />
+//       </div>
+//       <button type="submit">입력</button>
+//     </form>
+//   );
+// };
 
 export default FeeInputForm;

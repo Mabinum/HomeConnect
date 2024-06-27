@@ -13,3 +13,21 @@ export const addData = async () => {
     throw error;
   }
 };
+
+// const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/fee';
+
+// export const addData = async (feeData) => {
+//   try {
+//     const response = await axios.post(`${BASE_URL}/register`, feeData);
+//     const { status, statusText, data } = response;
+
+//     if (status === 201) {
+//       return data;
+//     } else {
+//       throw new Error(`API error: ${status} ${statusText}`);
+//     }
+//   } catch (error) {
+//     console.error('Error adding data:', error);
+//     throw error;
+//   }
+// };
