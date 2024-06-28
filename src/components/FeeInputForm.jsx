@@ -8,6 +8,13 @@ function FeeInputForm() {
   const [month, setMonth] = useState('');
   const [type, setType] = useState('');
   const [amount, setAmount] = useState('');
+  const [formData, setFormData] = useState({
+    "userId": "",
+    "month": "",
+    "water": "",
+    "electric": "",
+    "maintenance": ""
+  });
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
@@ -22,11 +29,28 @@ function FeeInputForm() {
     }
   };
 
+  const handleChange2 = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit2 = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await addData(formData);
+      console.log("Data successfully submitted:", response);
+    } catch (error) {
+      console.error("Error submitting data:", error);
+    }
+  };
   return (
+    <>
     <form onSubmit={handleSubmit}>
       <div>
         <label>월:</label>
-        <select value={month} onChange={(e) => setMonth(e.target.value)}>
+        <select value={month} onChange={(e) => setMonth(e.target.value)} onch>
           <option value="">선택</option>
           {Array.from({ length: 12 }, (_, i) => (
             <option key={i + 1} value={i + 1}>{`${i + 1}월`}</option>
@@ -50,8 +74,33 @@ function FeeInputForm() {
           onChange={(e) => setAmount(e.target.value)}
         />
       </div>
-      <button type="submit" onClick={addData}>추가</button>
+      <button type="submit">추가</button>
     </form>
+
+    <form>
+      <label>
+        User ID:
+        <input type="text" name="userId" value={formData.userId} onChange={handleChange2} required />
+      </label>
+      <label>
+        Month:
+        <input type="number" name="month" value={formData.month} onChange={handleChange2} required />
+      </label>
+      <label>
+        Water:
+        <input type="number" name="water" value={formData.water} onChange={handleChange2} required />
+      </label>
+      <label>
+        Electric:
+        <input type="number" name="electric" value={formData.electric} onChange={handleChange2} required />
+      </label>
+      <label>
+        Maintenance:
+        <input type="number" name="maintenance" value={formData.maintenance} onChange={handleChange2} required />
+      </label>
+      <button type="submit" onSubmit={handleSubmit2}>Submit</button>
+    </form>
+    </>
   );
 };
 

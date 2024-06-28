@@ -11,9 +11,13 @@ const feeSlice = createSlice({
     setFee: (state, action) => {
       const { month, type, amount } = action.payload;
       state.fees[month - 1][type] = amount; // 월의 인덱스와 타입에 따라 금액 설정
+      console.log(action.payload);
     },
   },
 });
+
+export const { setFee } = feeSlice.actions;
+export default feeSlice.reducer;
 
 // export const feeSlice = createSlice({
 //   name: 'fees',
@@ -88,5 +92,3 @@ const feeSlice = createSlice({
 //       });
 //   },
 // });
-
-export default feeSlice.reducer;
