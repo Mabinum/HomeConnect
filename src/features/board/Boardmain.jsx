@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { Food } from '../board/boardSlice';
+import { useSelector } from 'react-redux';
 import { Modal, Button } from 'react-bootstrap';
 import axios from 'axios';
+import { selectmyInfo } from '../main/mainSlice';
 
 const Container = styled.form`
   width: 100%;
@@ -15,7 +15,7 @@ const Container = styled.form`
   align-items: center;
 `;
 
-const FoodHeader = styled.input`
+const BoardHeader = styled.input`
   width: 1000px;
   height: 50px;
   margin: 0 auto 10px;
@@ -24,7 +24,7 @@ const FoodHeader = styled.input`
   border: 1px solid #ccc;
 `;
 
-const FoodBoard = styled.textarea`
+const Board = styled.textarea`
   width: 1000px;
   height: 300px;
   margin: 0 auto 10px;
@@ -33,7 +33,7 @@ const FoodBoard = styled.textarea`
   font-size: 16px;
 `;
 
-const FoodButton = styled(Button)`
+const BoardButton = styled(Button)`
   width: 100px; 
   height: 35px; 
   font-size: 16px;
@@ -52,8 +52,8 @@ function Boardmain() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [showModal, setShowModal] = useState(false);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = useSelector(selectmyInfo);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -74,62 +74,43 @@ function Boardmain() {
       alert('제목과 내용을 모두 입력해주세요.');
       return;
     }
-    console.log(showModal);
     setShowModal(true); // Modal 열기
-  };
-
-  // const handleConfirmSubmit = () => {
-  //   dispatch(
-  //     Food({
-  //       id: Date.now(),
-  //       // uuid로 나중에 수정할것 // 데이터 받아와서
-  //       title,
-  //       content,
-  //       date: getCurrentDate(),
-  //     })
-  //   );
-
-  //   setTitle('');
-  //   setContent('');
-  //   setShowModal(false);
-  //   navigate('/menu4/boardlist');
-  // };
-
-  const getCurrentDate = () => {
-    const currentDate = new Date();
-    return `${currentDate.getFullYear()}-${currentDate.getMonth() + 1
-      }-${currentDate.getDate()}`;
   };
 
   const addBoardComment = async () => {
     try {
-      const response = await axios.post('http://localhost:8080/menu4/board', { "no": 0, "title": title, "content": content, "writer": "user" });
-      if (response.status === 200) {
+      const response = await axios.post('http://localhost:8080/menu4/board', { 
+        "no": 0,
+        "title": title,
+        "content": content,
+        "writer": user.name
+      });
+      if (response.status === 201) {
         setTitle('');
         setContent('');
         setShowModal(false);
-        navigate('/menu4/boardlist');
-        return response.data;
+        return navigate('/menu4/boardlist');
       } else {
+        setShowModal(false);
+        alert("오류 발생");
         throw new Error(`api error: ${response.status} ${response.statusText}`);
       }
     } catch (error) {
       console.error(error);
-      throw error;
     }
   };
 
   return (
     <>
       <Container onSubmit={handleSubmit}>
-        <FoodHeader
+        <BoardHeader
           type="text"
           name="title"
           placeholder="제목"
           value={title}
           onChange={handleChange}
         />
-        <FoodBoard
+        <Board
           name="content"
           placeholder="내용을 입력하세요."
           value={content}
@@ -137,8 +118,8 @@ function Boardmain() {
           required
         />
         <div>
-          <FoodButton type="submit">등록</FoodButton>
-          <FoodButton onClick={() => navigate('/menu4/boardlist')}>목록으로</FoodButton>
+          <BoardButton type="submit">등록</BoardButton>
+          <BoardButton onClick={() => navigate('/menu4/boardlist')}>목록으로</BoardButton>
         </div>
       </Container>
 

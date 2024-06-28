@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
-import { removeFoodList ,selectBoardSlice } from '../board/boardSlice';
+import { removeBoardList,selectBoardList} from '../board/boardSlice';
 import styled from 'styled-components';
 
 const CommentContainer = styled.div`
@@ -85,23 +85,12 @@ const PostContent = styled.div`
     }
 `;
 
-function FoodListDetail() {
+function NoticeListDetail() {
     const [comment, setComment] = useState('');
     const [comments, setComments] = useState([]);
-    const { foodId } = useParams();
-    const foodList = useSelector(selectBoardSlice);
+    const { boardId } = useParams();
+    const boardList = useSelector(selectBoardList);
     const dispatch = useDispatch();
-
-    // 로컬 스토리지에서 댓글 불러오기
-    // useEffect(() => {
-    //     const storedComments = JSON.parse(localStorage.getItem('comments')) || [];
-    //     setComments(storedComments);
-    // }, []);
-
-    // 댓글 추가 시 로컬 스토리지 업데이트
-    // useEffect(() => {
-    //     localStorage.setItem('comments', JSON.stringify(comments));
-    // }, [comments]);
 
     const handleAddComment = () => {
         if (comment.trim() !== '') {
@@ -110,19 +99,7 @@ function FoodListDetail() {
         }
     };
 
-    // const handleFoodLike = (foodId) => {
-    //     const food = foodList.find((food) => food.id === foodId);
-    //     if (food) {
-    //         dispatch(
-    //             Food({
-    //                 ...food,
-    //                 likes: food.likes + 1,
-    //             })
-    //         );
-    //     }
-    // };
-
-    const post = foodList.find((item) => item.id === parseInt(foodId));
+    const post = boardList.find((item) => item.id === parseInt(boardId));
 
     return (
         <CommentContainer>
@@ -130,8 +107,6 @@ function FoodListDetail() {
                 <PostContent>
                     <h2>{post.title}</h2>
                     <p>{post.content}</p>
-                    {/* <p>{post.date}</p>
-                    <Button onClick={() => handleFoodLike(post.id)}>좋아요</Button> */}
                 </PostContent>
             )}
 
@@ -148,16 +123,16 @@ function FoodListDetail() {
                 placeholder="댓글을 입력하세요."
             />
             <ButtonContainer>
-                <Link to="/menu4/foodlist">
+                <Link to="/menu4/boardlist">
                     <Button>목록으로</Button>
                 </Link>
                 <Button onClick={handleAddComment}>댓글 추가</Button>
-                <Link to="/menu4/foodlist">
-                <CloseButton onClick={() => dispatch(removeFoodList(post.id))}>삭제</CloseButton>
+                <Link to="/menu4/boardlist">
+                <CloseButton onClick={() => dispatch(removeBoardList(post.id))}>삭제</CloseButton>
                 </Link>
             </ButtonContainer>
         </CommentContainer>
     );
 }
 
-export default FoodListDetail;
+export default NoticeListDetail;

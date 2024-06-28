@@ -7,7 +7,7 @@ const initialState = {
   idpw : [],
   // PhoneNumber : {},
   address : [],
-  myInfo : [],
+  myInfo : {name : "김석준" , userId : "userId1" , pw : "pw1"},
 };
 
 const mainSlice = createSlice({

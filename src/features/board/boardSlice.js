@@ -26,20 +26,13 @@ const boardSlice = createSlice({
   name: 'board',
   initialState,
   reducers: {
-    Food: (state, action) => {
-      console.log(action.payload);
-      state.boardList = action.payload;
+    getBoardList: (state, {payload : boardList}) => {
+      state.boardList = boardList;
     },
-    removeFoodList: (state, { payload: id }) => {
-      state.boardList = newList;
-      const newList = state.boardList.filter(list => list.id !== id);
+    removeBoardList: (state, { payload: id }) => {
+      state.boardList = state.boardList.filter(list => list.id !== id);
     },
-    // clearBoardList: (state) => {
-    //   state.boardList = null; 
-    // },
-
     HealthContent: (state, action) => {
-      // console.log(action.payload.title);
       state.healthList.push({
         id: action.payload.id,
         title: action.payload.title,
@@ -62,15 +55,15 @@ const boardSlice = createSlice({
 });
 
 export const {
-  Food,
+  getBoardList,
   HealthContent,
   NoticeContent,
   removeHealthList,
-  removeFoodList,
+  removeBoardList,
   clearBoardList,
 } = boardSlice.actions;
 
-export const selectBoardSlice = state => state.board.boardList;
+export const selectBoardList = state => state.board.boardList;
 export const selectHealthInfo = state => state.board.healthList;
 export const selectNoticeInfo = state => state.board.noticeList;
 

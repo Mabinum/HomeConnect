@@ -68,7 +68,7 @@ const MapContainer = styled.div`
   height: 100vh; /* 수정: 더 작은 값으로 조정 */
 `;
 
-const Map = () => {
+function Map(){
   const [inputValue, setInputValue] = useState("");
   const [map, setMap] = useState(null);
   const [markers, setMarkers] = useState([]);
@@ -93,8 +93,7 @@ const Map = () => {
       // Kakao 지도 API 스크립트를 동적으로 로드
       const script = document.createElement("script");
       script.async = true;
-      script.src =
-        "//dapi.kakao.com/v2/maps/sdk.js?appkey=8eb4e510757118f8218df5b91c7413bf&libraries=services";
+      script.src ="//dapi.kakao.com/v2/maps/sdk.js?appkey=8eb4e510757118f8218df5b91c7413bf&libraries&libraries=services";
       script.onload = initMap; // 스크립트 로드 후 initMap 함수 실행
       document.head.appendChild(script);
     }
@@ -103,7 +102,64 @@ const Map = () => {
   // 태그 클릭 핸들러
   const handleTagClick = (tag) => {
     setInputValue(tag);
-    searchPlaces(tag);
+    switch (tag) {
+      case "#MT1":
+        searchPlaces("대형마트");
+        break;
+      case "#CS2":
+        searchPlaces("편의점");
+        break;
+      case "#PS3":
+        searchPlaces("어린이집, 유치원");
+        break;
+      case "#SC4":
+        searchPlaces("학교");
+        break;
+      case "#AC5":
+        searchPlaces("학원");
+        break;
+      case "#PK6":
+        searchPlaces("주차장");
+        break;
+      case "#OL7":
+        searchPlaces("주유소, 충전소");
+        break;
+      case "#SW8":
+        searchPlaces("지하철역");
+        break;
+      case "#BK9":
+        searchPlaces("은행");
+        break;
+      case "#CT1":
+        searchPlaces("문화시설");
+        break;
+      case "#AG2":
+        searchPlaces("중개업소");
+        break;
+      case "#PO3":
+        searchPlaces("공공기관");
+        break;
+      case "#AT4":
+        searchPlaces("관광명소");
+        break;
+      case "#AD5":
+        searchPlaces("숙박");
+        break;
+      case "#FD6":
+        searchPlaces("음식점");
+        break;
+      case "#CE7":
+        searchPlaces("카페");
+        break;
+      case "#HP8":
+        searchPlaces("병원");
+        break;
+      case "#PM9":
+        searchPlaces("약국");
+        break;
+      default:
+        break;
+    }
   };
 
   // 검색어 입력 핸들러
@@ -153,32 +209,40 @@ const Map = () => {
   return (
     <Container>
       <SearchContainer>
-        
         <Input
           value={inputValue}
           onChange={handleInputChange}
           placeholder="검색어를 입력하세요"
         />
-
         <Button onClick={() => searchPlaces(inputValue)}>
           <SearchIcon>🔍</SearchIcon>
         </Button>
-        
       </SearchContainer>
 
       <TagContainer>
-        <Tag onClick={() => handleTagClick("#헬스")}>#헬스</Tag>
-        <Tag onClick={() => handleTagClick("#식당")}>#맛집</Tag>
-        <Tag onClick={() => handleTagClick("#병원")}>#병원</Tag>
-        <Tag onClick={() => handleTagClick("#카페")}>#카페</Tag>
-        <Tag onClick={() => handleTagClick("#편의점")}>#편의점</Tag>
-        <Tag onClick={() => handleTagClick("#버스정류장")}>#버스정류장</Tag>
+      <Tag onClick={() => handleTagClick("#MT1")}>대형마트</Tag>
+        <Tag onClick={() => handleTagClick("#CS2")}>편의점</Tag>
+        <Tag onClick={() => handleTagClick("#PS3")}>어린이집, 유치원</Tag>
+        <Tag onClick={() => handleTagClick("#SC4")}>학교</Tag>
+        <Tag onClick={() => handleTagClick("#AC5")}>학원</Tag>
+        <Tag onClick={() => handleTagClick("#PK6")}>주차장</Tag>
+        <Tag onClick={() => handleTagClick("#OL7")}>주유소, 충전소</Tag>
+        <Tag onClick={() => handleTagClick("#SW8")}>지하철역</Tag>
+        <Tag onClick={() => handleTagClick("#BK9")}>은행</Tag>
+        <Tag onClick={() => handleTagClick("#CT1")}>문화시설</Tag>
+        <Tag onClick={() => handleTagClick("#AG2")}>중개업소</Tag>
+        <Tag onClick={() => handleTagClick("#PO3")}>공공기관</Tag>
+        <Tag onClick={() => handleTagClick("#AT4")}>관광명소</Tag>
+        <Tag onClick={() => handleTagClick("#AD5")}>숙박</Tag>
+        <Tag onClick={() => handleTagClick("#FD6")}>음식점</Tag>
+        <Tag onClick={() => handleTagClick("#CE7")}>카페</Tag>
+        <Tag onClick={() => handleTagClick("#HP8")}>병원</Tag>
+        <Tag onClick={() => handleTagClick("#PM9")}>약국</Tag>
       </TagContainer>
 
       <MapContainer id="map">
         {/* 지도가 표시될 영역 */}
       </MapContainer>
-
     </Container>
   );
 };
