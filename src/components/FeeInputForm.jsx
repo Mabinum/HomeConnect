@@ -8,6 +8,13 @@ function FeeInputForm() {
   const [month, setMonth] = useState('');
   const [type, setType] = useState('');
   const [amount, setAmount] = useState('');
+  const [formData, setFormData] = useState({
+    userId: "",
+    month: "",
+    water: "",
+    electric: "",
+    maintenance: ""
+  });
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
@@ -22,8 +29,35 @@ function FeeInputForm() {
     }
   };
 
+  const handleChange2 = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit2 = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await addData(formData);
+      console.log("Data successfully submitted:", response);
+      setFormData({
+          userId: "",
+          month: "",
+          water: "",
+          electric: "",
+          maintenance: ""
+        }
+      );
+    } catch (error) {
+      console.error("Error submitting data:", error);
+    }
+  };
+
   return (
+    <>
     <form onSubmit={handleSubmit}>
+    <h2>프론트에 데이터 보내기</h2>
       <div>
         <label>월:</label>
         <select value={month} onChange={(e) => setMonth(e.target.value)}>
@@ -50,60 +84,83 @@ function FeeInputForm() {
           onChange={(e) => setAmount(e.target.value)}
         />
       </div>
-      <button type="submit" onClick={addData}>추가</button>
+      <button type="submit">추가</button>
     </form>
+
+    <br/>
+
+    <form onSubmit={handleSubmit2}>
+      <h2>백에 데이터 보내기</h2>
+      <div>
+        <label>
+        UserID:
+          <input type="text" name="userId" value={formData.userId} onChange={handleChange2} required />
+        </label>
+      </div>
+
+      <div>
+        <label>
+          월:
+          <input type="number" name="month" value={formData.month} onChange={handleChange2} required />
+        </label>
+      </div>
+
+      <div>
+        <label>
+          수도:
+          <input type="number" name="water" value={formData.water} onChange={handleChange2} required />
+        </label>
+      </div>
+
+      <div>
+        <label>
+          전기:
+          <input type="number" name="electric" value={formData.electric} onChange={handleChange2} required />
+        </label>
+      </div>
+
+      <div>
+        <label>
+          관리비:
+          <input type="number" name="maintenance" value={formData.maintenance} onChange={handleChange2} required />
+        </label>
+      </div>
+
+      <button type="submit">Submit</button>
+    </form>
+    </>
   );
 };
 
+// import React, { useState } from 'react';
+// import { addData } from '../api/feeAPI';
+
 // const FeeInputForm = () => {
-//   const [month, setMonth] = useState('');
-//   const [water, setWater] = useState('');
-//   const [electric, setElectric] = useState('');
-//   const [maintenance, setMaintenance] = useState('');
-//   const dispatch = useDispatch();
+//   const [form, setForm] = useState({ userId: '', month: '', water: '', electric: '', maintenance: '' });
 
-//   const handleSubmit = async (event) => {
-//     event.preventDefault();
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setForm({ ...form, [name]: value });
+//   };
 
-//     const feeData = {
-//       month: parseInt(month),
-//       water: parseInt(water),
-//       electric: parseInt(electric),
-//       maintenance: parseInt(maintenance),
-//     };
-
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
 //     try {
-//       const data = await addData(feeData);
-//       dispatch(setFee(data));
-//       // Clear form fields
-//       setMonth('');
-//       setWater('');
-//       setElectric('');
-//       setMaintenance('');
+//       const response = await addData(form);
+//       console.log('Data added:', response);
 //     } catch (error) {
-//       console.error('Error adding fee data:', error);
+//       console.error('Error adding data:', error);
 //     }
 //   };
 
 //   return (
-//     <form onSubmit={handleSubmit} onClick={addData}>
-//       <div>
-//         <label>월:</label>
-//         <input type="number" value={month} onChange={(e) => setMonth(e.target.value)} required />
-//       </div>
-//       <div>
-//         <label>수도세:</label>
-//         <input type="number" value={water} onChange={(e) => setWater(e.target.value)} required />
-//       </div>
-//       <div>
-//         <label>전기료:</label>
-//         <input type="number" value={electric} onChange={(e) => setElectric(e.target.value)} required />
-//       </div>
-//       <div>
-//         <label>관리비:</label>
-//         <input type="number" value={maintenance} onChange={(e) => setMaintenance(e.target.value)} required />
-//       </div>
-//       <button type="submit">입력</button>
+//     <form >
+//       <input name="userId" value={form.userId} onChange={handleChange} placeholder="User ID" />
+//       <input name="month" value={form.month} onChange={handleChange} placeholder="Month" type="number" />
+//       <input name="water" value={form.water} onChange={handleChange} placeholder="Water" type="number" />
+//       <input name="electric" value={form.electric} onChange={handleChange} placeholder="Electric" type="number" />
+//       <input name="maintenance" value={form.maintenance} onChange={handleChange} placeholder="Maintenance" type="number" />
+//       <button type="submit" onSubmit={handleSubmit}>Submit</button>
 //     </form>
 //   );
 // };
