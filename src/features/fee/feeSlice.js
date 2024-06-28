@@ -1,19 +1,19 @@
-// import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
-// const initialState = {
-//   fees: Array(12).fill({ electric: 0, water: 0, maintenance: 0 }),
-// };
+const initialState = {
+  fees: Array(12).fill({ electric: 0, water: 0, maintenance: 0 }),
+};
 
-// const feeSlice = createSlice({
-//   name: 'fees',
-//   initialState,
-//   reducers: {
-//     setFee: (state, action) => {
-//       const { month, type, amount } = action.payload;
-//       state.fees[month - 1][type] = amount; // 월의 인덱스와 타입에 따라 금액 설정
-//     },
-//   },
-// });
+const feeSlice = createSlice({
+  name: 'fees',
+  initialState,
+  reducers: {
+    setFee: (state, action) => {
+      const { month, type, amount } = action.payload;
+      state.fees[month - 1][type] = amount; // 월의 인덱스와 타입에 따라 금액 설정
+    },
+  },
+});
 
 // export const feeSlice = createSlice({
 //   name: 'fees',
@@ -48,45 +48,45 @@
 //   },
 // });
 
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+// import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+// import axios from 'axios';
 
-export const fetchFees = createAsyncThunk('fees/fetchFees', async () => {
-  const response = await axios.get('http://localhost:8080/fee/list');
-  return response.data;
-});
+// export const fetchFees = createAsyncThunk('fees/fetchFees', async () => {
+//   const response = await axios.get('http://localhost:8080/fee/list');
+//   return response.data;
+// });
 
-export const addFee = createAsyncThunk('fees/addFee', async (feeData, { dispatch }) => {
-  const response = await axios.post('http://localhost:8080/fee/register', feeData);
-  dispatch(fetchFees()); // 데이터 추가 후 다시 불러오기
-  return response.data;
-});
+// export const addFee = createAsyncThunk('fees/addFee', async (feeData, { dispatch }) => {
+//   const response = await axios.post('http://localhost:8080/fee/register', feeData);
+//   dispatch(fetchFees()); // 데이터 추가 후 다시 불러오기
+//   return response.data;
+// });
 
-const feeSlice = createSlice({
-  name: 'fees',
-  initialState: {
-    fees: [],
-    status: 'idle',
-    error: null,
-  },
-  reducers: {},
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchFees.pending, (state) => {
-        state.status = 'loading';
-      })
-      .addCase(fetchFees.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.fees = action.payload;
-      })
-      .addCase(fetchFees.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message;
-      })
-      .addCase(addFee.fulfilled, (state, action) => {
-        state.fees.push(action.payload);
-      });
-  },
-});
+// const feeSlice = createSlice({
+//   name: 'fees',
+//   initialState: {
+//     fees: [],
+//     status: 'idle',
+//     error: null,
+//   },
+//   reducers: {},
+//   extraReducers: (builder) => {
+//     builder
+//       .addCase(fetchFees.pending, (state) => {
+//         state.status = 'loading';
+//       })
+//       .addCase(fetchFees.fulfilled, (state, action) => {
+//         state.status = 'succeeded';
+//         state.fees = action.payload;
+//       })
+//       .addCase(fetchFees.rejected, (state, action) => {
+//         state.status = 'failed';
+//         state.error = action.error.message;
+//       })
+//       .addCase(addFee.fulfilled, (state, action) => {
+//         state.fees.push(action.payload);
+//       });
+//   },
+// });
 
 export default feeSlice.reducer;
