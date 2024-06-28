@@ -1,14 +1,13 @@
 import { useState } from "react";
-import { Button, Form, Nav } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { getIDPWInfo, getmyInfo, selectmyInfo } from "../../features/main/mainSlice";
+import { Button, Form } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import {  getmyInfo} from "../../features/main/mainSlice";
 import axios from "axios";
 
 function Register() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const Info =  useSelector(selectmyInfo);
 
   const [IDvalue, setIDvalue] = useState('');
   const [PWvalue, setPWvalue] = useState('');
