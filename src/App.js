@@ -36,7 +36,6 @@ import CommunityRegister from './features/community/CommunityRegister.jsx';
 import CommunitySignUp from './features/community/CommunitySignUp.jsx';
 
 
-
 const GlobalStyle = createGlobalStyle`
   
   body{
@@ -89,7 +88,6 @@ function App() {
               <Route path='map' element={<Map />}/>
             </Route>
             {/* <Route path='/management' element={<Management />}/> */}
-
 
             {/* 나중에 params로 아이디에 맞는 메뉴화면 나오도록 하기 */}
             {/* <Route path='health' element={<Health/>}/> */}
