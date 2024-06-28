@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { Food, NoticeContent } from '../board/boardSlice';
+import { NoticeContent } from '../board/boardSlice';
 import { Modal, Button } from 'react-bootstrap';
 
 const Container = styled.form`

@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
-import BoardSidebar from "../features/food/BoardSidebar";
+import BoardSidebar from "../features/board/BoardSidebar";
 
 const Wrapper = styled.div`
   display: flex;

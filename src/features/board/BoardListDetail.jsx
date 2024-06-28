@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams, Link } from 'react-router-dom';
-import { removeFoodList ,selectBoardSlice } from '../board/boardSlice';
+import { useParams, Link, useNavigate } from 'react-router-dom';
+import { removeBoardList, selectBoardList} from './boardSlice';
 import styled from 'styled-components';
 
 const CommentContainer = styled.div`
@@ -89,9 +89,9 @@ function BoardListDetail() {
     const [comment, setComment] = useState('');
     const [comments, setComments] = useState([]);
     const { boardId } = useParams();
-    const boardList = useSelector(selectBoardSlice);
+    const boardList = useSelector(selectBoardList);
     const dispatch = useDispatch();
-		console.log(boardList);
+    const navigate = useNavigate();
 		
     const handleAddComment = () => {
         if (comment.trim() !== '') {
@@ -100,16 +100,14 @@ function BoardListDetail() {
         }
     };
 
-    const boardItem = boardList.find((item) => item.no === parseInt(boardId));
-		console.log(boardItem);
+    const boardItem = boardList.find((item) => item.no === Number(boardId));
+
     return (
         <CommentContainer>
             {boardItem && (
                 <PostContent>
                     <h2>{boardItem.title}</h2>
                     <p>{boardItem.content}</p>
-                    {/* <p>{post.date}</p>
-                    <Button onClick={() => handleFoodLike(post.id)}>좋아요</Button> */}
                 </PostContent>
             )}
 
@@ -126,12 +124,10 @@ function BoardListDetail() {
                 placeholder="댓글을 입력하세요."
             />
             <ButtonContainer>
-                <Link to="/menu4/boardlist">
-                    <Button>목록으로</Button>
-                </Link>
+                <Button onClick={() => navigate('/menu4/boardlist')}>목록으로</Button>
                 <Button onClick={handleAddComment}>댓글 추가</Button>
                 <Link to="/menu4/boardlist">
-                <CloseButton onClick={() => dispatch(removeFoodList(boardItem.writer))}>삭제</CloseButton>
+                    <CloseButton onClick="#">삭제</CloseButton>
                 </Link>
             </ButtonContainer>
         </CommentContainer>

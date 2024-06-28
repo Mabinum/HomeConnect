@@ -10,7 +10,6 @@ import Menu2 from './components/Menu2';
 import Menu3 from './components/Menu3';
 import MyPage from './components/MyPage';
 import SignUp from './pages/login/SignUp';
-// import FoodList from './features/food/FoodList';
 import NoticeMain from "./features/notice/NoticeMain";
 import NoticeList from './features/notice/NoticeList';
 import NoticeListDetail from './features/notice/NoticeListDetail';
@@ -32,9 +31,9 @@ import FeeChartDetail from './components/FeeChartDetail';
 import CommunityCategory from './features/community/CommunityCategory';
 import CommunityRegister from './features/community/CommunityRegister.jsx';
 import CommunitySignUp from './features/community/CommunitySignUp.jsx';
-import Boardmain from './features/food/Boardmain.jsx';
-import BoardList from './features/food/BoardList.jsx';
-import BoardListDetail from './features/food/BoardListDetail.jsx';
+import Boardmain from './features/board/Boardmain.jsx';
+import BoardListDetail from './features/board/BoardListDetail.jsx';
+import BoardList from './features/board/BoardList.jsx';
 
 
 
