@@ -23,7 +23,7 @@ function Register() {
   const handleSubmitINFO = () => {
     const myInfo = async () => {
         try {
-          const response = await axios.get('http://localhost:8080/login');
+          const response = await axios.get(`http://localhost:8080/login?userId=${IDvalue}`);
           if (response.status === 200) { 
             // navigate('/');
             alert("불러오기 성공");

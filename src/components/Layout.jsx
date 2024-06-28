@@ -45,7 +45,6 @@ function Layout() {
   const myInfo = useSelector(selectmyInfo);
 
   useEffect(() => {
-
     const myInfo = async () => {
       try {
         const response = await axios.get('http://localhost:8080/');
