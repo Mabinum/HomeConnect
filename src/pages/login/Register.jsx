@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { Button, Form, Nav } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { getIDPWInfo } from "../../features/main/mainSlice";
+import { getIDPWInfo, getmyInfo, selectmyInfo } from "../../features/main/mainSlice";
 import axios from "axios";
 
 function Register() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const Info =  useSelector(selectmyInfo);
 
   const [IDvalue, setIDvalue] = useState('');
   const [PWvalue, setPWvalue] = useState('');
@@ -23,25 +24,27 @@ function Register() {
   const handleSubmitINFO = () => {
     const myInfo = async () => {
         try {
-          const response = await axios.get('http://localhost:8080/login');
-          if (response.status === 200) { 
-            // navigate('/');
-            alert("불러오기 성공");
-            console.log(response.data);
-            return response.data;
+          const response = await axios.get(`http://localhost:8080/login?userId=${IDvalue}`);
+          if (response.status === 200) {
+            if(!response.data) return alert("아이디를 확인해주세요");
+            if(response.data.pw === PWvalue){
+              alert("로그인 성공");
+              navigate('/');
+              return dispatch(getmyInfo(response.data));
+            } else {
+              return alert("비밀번호를 확인해주세요");
+            }
           } else { 
+            alert("오류 발생");
             throw new Error(`api error: ${response.status} ${response.statusText}`);
           }
         } catch (error) {
+          alert("오류 발생");
           console.error(error);
         }
       };
     myInfo();
   };
-
-  // { "userId" : IDvalue , "pw" : PWvalue}
-  
-
 
   return (
     <>
