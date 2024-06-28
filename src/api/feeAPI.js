@@ -1,9 +1,10 @@
 import axios from "axios";
 
-export const addData = async () => {
+export const addData = async (feeData) => {
   try {
-    const response = await axios.post('http://localhost:8080/fee/register', { "userId":"aaa", "month":11, "water":20000, "electric":30000, "maintenance":10000 });
-    console.log(response);
+    console.log(feeData);
+    const response = await axios.post('http://localhost:8080/fee/register', feeData );
+    console.log(feeData);
     if (response.status === 201) {
       return response.data;
     } else {
