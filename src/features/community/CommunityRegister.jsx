@@ -120,7 +120,7 @@ function CommunityRegister() {
         "title": titleValue,
         "content": contentValue,
         "writer": user.name,
-        "imgPath": img
+        "uploadFile": img
       });
 
       if (response.status === 200) {
