@@ -83,14 +83,14 @@ function Community() {
           <Button variant="dark">맛집투어</Button>
           <CommunityItem/>
         </ItemContainer>
-        <ItemContainer>
+        {/* <ItemContainer>
           <Button variant="dark">여행</Button>
           <CommunityItem/>
         </ItemContainer>
         <ItemContainer>
           <Button variant="dark">라이딩</Button>
           <CommunityItem/>
-        </ItemContainer>
+        </ItemContainer> */}
       </CommunityContainer>
     </Wrapper>
   );

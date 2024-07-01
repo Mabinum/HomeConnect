@@ -26,11 +26,11 @@ import FeeInputPage from './components/FeeInputPage';
 
 import Map from './features/map/Map';
 
-import Community from './features/community/Community';
+import Community from './components/community/Community';
 import FeeChartDetail from './components/FeeChartDetail';
-import CommunityCategory from './features/community/CommunityCategory';
-import CommunityRegister from './features/community/CommunityRegister.jsx';
-import CommunitySignUp from './features/community/CommunitySignUp.jsx';
+import CommunityCategory from './components/community/CommunityCategory';
+import CommunityRegister from './components/community/CommunityRegister.jsx';
+import CommunitySignUp from './components/community/CommunitySignUp.jsx';
 import Boardmain from './features/board/Boardmain.jsx';
 import BoardListDetail from './features/board/BoardListDetail.jsx';
 import BoardList from './features/board/BoardList.jsx';

@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Button, Nav } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import Community from "./Community";
 import axios from "axios";
-import { selectmyInfo } from "../main/mainSlice";
+// import { selectmyInfo } from "../main/mainSlice";
 import { useSelector } from "react-redux";
+import { selectmyInfo } from "../../features/main/mainSlice";
 
 const Wrapper = styled.form`
   margin: 50px;
@@ -29,7 +30,7 @@ const Title = styled.input`
   border-radius: 12px;
   `;
 
-const Content = styled.input`
+const Content = styled.textarea`
   width: 1000px;
   height: 300px;
   margin: 0 auto 10px;
@@ -40,10 +41,15 @@ const Content = styled.input`
   border-radius: 12px;
 `;
 
+const ButtonWrapper = styled.div`
+  display: flex;
+`;
+
 const FileLabel = styled.label`
+  margin: 30px 5px 0px 10px;
   padding: 6px 25px;
   background-color:#00050aba;
-  border-radius: 4px;
+  border-radius: 5px;
   color: white;
   cursor: pointer;
 
@@ -70,15 +76,12 @@ const RegisterButton = styled(Button)`
     background-color: #00000088;
     color: #fff;
   }
-  div {
-    display: flex;
-    justify-content: center;
-  }
 `;
 
 
 function CommunityRegister() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const fileEl = useRef(null);
   const [titleValue, setTitleValue] = useState('');
   const [contentValue, setContentValue] = useState('');
   const [img, setImg] = useState(null);
@@ -115,23 +118,44 @@ function CommunityRegister() {
 
   const addCommunityContent = async () => {
     try {
-      const response = await axios.post(`http://localhost:8080/menu4/communityregister`, {
-        "no": 0,
-        "title": titleValue,
-        "content": contentValue,
-        "writer": user.name,
-        "uploadFile": img
+
+      console.log(fileEl.current.files[0]);
+      const files = fileEl.current.files;
+
+      // 1
+      const formData = new FormData();
+      formData.append("no", 0);
+      formData.append("title", titleValue);
+      formData.append("content", contentValue);
+      formData.append("writer", user.name);
+      formData.append("uploadFile", files.length && files[0]);
+
+      const response = await axios.post(`http://localhost:8080/menu4/communityregister`, formData, {
+        headers: { 'content-type': 'multipart/form-data' },
       });
 
-      if (response.status === 200) {
-        setTitleValue('')
-        setContentValue('')
-        setImg(null)
-        return navigate('/menu4/community');
-      } else {
-        alert("오류 발생");
-        throw new Error(`api error: ${response.status} ${response.statusText}`);
-      }
+      // 2
+      // const response = await axios.post(`http://localhost:8080/menu4/communityregister`, {
+      //   no: 0,
+      //   title: titleValue,
+      //   content: contentValue,
+      //   writer: user.name,
+      //   uploadFile: files.length && files[0]
+      // }, {
+      //   headers: { 'content-type': 'multipart/form-data' },
+      // });
+
+      console.log(response);
+
+      // if (response.status === 200) {
+      //   setTitleValue('')
+      //   setContentValue('')
+      //   setImg(null)
+      //   return navigate('/menu4/community');
+      // } else {
+      //   alert("오류 발생");
+      //   throw new Error(`api error: ${response.status} ${response.statusText}`);
+      // }
 
 
     } catch (error) {
@@ -156,30 +180,30 @@ function CommunityRegister() {
         onChange={handleChangeContent}
       />
 
-      <div>
+      <ButtonWrapper>
         <img
           src={img}
           alt=""
           style={{ width: "100px", height: "100px" }} />
-        <FileLabel htmlFor="file-input">
-          썸네일올리기
-        </FileLabel>
+        <div>
+          <FileLabel htmlFor="file-input">
+            썸네일 업로드
+          </FileLabel>
+        </div>
         <FileInput
+          ref={fileEl}
           type="file"
           id="file-input"
           accept="image/jpg, image/jpeg, image/png"
           onChange={handleChangFile}
         />
-      <div>
         <Nav.Link onClick={() => navigate('/menu4/community')}>
           <RegisterButton onClick={addCommunityContent}>
             등록
           </RegisterButton>
-
+          <RegisterButton>뒤로가기</RegisterButton>
         </Nav.Link>
-        <RegisterButton>뒤로가기</RegisterButton>
-      </div>
-      </div>
+      </ButtonWrapper>
     </Wrapper>
 
 
