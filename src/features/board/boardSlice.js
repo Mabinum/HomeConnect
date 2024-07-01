@@ -51,6 +51,9 @@ const boardSlice = createSlice({
       const newList = state.healthList.filter(list => list.id !== id);
       state.healthList = newList;
     },
+    clearBoardList : (state) => {
+      state.boardList = [];
+    },
   }
 });
 
@@ -58,7 +61,6 @@ export const {
   getBoardList,
   HealthContent,
   NoticeContent,
-  removeHealthList,
   removeBoardList,
   clearBoardList,
 } = boardSlice.actions;

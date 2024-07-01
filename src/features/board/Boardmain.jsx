@@ -79,13 +79,17 @@ function Boardmain() {
 
   const addBoardComment = async () => {
     try {
+      const token = localStorage.getItem('token');
       const response = await axios.post('http://localhost:8080/menu4/board', { 
         "no": 0,
         "title": title,
         "content": content,
-        "writer": user.name
+        "writer": user.name,
+        headers : {
+          Authorization : token
+        }
       });
-      if (response.status === 201) {
+      if (response.status === 200) {
         setTitle('');
         setContent('');
         setShowModal(false);

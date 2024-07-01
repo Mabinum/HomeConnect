@@ -12,6 +12,7 @@ import {
   ArcElement,
 } from 'chart.js';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 // Chart.js에 필요한 구성 요소 등록
 ChartJS.register(
