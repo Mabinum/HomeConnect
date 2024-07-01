@@ -85,7 +85,7 @@ function Boardmain() {
         "content": content,
         "writer": user.name
       });
-      if (response.status === 201) {
+      if (response.status === 200) {
         setTitle('');
         setContent('');
         setShowModal(false);
