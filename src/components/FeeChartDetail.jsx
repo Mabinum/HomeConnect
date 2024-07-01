@@ -79,7 +79,7 @@ function FeeChartDetail() {
     IMP.init('imp86124615');
     const data = {
       pg: 'html5_inicis',
-      pay_method: 'trans',
+      pay_method: 'card',
       merchant_uid: `mid_${new Date().getTime()}`,
       name: '결제 테스트',
       amount: 1000,
