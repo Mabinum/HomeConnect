@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Bar, Doughnut } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -12,8 +12,6 @@ import {
   ArcElement,
 } from 'chart.js';
 import styled from 'styled-components';
-import { Form } from 'react-bootstrap';
-import { callback } from 'chart.js/helpers';
 
 // Chart.js에 필요한 구성 요소 등록
 ChartJS.register(
@@ -57,7 +55,6 @@ const PaymentButton = styled.button`
 function FeeChartDetail() {
   const fees = useSelector((state) => state.fees.fees);
   const [visibleDatasets, setVisibleDatasets] = useState(['electric', 'water', 'maintenance']);
-  const [selectedMonth, setSelectedMonth] = useState(0);
 
   const Payment = (effect, deps) => {
     useEffect(() => {
@@ -75,8 +72,10 @@ function FeeChartDetail() {
   };
 
   const onClickPayment = () => {
+
     const { IMP } = window;
     IMP.init('imp86124615');
+
     const data = {
       pg: 'html5_inicis',
       pay_method: 'card',
@@ -94,7 +93,7 @@ function FeeChartDetail() {
   }
 
   const callback = (response) => {
-    const {success, error_msg, imp_uid, merchant_uid, pay_method, paid_amount, status} = response;
+    const {success, error_msg} = response;
     if (success) {
       alert('결제 성공');
     } else {
