@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { removeBoardList, selectBoardList} from './boardSlice';
+import { clearBoardList, getBoardList, removeBoardList, selectBoardList} from './boardSlice';
 import styled from 'styled-components';
+import axios from 'axios';
 
 const CommentContainer = styled.div`
     margin-top: 16px;
@@ -89,19 +90,59 @@ function BoardListDetail() {
     const [comment, setComment] = useState('');
     const [comments, setComments] = useState([]);
     const { boardId } = useParams();
-    const boardList = useSelector(selectBoardList);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-		
+    const boardItem = useSelector(selectBoardList);    
+    
+    useEffect(() => {
+        const boardlist = async () => {
+        try {
+            const response = await axios.get(`http://localhost:8080/menu4/read?no=${boardId}`);
+            if (response.status === 200) { 
+                return dispatch(getBoardList([response.data]));
+            } else { 
+                throw new Error(`api error: ${response.status} ${response.statusText}`);
+            }
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        boardlist();
+	}, []);
+
     const handleAddComment = () => {
+        // const exportCommentp = async () => {
+        //     try {
+        //     const response = await axios.post('http://localhost:8080/login/signup4', {
+        //         ...signup.birthdateAndSex,
+        //         ame: signup.name,
+        //         ...signup.idpw,
+        //         ...signup.address
+        //     });
+            
+        //     if (response.status === 201) {
+        //         alert("회원가입 처리되었습니다.");
+        //         navigate('/');
+        //         return response.data;
+        //     } else {
+        //         throw new Error(`api error: ${response.status} ${response.statusText}`);
+        //     }
+        //     } catch (error) {
+        //     console.error(error);
+        //     throw error;
+        //     }
+        // };
+        // exportCommentUp();
+
         if (comment.trim() !== '') {
             setComments([...comments, comment]);
             setComment('');
         }
     };
 
-    const boardItem = boardList.find((item) => item.no === Number(boardId));
-
+    const handlelist = () => {
+        navigate('/menu4/boardlist');
+    };
     return (
         <CommentContainer>
             {boardItem && (
@@ -124,7 +165,7 @@ function BoardListDetail() {
                 placeholder="댓글을 입력하세요."
             />
             <ButtonContainer>
-                <Button onClick={() => navigate('/menu4/boardlist')}>목록으로</Button>
+                <Button onClick={handlelist}>목록으로</Button>
                 <Button onClick={handleAddComment}>댓글 추가</Button>
                 <Link to="/menu4/boardlist">
                     <CloseButton onClick="#">삭제</CloseButton>

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getBoardList, selectBoardList } from "./boardSlice";
+import { clearBoardList, getBoardList, selectBoardList } from "./boardSlice";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useEffect } from "react";
@@ -12,8 +12,8 @@ function BoardList() {
 	const dispatch = useDispatch()
 
 	const TableWrapper = styled(Table)`
-        margin-top: 20px;
-        width: 100%;
+			margin-top: 20px;
+			width: 100%;
     `;
 
 useEffect(() => {
@@ -47,7 +47,7 @@ useEffect(() => {
 
 				{boardList.map((post) => (
 					<tbody onClick={() => {
-						navigate(`/menu4/boardlist/${post.no}`)
+						navigate(`/menu4/read/${post.no}`)
 						}}>
 						<tr key={post.writer}>
 							<td>{post.no}</td>

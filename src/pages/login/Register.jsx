@@ -23,21 +23,25 @@ function Register() {
   const handleSubmitINFO = () => {
     const myInfo = async () => {
         try {
-          const response = await axios.get(`http://localhost:8080/login?userId=${IDvalue}`);
-
+          const response = await axios.get(`http://localhost:8080/login?userId=${IDvalue}&pw=${PWvalue}`);
+          console.log(response.data);
           if (response.status === 200) {
-            if(!response.data) return alert("아이디를 확인해주세요");
-            if(response.data.pw === PWvalue){
-              alert("로그인 성공");
-              navigate('/');
-              return dispatch(getmyInfo(response.data));
-            } else {
-              return alert("비밀번호를 확인해주세요");
-            }
-          } else { 
-            alert("오류 발생");
-            throw new Error(`api error: ${response.status} ${response.statusText}`);
+            localStorage.setItem('token',response.data);
+            navigate('/');
           }
+          // if (response.status === 200) {
+          //   if(!response.data) return alert("아이디를 확인해주세요");
+          //   if(response.data.pw === PWvalue){
+          //     alert("로그인 성공");
+          //     // navigate('/');
+          //     return dispatch(getmyInfo(response.data));
+          //   } else {
+          //     return alert("비밀번호를 확인해주세요");
+          //   }
+          // } else { 
+          //   alert("오류 발생");
+          //   throw new Error(`api error: ${response.status} ${response.statusText}`);
+          // }
         } catch (error) {
           alert("오류 발생");
           console.error(error);

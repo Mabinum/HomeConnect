@@ -34,7 +34,6 @@ function NoticeList() {
                         <td>{post.title}</td>
                         <td>{post.date}</td>
                         <td>작성자 ID</td>
-                        {/* <td>{post.authorId}</td> */}
                     </tr>
                 </tbody>
             ))}

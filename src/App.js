@@ -77,7 +77,7 @@ function App() {
               <Route index element={<BoardList />} />
               <Route path='board' element={<Boardmain />} />
               <Route path='boardlist' element={<BoardList />} />
-              <Route path='boardlist/:boardId' element={<BoardListDetail />} />
+              <Route path='read/:boardId' element={<BoardListDetail />} />
               <Route path='noticemain' element={<NoticeMain />} />
               <Route path='noticelist' element={<NoticeList />} />
               <Route path='noticelist/:boardId' element={<NoticeListDetail />} />
