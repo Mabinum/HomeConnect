@@ -43,14 +43,12 @@ function Main() {
         })}
       </StyledCard>
 
-      <Provider store={store}>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '50px' }}>
           <h1>관리비</h1>
           <div style={{ width: '80%', margin: '0 auto', padding: '1rem' }}>
             <FeeChart />
           </div>
         </div>
-      </Provider>
     </>
   );
 };
