@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Bar, Doughnut } from 'react-chartjs-2';
 import {
@@ -13,6 +13,7 @@ import {
 } from 'chart.js';
 import styled from 'styled-components';
 import { Form } from 'react-bootstrap';
+import { callback } from 'chart.js/helpers';
 
 // Chart.js에 필요한 구성 요소 등록
 ChartJS.register(
@@ -29,15 +30,77 @@ const StyledDiv = styled.div`
   width: 80%;
   max-height: 750px;
   margin: 0 auto ;
-  margin-top: 20px;
+  margin-top: 10px;
   padding: 2rem; 
   text-align: center;
 `
+
+const HeaderDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  position: relative;
+`;
+
+const PaymentButton = styled.button`
+  position: absolute;
+  right: 0;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+`;
 
 function FeeChartDetail() {
   const fees = useSelector((state) => state.fees.fees);
   const [visibleDatasets, setVisibleDatasets] = useState(['electric', 'water', 'maintenance']);
   const [selectedMonth, setSelectedMonth] = useState(0);
+
+  const Payment = (effect, deps) => {
+    useEffect(() => {
+      const jquery = document.createElement("script");
+      jquery.src = "https://code.jquery.com/jquery-1.12.4.min.js";
+      const iamport = document.createElement("script");
+      iamport.src = "https://cdn.iamport.kr/js/iamport.payment-1.1.7.js";
+      document.head.appendChild(jquery);
+      document.head.appendChild(iamport);
+      return () => {
+        document.head.removeChild(jquery); 
+        document.head.removeChild(iamport); 
+      }
+    }, []);
+  };
+
+  const onClickPayment = () => {
+    const { IMP } = window;
+    IMP.init('imp86124615');
+    const data = {
+      pg: 'html5_inicis',
+      pay_method: 'trans',
+      merchant_uid: `mid_${new Date().getTime()}`,
+      name: '결제 테스트',
+      amount: 1000,
+      custom_data: { name: '부가정보', desc: '세부 부가정보' },
+      buyer_name: '이름',
+      buyer_tel: '전화번호',
+      buyer_email: 'por0632@naver.com',
+      buyer_addr: '주소',
+      buyer_postalcode: '우편번호'
+    };
+    IMP.request_pay(data, callback);
+  }
+
+  const callback = (response) => {
+    const {success, error_msg, imp_uid, merchant_uid, pay_method, paid_amount, status} = response;
+    if (success) {
+      alert('결제 성공');
+    } else {
+      alert(`결제 실패 : ${error_msg}`);
+    }
+  }
 
   const toggleDataset = (label) => {
     setVisibleDatasets((prev) => 
@@ -115,7 +178,10 @@ function FeeChartDetail() {
 
   return (
     <StyledDiv>
-      <h2>관리비 상세내역</h2>
+      <HeaderDiv>
+        <h2>관리비 상세내역</h2>
+        <PaymentButton type='text' onClick={onClickPayment}>결제하기</PaymentButton>
+      </HeaderDiv>
       <Bar data={data} options={options} />
       <div style={{ height: '30px', fontSize: '1rem', textAlign: 'center', fontWeight: '900' }}>
         <p>전기세 총합: {formatter.format(totalFees.electric)}원, 평균: {formatter.format(averageFees.electric)}원  </p>
@@ -129,82 +195,5 @@ function FeeChartDetail() {
     </StyledDiv>
   );
 };
-
-// export default FeeChartDetail;
-
-// import React, { useEffect } from 'react';
-// import { useSelector, useDispatch } from 'react-redux';
-// import { Bar } from 'react-chartjs-2';
-// import {
-//   Chart as ChartJS,
-//   CategoryScale,
-//   LinearScale,
-//   BarElement,
-//   Title,
-//   Tooltip,
-//   Legend,
-// } from 'chart.js';
-// import { fetchFees } from '../features/fee/feeSlice';
-
-// ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
-
-// const FeeChartDetail = () => {
-//   const dispatch = useDispatch();
-//   const fees = useSelector((state) => state.fees.fees);
-//   const status = useSelector((state) => state.fees.status);
-//   const error = useSelector((state) => state.fees.error);
-
-//   useEffect(() => {
-//     if (status === 'idle') {
-//       dispatch(fetchFees());
-//     }
-//   }, [status, dispatch]);
-
-//   const data = {
-//     labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-//     datasets: [
-//       {
-//         label: '전기세',
-//         data: fees.map(fee => fee.electric),
-//         backgroundColor: 'rgba(255, 99, 132, 0.6)',
-//       },
-//       {
-//         label: '수도세',
-//         data: fees.map(fee => fee.water),
-//         backgroundColor: 'rgba(54, 162, 235, 0.6)',
-//       },
-//       {
-//         label: '관리비',
-//         data: fees.map(fee => fee.maintenance),
-//         backgroundColor: 'rgba(75, 192, 192, 0.6)',
-//       },
-//     ],
-//   };
-
-//   const options = {
-//     responsive: true,
-//     maintainAspectRatio: false,
-//     scales: {
-//       x: {
-//         ticks: {
-//           maxRotation: 0,
-//           minRotation: 0,
-//         },
-//       },
-//       y: {
-//         beginAtZero: true,
-//       },
-//     },
-//   };
-
-//   return (
-//     <div style={{ width: '70%', height: '600px', margin: '0 auto', padding: '1rem', textAlign: 'center' }}>
-//       <h2>관리비 상세내역</h2>
-//       {status === 'loading' && <div>Loading...</div>}
-//       {status === 'failed' && <div>{error}</div>}
-//       {status === 'succeeded' && <Bar data={data} options={options} />}
-//     </div>
-//   );
-// };
 
 export default FeeChartDetail;
