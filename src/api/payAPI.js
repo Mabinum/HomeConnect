@@ -1,55 +1,37 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+// import React, { useEffect, useState } from 'react';
+// import axios from 'axios';
 
-// function payAPI() {
-//   const [token, setToken] = useState('');
+// export const onClickPayment = (cartItems, discountPrice, totalPrice, user) => {
+//   const { IMP } = window;
+//   IMP.init(`${process.env.REACT_APP_IMP}`);
 
-//   useEffect(() => {
-//     axios.get('http://localhost:8080/getToken')
-//       .then(response => {
-//         setToken(response.data.token);
-//       })
-//       .catch(error => {
-//         console.error('Error fetching token:', error);
-//       });
-//   }, []);
-
-//   const onClickPayment = () => {
-//     if (!token) {
-//       console.error('Token is not available');
-//       return;
-//     }
-
-//     const data = {
-//       pg: 'html5_inicis',
-//       pay_method: 'card',
-//       merchant_uid: `mid_${new Date().getTime()}`,
-//       amount: 1000,
-//       name: '테스트 결제',
-//       buyer_name: '홍길동',
-//       buyer_tel: '010-1234-5678',
-//       buyer_email: 'example@example.com',
-//       buyer_addr: '서울특별시 강남구 삼성동',
-//       buyer_postcode: '123-456',
-//     };
-
-//     window.IMP.init('your_iamport_api_key');
-//     window.IMP.request_pay(data, response => {
-//       if (response.success) {
-//         // 결제 성공 시 처리
-//         console.log(response);
-//       } else {
-//         // 결제 실패 시 처리
-//         console.error(response);
-//       }
-//     });
+//   const formatName = (cartItems) => {
+//     return cartItems.length > 1
+//       ? `${cartItems[0].title} 외 + ${cartItems.length}`
+//       : `${cartItems[0].title}`;
 //   };
 
-//   return (
-//     <div>
-//       <button onClick={onClickPayment}>결제하기</button>
-//     </div>
-//   );
+//   const data = {
+//     pg: `${process.env.REACT_PAYMENT_PG}`, // PG사
+//     pay_method: "card", // 결제수단
+//     merchant_uid: `mid_${new Date().getTime()}`, // 주문번호
+//     amount: totalPrice - discountPrice, // 결제금액
+//     name: formatName(cartItems), // 주문명
+//     buyer_name: user.name, // 구매자 이름
+//     buyer_tel: user.phone, // 구매자 전화번호
+//     buyer_email: user.email, // 구매자 이메일
+//     buyer_addr: user.address, // 구매자 주소
+//     buyer_postcode: user.postcode, // 구매자 우편번호
+//   };
+//   IMP.request_pay(data, callback);
+// };
+// const callback = (response) => {
+//   const { success, error_msg } = response;
+//   if (success) {
+//     alert("결제 성공");
+//   } else {
+//     alert(`결제 실패: ${error_msg}`);
+//   }
 // };
 
 // export default payAPI;

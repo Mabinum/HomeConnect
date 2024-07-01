@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Bar, Doughnut } from 'react-chartjs-2';
 import {
@@ -30,16 +30,78 @@ const StyledDiv = styled.div`
   width: 80%;
   max-height: 750px;
   margin: 0 auto ;
-  margin-top: 20px;
+  margin-top: 10px;
   padding: 2rem; 
   text-align: center;
 `
+
+const HeaderDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  position: relative;
+`;
+
+const PaymentButton = styled.button`
+  position: absolute;
+  right: 0;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+`;
 
 function FeeChartDetail() {
   const fees = useSelector((state) => state.fees.fees);
   const navigate = useNavigate();
   const [visibleDatasets, setVisibleDatasets] = useState(['electric', 'water', 'maintenance']);
   const [selectedMonth, setSelectedMonth] = useState(0);
+
+  const Payment = (effect, deps) => {
+    useEffect(() => {
+      const jquery = document.createElement("script");
+      jquery.src = "https://code.jquery.com/jquery-1.12.4.min.js";
+      const iamport = document.createElement("script");
+      iamport.src = "https://cdn.iamport.kr/js/iamport.payment-1.1.7.js";
+      document.head.appendChild(jquery);
+      document.head.appendChild(iamport);
+      return () => {
+        document.head.removeChild(jquery); 
+        document.head.removeChild(iamport); 
+      }
+    }, []);
+  };
+
+  const onClickPayment = () => {
+    const { IMP } = window;
+    IMP.init('imp86124615');
+    const data = {
+      pg: 'html5_inicis',
+      pay_method: 'card',
+      merchant_uid: `mid_${new Date().getTime()}`,
+      name: '결제 테스트',
+      amount: 1000,
+      custom_data: { name: '부가정보', desc: '세부 부가정보' },
+      buyer_name: '이름',
+      buyer_tel: '전화번호',
+      buyer_email: 'por0632@naver.com',
+      buyer_addr: '주소',
+      buyer_postalcode: '우편번호'
+    };
+    IMP.request_pay(data, callback);
+  }
+
+  const callback = (response) => {
+    const {success, error_msg, imp_uid, merchant_uid, pay_method, paid_amount, status} = response;
+    if (success) {
+      alert('결제 성공');
+    } else {
+      alert(`결제 실패 : ${error_msg}`);
+    }
+  }
 
   const toggleDataset = (label) => {
     setVisibleDatasets((prev) => 
@@ -117,7 +179,10 @@ function FeeChartDetail() {
 
   return (
     <StyledDiv>
-      <h2>관리비 상세내역</h2>
+      <HeaderDiv>
+        <h2>관리비 상세내역</h2>
+        <PaymentButton type='text' onClick={onClickPayment}>결제하기</PaymentButton>
+      </HeaderDiv>
       <Bar data={data} options={options} />
       <div style={{ height: '30px', fontSize: '1rem', textAlign: 'center', fontWeight: '900' }}>
         <p>전기세 총합: {formatter.format(totalFees.electric)}원, 평균: {formatter.format(averageFees.electric)}원  </p>
