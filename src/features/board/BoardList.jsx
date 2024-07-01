@@ -32,6 +32,9 @@ useEffect(() => {
 	boardlist();
 	}, []);
 
+	// 날짜 포맷하기
+	
+
 	return (
 		<>
 			<Button variant="primary" key={1} onClick={() => { navigate('/menu4/board') }}>게시글 작성</Button>

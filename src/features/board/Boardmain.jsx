@@ -89,7 +89,6 @@ function Boardmain() {
           Authorization : token
         }
       });
-      console.log(response.status);
       if (response.status === 200) {
         setTitle('');
         setContent('');
