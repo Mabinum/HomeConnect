@@ -54,9 +54,9 @@ const PaymentButton = styled.button`
 
 function FeeChartDetail() {
   const fees = useSelector((state) => state.fees.fees);
-  const navigate = useNavigate();
   const [visibleDatasets, setVisibleDatasets] = useState(['electric', 'water', 'maintenance']);
 
+  // 결제 시스템
   const Payment = (effect, deps) => {
     useEffect(() => {
       const jquery = document.createElement("script");
@@ -102,6 +102,7 @@ function FeeChartDetail() {
     }
   }
 
+  // 관리비 레이블 변환
   const toggleDataset = (label) => {
     setVisibleDatasets((prev) => 
       prev.includes(label)
@@ -110,6 +111,7 @@ function FeeChartDetail() {
     );
   };
 
+  // 숫자 포맷
   const formatter = new Intl.NumberFormat('ko-KR', {currency: 'KRW'});
   
    // 항목별 총합과 평균 계산
@@ -177,22 +179,26 @@ function FeeChartDetail() {
   };
 
   return (
+    <>
     <StyledDiv>
       <HeaderDiv>
         <h2>관리비 상세내역</h2>
         <PaymentButton type='text' onClick={onClickPayment}>결제하기</PaymentButton>
       </HeaderDiv>
       <Bar data={data} options={options} />
-      <div style={{ height: '30px', fontSize: '1rem', textAlign: 'center', fontWeight: '900' }}>
+    </StyledDiv>
+    <StyledDiv>
+      <div style={{ fontSize: '1rem', textAlign: 'center', fontWeight: '900' }}>
         <p>전기세 총합: {formatter.format(totalFees.electric)}원, 평균: {formatter.format(averageFees.electric)}원  </p>
       </div>
-      <div style={{ height: '30px', fontSize: '1rem', textAlign: 'center', fontWeight: '900' }}>
+      <div style={{ fontSize: '1rem', textAlign: 'center', fontWeight: '900' }}>
         <p>수도세 총합: {formatter.format(totalFees.water)}원, 평균: {formatter.format(averageFees.water)}원  </p>
       </div>
-      <div style={{ height: '30px', fontSize: '1rem', textAlign: 'center', fontWeight: '900' }}>
+      <div style={{ fontSize: '1rem', textAlign: 'center', fontWeight: '900' }}>
         <p>관리비 총합: {formatter.format(totalFees.maintenance)}원, 평균: {formatter.format(averageFees.maintenance)}원 </p>
       </div>
     </StyledDiv>
+    </>
   );
 };
 
