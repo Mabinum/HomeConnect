@@ -23,7 +23,6 @@ function CommunityItem() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [communityList, setcommunityList] = useState();
-  const { communityId } = useParams();
 
 
   // db에서 community데이터 갖고 와서 렌더링하기
@@ -50,10 +49,9 @@ function CommunityItem() {
       {communityList && communityList.map((communityItem) => (
         <table>
           <tbody onClick={() => navigate(`/menu4/communityread/${communityItem.no}`)}>
-            <tr key={communityItem.writer}>
+            <tr key={communityItem.no}>
               <td><img src={`../../image/${communityItem.imgPath}`} alt="" /></td>
               {/* <img src="/image/여우.jpg" alt="여행" /> */}
-              {/* <img src="" alt="" /> */}
               <td>{communityItem.title}</td>
               <td>작성자:{communityItem.writer}</td>
             </tr>

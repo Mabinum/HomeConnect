@@ -10,9 +10,8 @@ const Wrapper = styled.div`
   padding: 50px;
   background-color: #f8f9fa;
   border-radius: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  /* display: flex; */
+  /* justify-content: center; */
 `;
 
 function CommunitySignUp() {
@@ -20,32 +19,36 @@ function CommunitySignUp() {
   const { communityId } = useParams();
   const [communityList, setcommunityList] = useState();
 
-    // db에서 community데이터 갖고 와서 렌더링하기
-    useEffect(() => {
-      const communitylist = async () => {
-        try {
-          const response = await axios.get(`http://localhost:8080/menu4/communityread${communityId}`);
-          setcommunityList(response.data);
-          if (response.status === 200) {
-            // return dispatch(getBoardList(response.data));
-          } else {
-            throw new Error(`api error: ${response.status} ${response.statusText}`);
-          }
-        } catch (error) {
-          console.error(error);
+  // db에서 community데이터 갖고 와서 렌더링하기
+  useEffect(() => {
+    const communitylist = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/menu4/communityread?no=${communityId}`);
+        setcommunityList(response.data);
+        if (response.status === 200) {
+          // return dispatch(getBoardList(response.data));
+        } else {
+          throw new Error(`api error: ${response.status} ${response.statusText}`);
         }
-      };
-      communitylist();
-    }, []);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    communitylist();
+  }, []);
 
 
   return (
     <Wrapper>
-      {communityList && communityList.find()}
+      {communityList &&
+        <div>
+          <h2>{communityList.title}</h2>
+          <p>{communityList.content}</p>
+          <p>모임 위치</p>
+          <p>작성자:{communityList.writer}</p>
+        </div>
+      }
       <div>
-        <h2>모임 제목</h2>
-        <p>모임 위치</p>
-        <p>모임 내용</p>
         <Nav.Link onClick={() => navigate('/menu4/community')}>
           <Button variant="dark">가입하기</Button>
         </Nav.Link>
