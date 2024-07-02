@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { clearBoardList, getBoardList, removeBoardList, selectBoardList} from './boardSlice';
+import { clearBoardList, getBoardList, removeBoardList, selectBoardList } from './boardSlice';
 import styled from 'styled-components';
 import axios from 'axios';
 
@@ -15,13 +15,7 @@ const CommentContainer = styled.div`
 const CommentList = styled.ul`
     list-style: none;
     padding: 0;
-    display: flex;
     justify-content: space-evenly;
-`;
-
-const CommentItem = styled.li`
-    margin-bottom: 8px;
-    font-size: 16px;
 `;
 
 const TextInput = styled.input`
@@ -91,17 +85,21 @@ const PostContent = styled.div`
 function BoardListDetail() {
     const [comment, setComment] = useState('');
     const [comments, setComments] = useState([]);
+
     const { boardId } = useParams();
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const boardItem = useSelector(selectBoardList);    
-    
+
     useEffect(() => {
         const boardlist = async () => {
         try {
             const response = await axios.get(`http://localhost:8080/menu4/read?no=${boardId}`);
+            if(!response.data) return;
+            console.log(response.data);
             if (response.status === 200) { 
-                return dispatch(getBoardList([response.data]));
+                return dispatch(getBoardList(response.data));
             } else { 
                 throw new Error(`api error: ${response.status} ${response.statusText}`);
             }
@@ -110,75 +108,105 @@ function BoardListDetail() {
             }
         };
         boardlist();
-	}, []);
+    }, []);
+
+    useEffect(() => {
+        const commentList = async() => {
+            try{
+                const response = await axios.get(`http://localhost:8080/menu4/read?no=${boardId}`);
+                if (response.status === 200) { 
+                    return dispatch(getBoardList(response.data));
+                } else { 
+                    throw new Error(`api error: ${response.status} ${response.statusText}`);
+                }
+                } catch (error) {
+                console.error(error);
+            }
+        };
+        commentList();
+    }, []);
 
     const handleAddComment = () => {
-        // const exportCommentp = async () => {
-        //     try {
-        //     const response = await axios.post('http://localhost:8080/login/signup4', {
-        //         ...signup.birthdateAndSex,
-        //         ame: signup.name,
-        //         ...signup.idpw,
-        //         ...signup.address
-        //     });
-            
-        //     if (response.status === 201) {
-        //         alert("회원가입 처리되었습니다.");
-        //         navigate('/');
-        //         return response.data;
-        //     } else {
-        //         throw new Error(`api error: ${response.status} ${response.statusText}`);
-        //     }
-        //     } catch (error) {
-        //     console.error(error);
-        //     throw error;
-        //     }
-        // };
-        // exportCommentUp();
-
         if (comment.trim() !== '') {
             setComments([...comments, comment]);
             setComment('');
         }
-
-    const handlelist = () => {
-        navigate('/menu4/boardlist');
     };
 
-  return (
-    <CommentContainer>
-      {boardItem && (
-        <PostContent>
-          <h2>{boardItem.title}</h2>
-          <p>{boardItem.content}</p>
-          <p>작성자:{boardItem.writer}</p>
-        </PostContent>
-      )}
+    const handleRemoveComment = () => {
 
-      <h3>댓글</h3>
-      <CommentList>
-        {comments.map((comment, index) => (
-          <CommentItem key={index}>{comment}</CommentItem>
-        ))}
-        <p>작성자:</p>
-        {/* <button onClick={handleRemoveComment}>X</button> */}
-      </CommentList>
-      <TextInput
-        type="text"
-        value={comment}
-        onChange={(e) => setComment(e.target.value)}
-        placeholder="댓글을 입력하세요."
-      />
-      <ButtonContainer>
-        <Button onClick={() => navigate('/menu4/boardlist')}>목록으로</Button>
-        <Button onClick={handleAddComment}>댓글 추가</Button>
-        {/* <Button onClick={handleModifyContent}>수정하기</Button> */}
-        <Link to="/menu4/boardlist">
-          <CloseButton onClick="#">삭제하기</CloseButton>
-        </Link>
-      </ButtonContainer>
-    </CommentContainer>
-  );
-}
-}
-export default BoardListDetail;
+    };
+    const handleModifyContent = () => {
+
+    };
+
+    return (
+    <CommentContainer>
+        {boardItem &&
+        <PostContent>
+
+//           <h2>{boardItem.title}</h2>
+//           <p>{boardItem.content}</p>
+//           <p>작성자:{boardItem.writer}</p>
+//         </PostContent>
+//       )}
+
+//       <h3>댓글</h3>
+//       <CommentList>
+//         {comments.map((comment, index) => (
+//           <CommentItem key={index}>{comment}</CommentItem>
+//         ))}
+//         <p>작성자:</p>
+//         {/* <button onClick={handleRemoveComment}>X</button> */}
+//       </CommentList>
+//       <TextInput
+
+//             <h2>{boardItem.title}</h2>
+//             <p>{boardItem.content}</p>
+//             <p>작성자:{boardItem.writer}</p>
+//         </PostContent>}
+
+//         <h3>댓글</h3>
+//         <CommentList>
+            
+//         </CommentList>
+
+//         <TextInput
+
+//         type="text"
+//         value={comment}
+//         onChange={(e) => setComment(e.target.value)}
+//         placeholder="댓글을 입력하세요."
+
+//       />
+//       <ButtonContainer>
+//         <Button onClick={() => navigate('/menu4/boardlist')}>목록으로</Button>
+//         <Button onClick={handleAddComment}>댓글 추가</Button>
+//         {/* <Button onClick={handleModifyContent}>수정하기</Button> */}
+//         <Link to="/menu4/boardlist">
+//           <CloseButton onClick="#">삭제하기</CloseButton>
+//         </Link>
+//       </ButtonContainer>
+//     </CommentContainer>
+//   );
+// }
+// }
+// export default BoardListDetail;
+
+//         />
+
+//         <ButtonContainer>
+//             <Button onClick={() => navigate('/menu4/boardlist')}>목록으로</Button>
+//             <Button onClick={handleAddComment}>댓글 추가</Button>
+//             <Button onClick={handleModifyContent}>수정하기</Button>
+//             <Button>수정하기</Button>
+//             <Link to="/menu4/boardlist">
+//                 <CloseButton onClick="#">삭제하기</CloseButton>
+//             </Link> 
+//         </ButtonContainer>
+//     </CommentContainer>
+//     );
+// };
+
+// export default BoardListDetail;
+

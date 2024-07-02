@@ -1,5 +1,5 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { json, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Outlet } from "react-router-dom";
 import { IoIosHome } from "react-icons/io";
@@ -34,32 +34,15 @@ const Mypage = styled(Navbar.Text)`
 `;
 
 const ContentContainer = styled.div`
-  padding-bottom: 100px; // 하단 여백 추가
+  /* padding-bottom: 100px; // 하단 여백 추가 */
 `;
 
 
 
 function Layout() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const myInfo = useSelector(selectmyInfo);
-
-  useEffect(() => {
-    const myInfo = async () => {
-      try {
-        const response = await axios.get('http://localhost:8080/');
-        if (response.status === 200) { 
-          return dispatch(getmyInfo(response.data));
-        } else { 
-          throw new Error(`api error: ${response.status} ${response.statusText}`);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    myInfo();
-
-  }, []);
 
   return (
     <>
