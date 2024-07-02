@@ -17,12 +17,12 @@ const Wrapper = styled.div`
 `;
 
 const CommunityContainer = styled.div`
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
   margin-top: 50px;
-  padding: 50px;
+  padding: 10px;
   display: flex;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   border-radius: 15px;
   justify-content: space-evenly;
 `;
@@ -52,6 +52,11 @@ const StyledNav = styled(Nav)`
   text-decoration: none;
   font-weight: bold;
   color: black;
+  .color-nav {
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+  }
   `;
 
 function Community() {
@@ -62,31 +67,31 @@ function Community() {
   return (
     <Wrapper>
       <Constyle>
-      <StyledNav justify variant="tabs" defaultActiveKey="link-1">
-        <Nav.Item>
-          <Nav.Link eventKey="link-1" onClick={() => setCurrentTab('delicious')}>맛집투어</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="link-2" onClick={() => setCurrentTab('book')}>독서</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="link-3" onClick={() => setCurrentTab('health')}>운동</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="link-4" onClick={() => setCurrentTab('hiking')}>등산</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Button variant="dark" onClick={() => navigate('/menu4/communitycategory')}>모임 개설하기</Button>
-        </Nav.Item>
-      </StyledNav>
+        <StyledNav justify variant="tabs" defaultActiveKey="link-1" className="color-nav">
+          <Nav.Item>
+            <Nav.Link eventKey="link-1" onClick={() => setCurrentTab('delicious')}>맛집투어</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey="link-2" onClick={() => setCurrentTab('book')}>독서</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey="link-3" onClick={() => setCurrentTab('health')}>운동</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey="link-4" onClick={() => setCurrentTab('hiking')}>등산</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Button variant="dark" onClick={() => navigate('/menu4/communitycategory')}>모임 개설하기</Button>
+          </Nav.Item>
+        </StyledNav>
       </Constyle>
       <CommunityContainer>
         {{
-          'delicious': <ItemContainer><CommunityItem/></ItemContainer>,
+          'delicious': <ItemContainer><CommunityItem /></ItemContainer>,
           'book': <ItemContainer>독서</ItemContainer>,
           'health': <ItemContainer>운동</ItemContainer>,
-          'hiking':<ItemContainer>등산</ItemContainer>
-        }}
+          'hiking': <ItemContainer>등산</ItemContainer>
+        }[currentTab]}
         {/* <ItemContainer>
           <CommunityItem/>
         </ItemContainer> */}

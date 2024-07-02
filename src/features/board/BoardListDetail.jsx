@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { clearBoardList, getBoardList, removeBoardList, selectBoardList} from './boardSlice';
+import { clearBoardList, getBoardList, removeBoardList, selectBoardList } from './boardSlice';
 import styled from 'styled-components';
 import axios from 'axios';
 
@@ -108,7 +108,7 @@ function BoardListDetail() {
             }
         };
         boardlist();
-	}, []);
+    }, []);
 
     useEffect(() => {
         const commentList = async() => {
@@ -141,35 +141,8 @@ function BoardListDetail() {
     };
 
     return (
-    <CommentContainer>
-        {boardItem &&
-        <PostContent>
-            <h2>{boardItem.title}</h2>
-            <p>{boardItem.content}</p>
-            <p>작성자:{boardItem.writer}</p>
-        </PostContent>}
-
-        <h3>댓글</h3>
-        <CommentList>
-            
-        </CommentList>
-
-        <TextInput
-        type="text"
-        value={comment}
-        onChange={(e) => setComment(e.target.value)}
-        placeholder="댓글을 입력하세요."
-        />
-
-        <ButtonContainer>
-            <Button onClick={() => navigate('/menu4/boardlist')}>목록으로</Button>
-            <Button onClick={handleAddComment}>댓글 추가</Button>
-            <Button onClick={handleModifyContent}>수정하기</Button>
-            <Link to="/menu4/boardlist">
-                <CloseButton onClick={handleRemoveComment}>삭제하기</CloseButton>
-            </Link> 
-        </ButtonContainer>
-    </CommentContainer>
+        <>
+        </>
     );
 };
 

@@ -84,7 +84,7 @@ function App() {
               <Route path='community' element={<Community />}/>
               <Route path='communitycategory' element={<CommunityCategory />}/>
               <Route path='communityregister' element={<CommunityRegister />}/>
-              <Route path='communitysignup' element={<CommunitySignUp />}/>
+              <Route path='communityread/:communityId' element={<CommunitySignUp />}/>
               <Route path='map' element={<Map />}/>
             </Route>
             {/* <Route path='/management' element={<Management />}/> */}
