@@ -161,7 +161,11 @@ function BoardListDetail() {
           <CommentItem key={index}>{comment}</CommentItem>
         ))}
         <p>작성자:</p>
+<<<<<<< HEAD
         {/* <button onClick={handleRemoveComment}>X</button> */}
+=======
+        <button>X</button>
+>>>>>>> features/main2
       </CommentList>
       <TextInput
         type="text"
@@ -172,7 +176,11 @@ function BoardListDetail() {
       <ButtonContainer>
         <Button onClick={() => navigate('/menu4/boardlist')}>목록으로</Button>
         <Button onClick={handleAddComment}>댓글 추가</Button>
+<<<<<<< HEAD
         {/* <Button onClick={handleModifyContent}>수정하기</Button> */}
+=======
+        <Button>수정하기</Button>
+>>>>>>> features/main2
         <Link to="/menu4/boardlist">
           <CloseButton onClick="#">삭제하기</CloseButton>
         </Link>
@@ -180,6 +188,9 @@ function BoardListDetail() {
     </CommentContainer>
   );
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> features/main2
 }
 export default BoardListDetail;
