@@ -145,53 +145,52 @@ function BoardListDetail() {
         {boardItem &&
         <PostContent>
 
-//           <h2>{boardItem.title}</h2>
-//           <p>{boardItem.content}</p>
-//           <p>작성자:{boardItem.writer}</p>
-//         </PostContent>
-//       )}
+           <h2>{boardItem.title}</h2>
+           <p>{boardItem.content}</p>
+           <p>작성자:{boardItem.writer}</p>
+         </PostContent>
+       }
 
-//       <h3>댓글</h3>
-//       <CommentList>
-//         {comments.map((comment, index) => (
-//           <CommentItem key={index}>{comment}</CommentItem>
-//         ))}
-//         <p>작성자:</p>
-//         {/* <button onClick={handleRemoveComment}>X</button> */}
-//       </CommentList>
-//       <TextInput
+       <h3>댓글</h3>
+       <CommentList>
+         {comments.map((comment, index) => (
+           <CommentItem key={index}>{comment}</CommentItem>
+         ))}
+         <p>작성자:</p>
+         {/* <button onClick={handleRemoveComment}>X</button> */}
+       </CommentList>
+       <TextInput
 
-//             <h2>{boardItem.title}</h2>
-//             <p>{boardItem.content}</p>
-//             <p>작성자:{boardItem.writer}</p>
-//         </PostContent>}
+            <h2>{boardItem.title}</h2>
+            <p>{boardItem.content}</p>
+            <p>작성자:{boardItem.writer}</p>
+        </PostContent>
 
-//         <h3>댓글</h3>
-//         <CommentList>
+        <h3>댓글</h3>
+        <CommentList>
             
-//         </CommentList>
+        </CommentList>
 
-//         <TextInput
+        <TextInput
+        type="text"
+        value={comment}
+        onChange={(e) => setComment(e.target.value)}
+        placeholder="댓글을 입력하세요."
 
-//         type="text"
-//         value={comment}
-//         onChange={(e) => setComment(e.target.value)}
-//         placeholder="댓글을 입력하세요."
+      />
+      <ButtonContainer>
+        <Button onClick={() => navigate('/menu4/boardlist')}>목록으로</Button>
+        <Button onClick={handleAddComment}>댓글 추가</Button>
+        {/* <Button onClick={handleModifyContent}>수정하기</Button> */}
+        <Link to="/menu4/boardlist">
+          <CloseButton onClick="#">삭제하기</CloseButton>
+        </Link>
+      </ButtonContainer>
+    </CommentContainer>
+  );
 
-//       />
-//       <ButtonContainer>
-//         <Button onClick={() => navigate('/menu4/boardlist')}>목록으로</Button>
-//         <Button onClick={handleAddComment}>댓글 추가</Button>
-//         {/* <Button onClick={handleModifyContent}>수정하기</Button> */}
-//         <Link to="/menu4/boardlist">
-//           <CloseButton onClick="#">삭제하기</CloseButton>
-//         </Link>
-//       </ButtonContainer>
-//     </CommentContainer>
-//   );
-// }
-// }
-// export default BoardListDetail;
+}
+export default BoardListDetail;
 
 //         />
 
@@ -208,5 +207,4 @@ function BoardListDetail() {
 //     );
 // };
 
-// export default BoardListDetail;
-
+//    export default BoardListDetail;
