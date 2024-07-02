@@ -6,6 +6,24 @@ const Container = styled.div`
   position: relative;
 `;
 
+// 마커 스타일링을 위한 styled-components
+const MarkerContainer = styled.div`
+  background-color: #007bff;
+  color: white;
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 5px;
+`;
+
+// 정보창 스타일링을 위한 styled-components
+const InfoWindowContainer = styled.div`
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  border-radius: 5px;
+`;
+
 const SearchContainer = styled.div`
   display: flex;
   align-items: center;
@@ -78,7 +96,7 @@ function Map(){
   const [currCategory, setCurrCategory] = useState('');
   const [map, setMap] = useState(null);
   const [markers, setMarkers] = useState([]);
-  const [showInfo, setshowInfo] = useState(null);
+  const [infoWindow, setInfoWindow] = useState(null); // 정보창 상태 추가
 
   useEffect(() => {
     const initMap = () => {
@@ -96,6 +114,7 @@ function Map(){
     // Kakao 지도 API가 로드된 후 실행될 콜백 함수
     if (window.kakao && window.kakao.maps) {
       initMap();
+      
     } else {
       // Kakao 지도 API 스크립트를 동적으로 로드
       const script = document.createElement("script");
@@ -106,14 +125,20 @@ function Map(){
     }
   }, []);
 
+  const closeInfoWindow = () => {
+    // 기존에 열려있던 정보창 닫기
+    if (infoWindow) {
+      infoWindow.close();
+    }
+  }
+
   // 태그 클릭 핸들러
     const onClickCategory = (e) => {
       const id = e.target.id; // 클릭된 id를 가져온다.
       if (!id || currCategory === id) {
         setCurrCategory(''); // 현재 카테고리를 초기화
         changeCategoryClass(null); // 카테고리의 클래스를 변경하여 선택 상태 헤제
-        searchPlaces(id); // 마커 제거하지 않고 장소 검색만 수행
-        // removeMarker(null); // 마커 모두 제거
+        searchPlaces(null); // 마커 제거하지 않고 장소 검색만 수행
       } else {
         setCurrCategory(id); // 클릭된 요소의 id를 현재 카테고리로 설정
         changeCategoryClass(id); // 클릭된 카테고리에 대한 스타일을 변경하여 선택 상태를 나타낸다.
@@ -127,6 +152,12 @@ function Map(){
     // new는 객체를 생성한다는 뜻이다.
     const ps = new window.kakao.maps.services.Places(map); 
     ps.categorySearch(category, placesSearchCB, { useMapBounds: true });
+  };
+
+  const InputPlaces = () => {
+    if (!inputValue || !map) return;
+    const ps = new window.kakao.maps.services.Places(map);
+    ps.keywordSearch(inputValue, placesSearchCB);
   };
 
   const displayPlaces = (places) => {
@@ -143,12 +174,22 @@ function Map(){
     // 검색 결과가 있을 경우 displayPlaces 함수를 호출하여 장소들을 표시합니다.
     if (status === window.kakao.maps.services.Status.OK) {
       displayPlaces(data);
+      InputdisplayPlaces(data);
     } else if (status === window.kakao.maps.services.Status.ZERO_RESULT) {
       console.log('검색 결과가 없습니다.');
     } else if (status === window.kakao.maps.services.Status.ERROR) {
       console.error('검색 중 오류가 발생했습니다.');
     }
   };
+
+    // 이거 응용
+    const InputdisplayPlaces = (places) => {
+      removeMarker();
+      const newMarkers = places.map((place) =>
+        addMarker(new window.kakao.maps.LatLng(place.y, place.x), place)
+      );
+      setMarkers(newMarkers);
+    };
 
   // 지도상의 특정위치를 표시함수 생성
   const addMarker = (position, placeInfo) => {
@@ -165,35 +206,48 @@ function Map(){
     return marker; // marker를 리턴해서 값을 살려준다.
   };
 
-  const displayPlaceInfo = (marker,place) => {
-
-    // 기존에 열려있던 정보창 닫기
-    if (showInfo) {
-      showInfo.close();
-    }
+  const displayPlaceInfo = (marker, place) => {
+    closeInfoWindow();
     
-    // place 정보를 기반으로 마커 상세 정보를 표시하는 코드를 구현
-    // 예를 들어, 정보창(infowindow)을 이용해서 마커 위에 정보를 표시할 수 있습니다.
     let content = '<div class="placeinfo">' +
-      '   <a class="title" href="' + place.place_url + '" target="_blank" title="' + place.place_name + '">' + place.place_name + '</a>';   
+      '   <a class="title" href="' + place.place_url + '" target="_blank" title="' + place.place_name + '">' + place.place_name + '</a>';
   
     if (place.road_address_name) {
       content += '    <span title="' + place.road_address_name + '">' + place.road_address_name + '</span>' +
         '  <span class="jibun" title="' + place.address_name + '">(지번 : ' + place.address_name + ')</span>';
     } else {
       content += '    <span title="' + place.address_name + '">' + place.address_name + '</span>';
-    }                
+    }
   
-    content += '    <span class="tel">' + place.phone + '</span>' + 
-      '</div>' + 
+    content += '    <span class="tel">' + place.phone + '</span>';
+  
+    // 예시: 영업 시간 표시
+    if (place.opening_hours) {
+      content += '    <span class="opening-hours">' + place.opening_hours + '</span>';
+    }
+  
+    // 예시: 리뷰 정보 표시
+    if (place.reviews && place.reviews.length > 0) {
+      content += '<div class="reviews">';
+      place.reviews.forEach(review => {
+        content += '<div class="review">' +
+          '   <span class="reviewer">' + review.author + '</span>' +
+          '   <span class="review-text">' + review.text + '</span>' +
+          '</div>';
+      });
+      content += '</div>';
+    }
+  
+    content += '</div>' +
       '<div class="after"></div>';
   
-    // 예시: 정보창을 생성하고 마커 위에 표시
-    const infowindow = new window.kakao.maps.InfoWindow({
+    const newInfoWindow = new window.kakao.maps.InfoWindow({
       content: content,
       position: marker.getPosition(),
     });
-    infowindow.open(map, marker);
+  
+    setInfoWindow(newInfoWindow);
+    newInfoWindow.open(map, marker);
   };
 
   // 마커숨김
@@ -235,7 +289,10 @@ function Map(){
     };
   }, [map]); // 만약 map함수가 변하면 값이 변환다.
 
-  
+   // 이거 응용
+  const InputhandleSearch = () => {
+    InputPlaces();
+  };
 
   return (
     <Container>
@@ -246,7 +303,7 @@ function Map(){
           onChange={(e) => setInputValue(e.target.value)}
           placeholder="검색어를 입력하세요"
         />
-        <Button> {/* onClick={() => searchPlaces(inputValue)} */}
+        <Button onClick={() => InputhandleSearch()}>
           <SearchIcon>🔍</SearchIcon>
         </Button>
       </SearchContainer>
