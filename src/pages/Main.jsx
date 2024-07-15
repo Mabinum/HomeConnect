@@ -214,7 +214,7 @@ function Main() {
   useEffect(() => {
     const fetchFeeInfo = async () => {
       try {
-        const response = await axios.get(`${addressKey}/fee/list`,
+        const response = await axios.get(`http://localhost:8080//fee/list`,
         { headers: {
           Authorization: localStorage.getItem('token')
         },
@@ -238,7 +238,7 @@ function Main() {
   useEffect(() => {
     const fetchNoticeList = async () => {
       try {
-        const response = await axios.get(`${addressKey}/notice/list`, {
+        const response = await axios.get(`http://localhost:8080/notice/list`, {
           headers: {
             Authorization: localStorage.getItem('token'),
           },
