@@ -116,10 +116,11 @@ const StyledWeather = styled.div`
 `;
 
 const ADMINCOMMAND = styled(MdManageAccounts)`
-  position: fixed;
-  top: 5rem;
-  right: 3rem;
-  z-index: 999;
+  /* position: fixed; */
+  /* top: 5rem; */
+  /* right: 3rem; */
+  /* z-index: 999; */
+  margin-left: 1rem;
 `;
 
 const Layout = () => {
@@ -136,10 +137,6 @@ const Layout = () => {
 
   return (
     <>
-      {
-        userInfo.role === 'ROLE_ADMIN' &&
-        <ADMINCOMMAND className='cursor-pointer' size={70} onClick={() => navigate('/adminPage')} />
-      }
       <FixedHeader>
         <Navbar className="widthAdjust" expand="lg">
           <SpaceBetweenContainer style={{padding:'0 15px 0 15px'}}>
@@ -166,6 +163,10 @@ const Layout = () => {
                 <Nav.Link onClick={() => navigate('/mypage')} className="cursor-pointer">{userInfo.name && `${userInfo?.name}님 환영합니다.`}</Nav.Link>
                 <ProfileButton onClick={() => navigate('/feeinput')}>{userInfo.role === 'ROLE_ADMIN' ? '관리비 입력' : ''}</ProfileButton>
                 <LogoutButton onClick={handleLogout}>{userInfo.role ? '로그아웃' : '로그인'}</LogoutButton>
+                {
+                  userInfo.role === 'ROLE_ADMIN' &&
+                  <ADMINCOMMAND className='cursor-pointer' size={45} onClick={() => navigate('/adminPage')} />
+                }
               </Mypage>
             </Navbar.Collapse>
           </SpaceBetweenContainer>

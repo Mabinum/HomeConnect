@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
 import { FaMoon, FaRegMoon, FaSun } from 'react-icons/fa';

@@ -13,7 +13,7 @@ const CommentContainer = styled.div`
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 40px;
-  margin: 0 auto;
+  margin: 5rem auto 0;
   width: 60%;
 
   .imgs{

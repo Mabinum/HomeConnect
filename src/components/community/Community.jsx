@@ -27,7 +27,7 @@ const CommunityContainer = styled.div`
 `;
 
 const ItemContainer = styled.div`
-  height: 400px;
+  height: 800px;
   flex: 1;
   border: 2px solid #e0e0e0;
   margin: 2px;

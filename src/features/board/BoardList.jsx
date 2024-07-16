@@ -288,7 +288,7 @@ function BoardList() {
                 )}
               </td>
             </tr>
-          ))}
+          )).reverse()}
 
           {posts.map((post) => (
             <tr key={post.no}>
@@ -305,7 +305,7 @@ function BoardList() {
                 )}
               </td>
             </tr>
-          ))}
+          )).reverse()}
         </tbody>
       </TableWrapper>
 
