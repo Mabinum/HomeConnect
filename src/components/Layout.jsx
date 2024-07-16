@@ -56,7 +56,7 @@ const Mypage = styled.div`
 `;
 
 const Content = styled.div`
-  padding-top: 66px; // <-- 문제임 이제아님!!
+  /* padding-top: 66px; // <-- 문제임 이제아님!! */
   /* margin-top: 8rem;   */
   /* padding-top: 1%;  */
   /* margin-top: 4%; */

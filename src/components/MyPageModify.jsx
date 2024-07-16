@@ -9,6 +9,7 @@ import { getmyInfo, selectmyInfo } from "../features/main/mainSlice";
 function MyPageModify(props) {
   const addressKey = process.env.REACT_APP_HOST_ADDRESS;
   const {value , setShowModify} = props;
+  console.log(value);
   const [state, setState] = useState(value);
   const user = useSelector(selectmyInfo);
   const dispatch = useDispatch();
