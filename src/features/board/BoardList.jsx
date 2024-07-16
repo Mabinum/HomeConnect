@@ -1,37 +1,14 @@
-// BoardList.jsx
 import { json, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Button, Modal, Table } from "react-bootstrap";
+import { Button, Form, Modal, Pagination, Table } from "react-bootstrap";
 import { BsPencilSquare } from "react-icons/bs";
 import { CiSquareRemove } from "react-icons/ci";
 import { useSelector } from "react-redux";
 import { selectmyInfo } from "../main/mainSlice";
 import { addressKey } from "../..";
-
-// 기존 Footer 스타일
-const StyledFooter = styled.footer`
-  width: 100%;
-  height: 60px;
-  position: absolute;
-  transform: translateY(110%);
-  background-color: #343a40;
-  color: white;
-  text-align: center;
-  padding: 25px 0;
-  position: absolute;
-`;
-
-// BoardList 컴포넌트에서만 사용할 새로운 Footer 스타일
-const BoardListFooter = styled(StyledFooter)`
-  position: absolute;
-  /* bottom: 0; */
-  background-color: #007bff;  // 새로운 배경색
-  color: #ffffff;            // 새로운 텍스트 색
-  transform: translateY(100%); // 필요에 따라 변경
-  // 추가적인 스타일 변경 가능
-`;
+import { FaSearch } from "react-icons/fa";
 
 const TableWrapper = styled(Table)`
   text-align: left;
@@ -100,6 +77,43 @@ const ButtonContainer = styled.div`
   width: 80%;
   margin: 0 auto;
   margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .input-group {
+    display: flex;
+    align-items: center;
+    width: 15%;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .input-group-icon {
+    color: #495057;
+    margin-right: 0.5rem;
+  }
+
+  .form-control {
+    border: none;
+    box-shadow: none;
+  }
+
+  .form-control:focus {
+    border: none;
+    box-shadow: none;
+  }
+`;
+
+const Page = styled.div`
+  margin-top: 2rem;
+
+  .pageDesign {
+    margin: 0 auto;
+    display: flex;
+  }
 `;
 
 const StyledButton = styled(Button)`
@@ -146,6 +160,14 @@ function BoardList() {
   const [selectedNotice, setSelectedNotice] = useState(null);
   const navigate = useNavigate();
   const userInfo = useSelector(selectmyInfo);
+  const [searchtitle, setSearchtitle] = useState(``);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [currentPageGroup, setCurrentPageGroup] = useState(0);
+
+  const handleSearchTitle = (e) => {
+    setSearchtitle(e.target.value);
+  };
 
   const handleModalClose = () => {
     setShowModal(false);
@@ -213,9 +235,29 @@ function BoardList() {
   };
 
   useEffect(() => {
-    const fetchBoardList = async () => {
+    if (!searchtitle) return;
+
+    const searchNoticeList = async () => {
       try {
-        const response = await axios.get(`${addressKey}/board/list`, {
+        const response = await axios.get(`${addressKey}/notice/searchTitle?title=${searchtitle}`, {
+          headers: {
+            Authorization: localStorage.getItem('token'),
+          },
+        });
+        if (response.status === 200) {
+          setNotices(response.data);
+        } else {
+          throw new Error(`API error: ${response.status} ${response.statusText}`);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    searchNoticeList();
+
+    const searchBoardList = async () => {
+      try {
+        const response = await axios.get(`${addressKey}/board/searchTitle?title=${searchtitle}`, {
           headers: {
             Authorization: localStorage.getItem('token'),
           },
@@ -229,8 +271,31 @@ function BoardList() {
         console.error(error);
       }
     };
+    searchBoardList();
+  }, [searchtitle]);
+
+  useEffect(() => {
+    const fetchBoardList = async () => {
+      try {
+        console.log(pageNumber);
+        const response = await axios.get(`${addressKey}/board/list?page=${pageNumber}`, {
+          headers: {
+            Authorization: localStorage.getItem('token'),
+          },
+        });
+        if (response.status === 200) {
+          console.log(response.data);
+          setPosts(response.data.content);
+          setTotalPages(response.data.totalPages);
+        } else {
+          throw new Error(`API error: ${response.status} ${response.statusText}`);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
     fetchBoardList();
-  }, []);
+  }, [pageNumber]);
 
   useEffect(() => {
     const fetchNoticeList = async () => {
@@ -252,14 +317,46 @@ function BoardList() {
     fetchNoticeList();
   }, []);
 
+  const handlePageChange = (page) => {
+    setPageNumber(page);
+  };
+
+  const getCurrentPageGroup = () => {
+    const group = Math.floor((pageNumber - 1) / 5);
+    return group;
+  };
+
+  const renderPaginationItems = () => {
+    const group = getCurrentPageGroup();
+    const start = group * 5 + 1;
+    const end = Math.min(start + 4, totalPages);
+    const items = [];
+
+    for (let number = start; number <= end; number++) {
+      items.push(
+        <Pagination.Item key={number} active={number === pageNumber} onClick={() => handlePageChange(number)}>
+          {number}
+        </Pagination.Item>
+      );
+    }
+
+    return items;
+  };
+
   return (
     <>
       <ButtonContainer>
-        <StyledButton variant="primary" className="buttonstyle" onClick={() => navigate('/board')}>게시글 작성</StyledButton>
-        {
-          userInfo.role === 'ROLE_ADMIN' &&
-          <StyledButton variant="danger" className="buttonstyle" onClick={() => navigate('/notice')}>공지 작성</StyledButton>
-        }
+        <div>
+          <StyledButton variant="primary" className="buttonstyle" onClick={() => navigate('/board')}>게시글 작성</StyledButton>
+          {
+            userInfo.role === 'ROLE_ADMIN' &&
+            <StyledButton variant="danger" className="buttonstyle" onClick={() => navigate('/notice')}>공지 작성</StyledButton>
+          }
+        </div>
+        <div className="input-group">
+          <FaSearch className="input-group-icon" />
+          <Form.Control type="text" placeholder="검색어를 입력해주세요." value={searchtitle} onChange={handleSearchTitle} />
+        </div>
       </ButtonContainer>
       <TableWrapper>
         <thead>
@@ -272,7 +369,6 @@ function BoardList() {
           </tr>
         </thead>
         <tbody>
-
           {notices.map((notice) => (
             <tr key={notice.no} className="notice">
               <td onClick={() => navigate(`/noticeread/${notice.no}`)}>{notice.no}</td>
@@ -289,7 +385,6 @@ function BoardList() {
               </td>
             </tr>
           )).reverse()}
-
           {posts.map((post) => (
             <tr key={post.no}>
               <td onClick={() => navigate(`/boardread/${post.no}`)}>{post.no}</td>
@@ -308,6 +403,18 @@ function BoardList() {
           )).reverse()}
         </tbody>
       </TableWrapper>
+
+      <Page>
+        <Pagination>
+          <div className="pageDesign">
+            <Pagination.First onClick={() => handlePageChange(1)} />
+            <Pagination.Prev onClick={() => handlePageChange(pageNumber > 1 ? pageNumber - 1 : 1)} />
+            {renderPaginationItems()}
+            <Pagination.Next onClick={() => handlePageChange(pageNumber < totalPages ? pageNumber + 1 : totalPages)} />
+            <Pagination.Last onClick={() => handlePageChange(totalPages)} />
+          </div>
+        </Pagination>
+      </Page>
 
       <Modal show={showModal} onHide={handleModalClose} centered>
         <Modal.Header closeButton>
