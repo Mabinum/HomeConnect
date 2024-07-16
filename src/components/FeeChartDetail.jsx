@@ -166,26 +166,26 @@ function FeeChartDetail() {
   useEffect(() => {
     const fetchFeeInfo = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080//fee/list`,
-          { headers: {
+        const response = await axios.get(`http://localhost:8080/fee/list`, {
+          headers: {
             Authorization: localStorage.getItem('token')
           },
           params: {
-          'userId': userInfo.userId
+            'userId': userInfo.userId
+          }
+        });
+        if (response.status === 200) {
+          const sortedFees = response.data.sort((a, b) => a.month - b.month);
+          dispatch(setFees(sortedFees));
         }
+      } catch (error) {
+        console.error("Error fetching fee data:", error);
       }
-    );
-    if (response.status === 200) {
-      dispatch(setFees(response.data));
     }
-  } catch (error) {
-    console.error("Error fetching fee data:", error);
-  }
-}
     if (userInfo && userInfo.userId) {
       fetchFeeInfo();
     }
-  }, [userInfo]);
+  }, [userInfo, dispatch]);
   
   // 결제 시스템
   const Payment = (effect, deps) => {
@@ -357,7 +357,7 @@ function FeeChartDetail() {
   const fixedFees = Array.from({ length: 12 }, (_, i) => {
     const month = i + 1;
     const fee = fees.find(f => f.month === month);
-    return fee || { month, electric: 0, water: 0, maintenance: 0 };
+    return fee || { month:month, electric: 0, water: 0, maintenance: 0 };
   });
 
   const datasets = [

@@ -152,7 +152,6 @@ const TextOverlay = styled.div`
 
 function Main() {
   const noticeList = useSelector((state) => state.board.noticeList);
-  console.log(noticeList);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [notice, setNotice] = useState(
@@ -214,17 +213,17 @@ function Main() {
   useEffect(() => {
     const fetchFeeInfo = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080//fee/list`,
-        { headers: {
-          Authorization: localStorage.getItem('token')
-        },
-        params: {
-          userId: userInfo.userId
-        }
-      }
-    );
+        const response = await axios.get(`http://localhost:8080/fee/list`, {
+          headers: {
+            Authorization: localStorage.getItem('token')
+          },
+          params: {
+            'userId': userInfo.userId
+          }
+        });
         if (response.status === 200) {
-          dispatch(setFees(response.data));
+          const sortedFees = response.data.sort((a, b) => a.month - b.month);
+          dispatch(setFees(sortedFees));
         }
       } catch (error) {
         console.error("Error fetching fee data:", error);
@@ -233,7 +232,7 @@ function Main() {
     if (userInfo && userInfo.userId) {
       fetchFeeInfo();
     }
-  }, [userInfo]);
+  }, [userInfo, dispatch]);
 
   useEffect(() => {
     const fetchNoticeList = async () => {

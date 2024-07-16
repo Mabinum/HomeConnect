@@ -88,28 +88,26 @@ function FeeInputForm() {
   useEffect(() => {
     const fetchFeeInfo = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/fee/list`,
-        { headers: {
-          Authorization: localStorage.getItem('token')
-        },
-        params: {
-          'userId': userInfo.userId
+        const response = await axios.get(`http://localhost:8080/fee/list`, {
+          headers: {
+            Authorization: localStorage.getItem('token')
+          },
+          params: {
+            'userId': userInfo.userId
+          }
+        });
+        if (response.status === 200) {
+          const sortedFees = response.data.sort((a, b) => a.month - b.month);
+          dispatch(setFees(sortedFees));
         }
+      } catch (error) {
+        console.error("Error fetching fee data:", error);
       }
-    );
-    console.log(userInfo.userId);
-    console.log(response);
-    if (response.status === 200) {
-      dispatch(setFees(response.data));
     }
-  } catch (error) {
-    console.error("Error fetching fee data:", error);
-  }
-}
     if (userInfo && userInfo.userId) {
       fetchFeeInfo();
     }
-  }, []);
+  }, [userInfo, dispatch]);
 
   const handleFeeSubmit = async () => {
     try {
