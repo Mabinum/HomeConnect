@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 const FeeInputFormWrapper = styled.div`
   width: 40%;
   min-width: 400px;
-  height: 39rem;
+  height: 42rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -71,7 +71,7 @@ const SubmitButton2 = styled.button`
 `;
 
 function FeeInputForm() {
-  const [no, setNo] = useState('');
+  const [id, setId] = useState('');;
   const [month, setMonth] = useState('');
   const [water, setWater] = useState('');
   const [electric, setElectric] = useState('');
@@ -85,29 +85,29 @@ function FeeInputForm() {
   const electricRef = useRef(null);
   const maintenanceRef = useRef(null);
 
-  useEffect(() => {
-    const fetchFeeInfo = async () => {
-      try {
-        const response = await axios.get(`http://localhost:8080/fee/list`, {
-          headers: {
-            Authorization: localStorage.getItem('token')
-          },
-          params: {
-            'userId': userInfo.userId
-          }
-        });
-        if (response.status === 200) {
-          const sortedFees = response.data.sort((a, b) => a.month - b.month);
-          dispatch(setFees(sortedFees));
-        }
-      } catch (error) {
-        console.error("Error fetching fee data:", error);
-      }
-    }
-    if (userInfo && userInfo.userId) {
-      fetchFeeInfo();
-    }
-  }, [userInfo, dispatch]);
+  // useEffect(() => {
+  //   const fetchFeeInfo = async () => {
+  //     try {
+  //       const response = await axios.get(`http://localhost:8080/fee/list`, {
+  //         headers: {
+  //           Authorization: localStorage.getItem('token')
+  //         },
+  //         params: {
+  //           'userId': userInfo.userId
+  //         }
+  //       });
+  //       if (response.status === 200) {
+  //         const sortedFees = response.data.sort((a, b) => a.month - b.month);
+  //         dispatch(setFees(sortedFees));
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching fee data:", error);
+  //     }
+  //   }
+  //   if (userInfo && userInfo.userId) {
+  //     fetchFeeInfo();
+  //   }
+  // }, [userInfo, dispatch]);
 
   const handleFeeSubmit = async () => {
     try {
@@ -115,10 +115,29 @@ function FeeInputForm() {
       if (!token) {
         throw new Error("No token found. Please log in.");
       }
+      // 유효성 검사
+      const testResponse = await axios.get(`http://localhost:8080/fee/read`,
+        {
+          "userId": id,
+          "month": month,
+          "water": water,
+          "electric": electric,
+          "maintenance": maintenance
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        },
+      );
+      if (testResponse.status === 404) {
+      } else {
+        return alert('존재하지 않는 아이디이거나, 입력된 월 입니다.');
+      };
 
       const response = await axios.post(`http://localhost:8080/fee/register`, 
       {
-        "userId": userInfo.userId,
+        "userId": id,
         "month": month,
         "water": water,
         "electric": electric,
@@ -128,7 +147,8 @@ function FeeInputForm() {
         headers: {
           Authorization: `Bearer ${token}`
         }
-      });
+      },
+    );
 
       if (response.status === 201) {
         alert("성공");
@@ -138,7 +158,7 @@ function FeeInputForm() {
     } catch (error) {
       console.error("Error submitting data:", error);
       if (error.response && error.response.status === 401) {
-        alert('Unauthorized. Please check your token or login again.');
+        alert('존재하지 않는 아이디이거나, 입력된 월 입니다.');
       }
     }
   };
@@ -147,6 +167,19 @@ function FeeInputForm() {
     <>
       <FeeInputFormWrapper>
         <h2>관리비 입력</h2>
+      <InputGroup>
+        <Label>
+          ID
+          <InputField 
+            type="text" 
+            name="id" 
+            value={id} 
+            onChange={(e) => setId(e.target.value)}  
+            required 
+          />
+        </Label>
+      </InputGroup>
+
       <InputGroup>
         <Label>
           Month

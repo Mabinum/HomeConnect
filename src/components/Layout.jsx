@@ -147,7 +147,7 @@ const Layout = () => {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <StyledNav>
-                <StyledNavbar onClick={() => navigate('/feedetail')}>관리비</StyledNavbar>
+                {userInfo.role === 'ROLE_ADMIN' ? '': <StyledNavbar onClick={() => navigate('/feedetail')}>관리비</StyledNavbar>}
                 <StyledNavbar onClick={() => navigate('/calendar')}>달력</StyledNavbar>
                 <StyledNavbar onClick={() => navigate('/community')}>모임</StyledNavbar>
                 <StyledNavbar onClick={() => navigate('/map')}>동네지도</StyledNavbar>
@@ -161,8 +161,8 @@ const Layout = () => {
               <Mypage>
                 {/* <img src="/image/profile.png" alt="profile" /> */}
                 <Nav.Link onClick={() => navigate('/mypage')} className="cursor-pointer">{userInfo.name && `${userInfo?.name}님 환영합니다.`}</Nav.Link>
-                <ProfileButton onClick={() => navigate('/feeinput')}>{userInfo.role && '관리비 입력'}</ProfileButton>
-                <LogoutButton onClick={handleLogout}>{userInfo.name ? '로그아웃' : '로그인'}</LogoutButton>
+                <ProfileButton onClick={() => navigate('/feeinput')}>{userInfo.role === 'ROLE_ADMIN' ? '관리비 입력' : ''}</ProfileButton>
+                <LogoutButton onClick={handleLogout}>{userInfo.role ? '로그아웃' : '로그인'}</LogoutButton>
                 {
                   userInfo.role === 'ROLE_ADMIN' &&
                   <ADMINCOMMAND className='cursor-pointer' size={45} onClick={() => navigate('/adminPage')} />

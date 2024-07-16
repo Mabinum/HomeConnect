@@ -6,10 +6,13 @@ import { selectmyInfo } from "../features/main/mainSlice";
 import styled from 'styled-components';
 import { addressKey } from '..';
 
-const FeeReadPageWrapper = styled.div`
+const Wrapper = styled.div`
+  height: 736px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-y: auto;
+  margin-bottom: 25px;
 `;
 
 const Header = styled.h1`
@@ -49,7 +52,7 @@ const InputField = styled.input`
   padding: 8px;
   border-radius: 4px;
   border: 1px solid #ccc;
-  width: 100px;
+  width: 85px;
 `;
 
 const ButtonWrapper = styled.div`
@@ -75,35 +78,50 @@ function FeeReadPage() {
   const userInfo = useSelector(selectmyInfo);
   const fees = useSelector((state) => state.fees.fees);
   const [editedFees, setEditedFees] = useState([]);
+  const [userId, setUserId] = useState('');
 
   useEffect(() => {
     const fetchFeeInfo = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/fee/list`, {
+        const response = await axios.get(`http://localhost:8080/fee/listAll`, {
           headers: {
             Authorization: localStorage.getItem('token')
           },
-          params: {
-            'userId': userInfo.userId
-          }
+          // params: {
+          //   'userId': userInfo.userId
+          // }
         });
-        console.log(userInfo.userId);
         console.log(response);
         if (response.status === 200) {
-          const sortedFees = response.data.sort((a, b) => a.month - b.month);
+          const sortedFees = response.data.sort((a, b) => {
+            if (a.userId !== b.userId) {
+              return a.userId.localeCompare(b.userId);
+            }
+            return a.month - b.month;
+          });
           dispatch(setFees(sortedFees));
           setEditedFees(sortedFees); // 초기 상태 설정
+          setUserId(response.data.userId);
         }
       } catch (error) {
         console.error("Error fetching fee data:", error);
       }
     }
-    if (userInfo && userInfo.userId) {
       fetchFeeInfo();
-    }
   }, [userInfo, dispatch]);
 
   const handleInputChange = (index, field, value) => {
+    const newFees = [...editedFees];
+
+    newFees[index] = {
+      ...newFees[index],
+      [field]: value
+    };
+    setEditedFees(newFees);
+    console.log(editedFees);
+  };
+
+  const handleMonthInputChange = (index, field, value) => {
     const newFees = [...editedFees];
     const minValue = 0;
     const maxValue = 12;
@@ -142,11 +160,20 @@ function FeeReadPage() {
   };
 
   return (
-    <FeeReadPageWrapper>
+    <Wrapper>
       <Header>관리비 조회 및 수정</Header>
       <FeeList>
         {editedFees.map((fee, index) => (
           <FeeItem key={index}>
+            <Label>
+              ID
+              <InputField
+                type="text"
+                name="userId"
+                value={fee.userId}
+                readOnly
+              />
+            </Label>
             <Label>
               월
               <InputField
@@ -155,7 +182,7 @@ function FeeReadPage() {
                 min="1"
                 max="12"
                 value={fee.month}
-                onChange={(e) => handleInputChange(index, 'month', e.target.value)}
+                onChange={(e) => handleMonthInputChange(index, 'month', e.target.value)}
               />
             </Label>
             <Label>
@@ -191,7 +218,7 @@ function FeeReadPage() {
           </FeeItem>
         ))}
       </FeeList>
-    </FeeReadPageWrapper>
+    </Wrapper>
   );
 }
 
