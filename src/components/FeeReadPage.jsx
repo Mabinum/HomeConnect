@@ -6,10 +6,13 @@ import { selectmyInfo } from "../features/main/mainSlice";
 import styled from 'styled-components';
 import { addressKey } from '..';
 
-const FeeReadPageWrapper = styled.div`
+const Wrapper = styled.div`
+  height: 736px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-y: auto;
+  margin-bottom: 25px;
 `;
 
 const Header = styled.h1`
@@ -80,7 +83,7 @@ function FeeReadPage() {
   useEffect(() => {
     const fetchFeeInfo = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/fee/list`, {
+        const response = await axios.get(`http://localhost:8080/fee/listAll`, {
           headers: {
             Authorization: localStorage.getItem('token')
           },
@@ -90,7 +93,12 @@ function FeeReadPage() {
         });
         console.log(response);
         if (response.status === 200) {
-          const sortedFees = response.data.sort((a, b) => a.month - b.month);
+          const sortedFees = response.data.sort((a, b) => {
+            if (a.userId !== b.userId) {
+              return a.userId.localeCompare(b.userId);
+            }
+            return a.month - b.month;
+          });
           dispatch(setFees(sortedFees));
           setEditedFees(sortedFees); // 초기 상태 설정
           setUserId(response.data.userId);
@@ -103,6 +111,17 @@ function FeeReadPage() {
   }, [userInfo, dispatch]);
 
   const handleInputChange = (index, field, value) => {
+    const newFees = [...editedFees];
+
+    newFees[index] = {
+      ...newFees[index],
+      [field]: value
+    };
+    setEditedFees(newFees);
+    console.log(editedFees);
+  };
+
+  const handleMonthInputChange = (index, field, value) => {
     const newFees = [...editedFees];
     const minValue = 0;
     const maxValue = 12;
@@ -141,7 +160,7 @@ function FeeReadPage() {
   };
 
   return (
-    <FeeReadPageWrapper>
+    <Wrapper>
       <Header>관리비 조회 및 수정</Header>
       <FeeList>
         {editedFees.map((fee, index) => (
@@ -163,7 +182,7 @@ function FeeReadPage() {
                 min="1"
                 max="12"
                 value={fee.month}
-                onChange={(e) => handleInputChange(index, 'month', e.target.value)}
+                onChange={(e) => handleMonthInputChange(index, 'month', e.target.value)}
               />
             </Label>
             <Label>
@@ -199,7 +218,7 @@ function FeeReadPage() {
           </FeeItem>
         ))}
       </FeeList>
-    </FeeReadPageWrapper>
+    </Wrapper>
   );
 }
 

@@ -116,24 +116,24 @@ function FeeInputForm() {
         throw new Error("No token found. Please log in.");
       }
       // 유효성 검사
-      // const testResponse = await axios.get(`http://localhost:8080/fee/read`,
-      //   {
-      //     "userId": id,
-      //     "month": month,
-      //     "water": water,
-      //     "electric": electric,
-      //     "maintenance": maintenance
-      //   },
-      //   {
-      //     headers: {
-      //       Authorization: `Bearer ${token}`
-      //     }
-      //   },
-      // );
-      // if (testResponse.status === 200) {
-      // } else {
-      //   return new Error('존재하지 않는 아이디이거나, 입력된 월 입니다.');
-      // };
+      const testResponse = await axios.get(`http://localhost:8080/fee/read`,
+        {
+          "userId": id,
+          "month": month,
+          "water": water,
+          "electric": electric,
+          "maintenance": maintenance
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        },
+      );
+      if (testResponse.status === 404) {
+      } else {
+        return alert('존재하지 않는 아이디이거나, 입력된 월 입니다.');
+      };
 
       const response = await axios.post(`http://localhost:8080/fee/register`, 
       {
@@ -150,11 +150,6 @@ function FeeInputForm() {
       },
     );
 
-    // if (!response.userId) {
-    //   alert('해당하는 아이디가 존재하지 않습니다.');
-    //   return ;
-    // };
-
       if (response.status === 201) {
         alert("성공");
       } else {
@@ -163,7 +158,7 @@ function FeeInputForm() {
     } catch (error) {
       console.error("Error submitting data:", error);
       if (error.response && error.response.status === 401) {
-        alert('Unauthorized. Please check your token or login again.');
+        alert('존재하지 않는 아이디이거나, 입력된 월 입니다.');
       }
     }
   };
