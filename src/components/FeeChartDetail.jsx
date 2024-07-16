@@ -146,6 +146,7 @@ function FeeChartDetail() {
   console.log(fees);
   const [visibleDatasets, setVisibleDatasets] = useState(['electric', 'water', 'maintenance']);
   const [selectedMonth, setSelectedMonth] = useState('');
+  console.log(selectedMonth);
   const dispatch = useDispatch();
   const payments = useSelector((state) => state.fees.payments);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -165,7 +166,7 @@ function FeeChartDetail() {
   useEffect(() => {
     const fetchFeeInfo = async () => {
       try {
-        const response = await axios.get(`${addressKey}/fee/list`,
+        const response = await axios.get(`http://localhost:8080//fee/list`,
           { headers: {
             Authorization: localStorage.getItem('token')
           },
