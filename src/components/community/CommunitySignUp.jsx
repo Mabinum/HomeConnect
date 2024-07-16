@@ -5,6 +5,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import CommunityModal from "./CommunityModal";
 import { addressKey } from "../..";
+import { useSelector } from "react-redux";
+import { selectmyInfo } from "../../features/main/mainSlice";
 
 const Wrapper = styled.div`
   margin: 50px auto;
@@ -94,6 +96,9 @@ function CommunitySignUp() {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
   const { communityId } = useParams();
+  const userInfo = useSelector(selectmyInfo);
+  console.log(userInfo);
+  console.log(communityList);
 
   useEffect(() => {
     const fetchCommunity = async () => {
@@ -160,8 +165,14 @@ function CommunitySignUp() {
         )}
         <ButtonContainer>
           <Button onClick={() => navigate('/community')}>목록가기</Button>
-          <Button onClick={() => setShowModal(true)}>수정하기</Button>
-          <RemoveButton onClick={removeCommunityItem}>삭제하기</RemoveButton>
+          {
+            (userInfo.userId === communityList.writer || userInfo.role === 'ROLE_ADMIN') &&
+            <Button onClick={() => setShowModal(true)}>수정하기</Button>
+          }
+          {
+            userInfo.role === 'ROLE_ADMIN' &&
+            <RemoveButton onClick={removeCommunityItem}>삭제하기</RemoveButton>
+          }
         </ButtonContainer>
       </Wrapper>
       <CommunityModal

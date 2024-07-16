@@ -41,7 +41,6 @@ const feeSlice = createSlice({
       // const index = action.payload[].month-1;
       // state.fees.fees[index];
       console.log(action);
-      console.log(action.payload[1]);
     },
     addPayment: (state, action) => {
       state.payments.push(action.payload); // 결제 내역 추가

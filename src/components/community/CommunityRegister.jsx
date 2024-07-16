@@ -22,7 +22,7 @@ const Wrapper = styled.form`
 `;
 
 const Title = styled.input`
-  width: 40%;
+  width: 60%;
   height: 50px;
   margin: 0 auto 10px;
   font-size: 16px;

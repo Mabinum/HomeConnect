@@ -9,7 +9,12 @@ import { useNavigate } from "react-router-dom";
 import { selectMyFee, setFees } from "../features/fee/feeSlice";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import React from "react";
+import Slider from "react-slick";
 import { addressKey } from "..";
+
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const StyledCard = styled.div`
   width: 80%;
@@ -17,15 +22,25 @@ const StyledCard = styled.div`
   justify-content: space-between;
   text-align: center;
   margin: 0 auto;
+  gap: 36px;
 `;
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 86%;
+  width: 80%;
   height: 86%;
   /* border: 1px solid black; */
   margin: 0 auto;
+`
+
+const SlideWrapper = styled.div`
+  height: 36px;
+  width: 80%;
+  margin: 0 auto;
+  padding-top: 2rem;
+  /* border: 1px solid black; */
+  text-align: center;
 `
 
 const ContentRow = styled.div`
@@ -36,7 +51,7 @@ const ContentRow = styled.div`
 `;
 
 const FeeContainer = styled.div`
-  flex: 7;
+  flex: 4;
   /* border: 1px solid black; */
   border-radius: 5px;
   display: flex;
@@ -44,8 +59,13 @@ const FeeContainer = styled.div`
   align-items: center;
 `;
 
+const FeeWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+`
+
 const FeeContainer2 = styled.div`
-  flex: 2.5;
   border: 2px solid black;
   border-radius: 10px;
   font-size: 24px;
@@ -55,7 +75,20 @@ const FeeContainer2 = styled.div`
   align-items: center;
   justify-content: center;
   height: 30%;
-  margin-top: 22.8rem;
+  margin-top: 8rem;
+`;
+
+const FeeContainer3 = styled.div`
+  border: 2px solid black;
+  border-radius: 10px;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: end;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30%;
+  margin-top: 6rem;
 `;
 
 const FeeContentsContainer = styled.div`
@@ -202,6 +235,18 @@ function Main() {
     verticalAlign: false // align the content of each section vertical
   };
 
+  // 슬라이드 세팅
+  var settings = {
+    dots: false,
+    infinite: true,
+    speed: 1000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 8000,
+    pauseOnHover: true,
+  };
+
   const today2 = new Date();
 
   const formattedDate = `${today2.getMonth() + 1}`
@@ -243,7 +288,7 @@ function Main() {
           },
         });
         console.log(response);
-        if (response.status === 200) { 
+        if (response.status === 200) {
           setNotice(response.data);
         } else {
           throw new Error(`API error: ${response.status} ${response.statusText}`);
@@ -271,7 +316,7 @@ function Main() {
 
         <Section>
           <Wrapper>
-            <Card style={{ marginTop: '1px' }}>
+            {/* <Card style={{ marginTop: '1px' }}>
               <Card.Body style={{}}>
                 <blockquote className="blockquote m-0 auto text-center">
                   <p>
@@ -279,47 +324,65 @@ function Main() {
                   </p>
                 </blockquote>
               </Card.Body>
-            </Card>
+            </Card> */}
+
+            <SlideWrapper>
+              <Slider {...settings}>
+                <div>
+                  <h3>📢 매주 월, 수, 금요일은 생활쓰레기 배출일 입니다.</h3>
+                </div>
+                <div>
+                  <h3>📢 매주 화, 목, 토요일은 음식물쓰레기 배출일 입니다.</h3>
+                </div>
+              </Slider>
+            </SlideWrapper>
+
             <ContentRow>
               <FeeContainer>
                 <FeeChart />
               </FeeContainer>
 
-              <FeeContainer2>
-                <FeeContentsContainer>
-                  <p>{userInfo?.name}님 {formattedDate}월 총 관리비는
-                    <br />
-                    {totalFee}원 입니다.
-                    <br />
-                    <br />
-                    <p style={{ fontWeight: '200', fontSize: '16px', cursor: 'pointer' }} onClick={() => navigate('/feedetail')}>
-                      - 관리비 상세보기
-                    </p>
-                  </p>
-                </FeeContentsContainer>
-              </FeeContainer2>
-            </ContentRow>
-
-            <StyledCard>
-              {notice && notice.slice(-4).map((noticeitem) => {
-                return (
-                  <Card style={{ width: '18rem' }}>
-                    {/* <Card.Img 
+              <FeeWrapper>
+                <FeeContainer3>
+                  <StyledCard>
+                    {notice && notice.slice(-1).map((noticeitem) => {
+                      return (
+                        <Card style={{ width: '18rem', border: 'none' }}>
+                          {/* <Card.Img 
                       variant="top" 
                       src="/image/002.png" 
                       width="5px" 
                       height="40px"/>  
-                    */}
-                    <Card.Body>
-                      <Card.Title>{noticeitem.title}</Card.Title>
-                      <Card.Text>
-                        {noticeitem.content}
-                      </Card.Text>
-                      <p style={{ cursor: 'pointer' }} onClick={() => navigate('/boardlist')}>바로가기</p>
-                    </Card.Body>
-                  </Card>);
-              })}
-            </StyledCard>
+                      */}
+                          <Card.Body>
+                            <Card.Title style={{ fontSize: '2.2rem' }}>{noticeitem.title}</Card.Title>
+                            <Card.Text style={{ fontSize: '1rem' }}>
+                              {noticeitem.content}
+                            </Card.Text>
+                            <p style={{ cursor: 'pointer', fontSize: '1rem', fontWeight: '200' }} onClick={() => navigate('/boardlist')}>바로가기</p>
+                          </Card.Body>
+                        </Card>);
+                    })}
+                  </StyledCard>
+                </FeeContainer3>
+
+                <FeeContainer2>
+                  <FeeContentsContainer>
+                    <p>{userInfo?.name}님 {formattedDate}월 총 관리비는
+                      <br />
+                      {totalFee}원 입니다.
+                      <br />
+                      <br />
+                      <p style={{ fontWeight: '200', fontSize: '16px', cursor: 'pointer' }} onClick={() => navigate('/feedetail')}>
+                        - 관리비 상세보기
+                      </p>
+                    </p>
+                  </FeeContentsContainer>
+                </FeeContainer2>
+
+              </FeeWrapper>
+
+            </ContentRow>
           </Wrapper>
         </Section>
       </SectionsContainer>

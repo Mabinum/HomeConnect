@@ -424,11 +424,11 @@ function FeeChartDetail() {
     <CalDivWrapper>
     <CalDiv>
       <p>
-        ◼ 전기세: {formatter.format(averageFees.electric)}원
+        ◼ 전기세: {formatter.format(averageFees.electric) === 'NaN' ? `0` : formatter.format(averageFees.electric)}원
         <br/>
-        ◼ 수도세: {formatter.format(averageFees.water)}원
+        ◼ 수도세: {formatter.format(averageFees.water) === 'NaN' ? `0` : formatter.format(averageFees.water)}원
         <br/>
-        ◼ 관리비: {formatter.format(averageFees.maintenance)}원
+        ◼ 관리비: {formatter.format(averageFees.maintenance) === 'NaN' ? `0` : formatter.format(averageFees.maintenance)}원
       </p>
     </CalDiv>
     <CalDiv>
