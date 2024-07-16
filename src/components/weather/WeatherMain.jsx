@@ -165,14 +165,14 @@ function WeatherMain() {
   };
 
   const getWeather = async (lat, lon) => {
-    console.log(lat, lon);
+    // console.log(lat, lon);
 
     try {
       const res = await axios.get(
         // `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_KEY}&units=metric`
         `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
       );
-      console.log(res);
+      // console.log(res);
       const weatherIcon = res.data.weather[0].icon;
       const weatherCode = res.data.weather[0].id;
       const temp = Math.round(res.data.main.temp);
@@ -196,7 +196,7 @@ function WeatherMain() {
     <WeatherContainer>
       {weatherInfo ? (
         <WeatherInfo>
-          {/* <CityName>{weatherInfo.city}</CityName> */}
+          <CityName>{weatherInfo.city}</CityName>
           <WeatherIcon>{getWeatherIcon(weatherInfo.icon)}</WeatherIcon>
           <Temperature>{weatherInfo.temp}°C</Temperature>
           <WeatherDescription>{weatherInfo.desc}</WeatherDescription>

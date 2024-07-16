@@ -97,15 +97,14 @@ function CommunitySignUp() {
   const navigate = useNavigate();
   const { communityId } = useParams();
   const userInfo = useSelector(selectmyInfo);
-  console.log(userInfo);
-  console.log(communityList);
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
     const fetchCommunity = async () => {
       try {
         const response = await axios.get(`${addressKey}/community/read?no=${communityId}`, {
           headers: {
-            Authorization: localStorage.getItem('token'),
+            Authorization: token,
           }
         });
         setCommunityList(response.data);
@@ -122,7 +121,7 @@ function CommunitySignUp() {
       if (result) {
         const response = await axios.delete(`${addressKey}/community/remove?no=${communityId}`, {
           headers: {
-            Authorization: localStorage.getItem('token')
+            Authorization: token
           }
         });
         if (response.status === 200) {
@@ -138,6 +137,27 @@ function CommunitySignUp() {
       console.error(error);
     }
   };
+
+  const handleJoin = async () => {
+    const communityNo = Number(communityList.no);
+    console.log(communityNo);
+    try {
+        const response = await axios.post(`${addressKey}/community/join`, {
+            communityNo: communityNo
+        }, {
+            headers: {
+                Authorization: token
+            }
+        });
+
+        if (response.status === 200) {
+            alert('가입이 완료되었습니다.');
+            navigate('/community');
+        }
+    } catch (error) {
+        console.error('가입 요청 중 오류 발생:', error);
+    }
+};
 
   return (
     <>
@@ -159,7 +179,7 @@ function CommunitySignUp() {
               <CommunityInfoItem>회원수:</CommunityInfoItem>
             </CommunityInfo>
             <ButtonContainer>
-              <Button onClick={() => navigate('/community')}>가입하기</Button>
+              <Button onClick={handleJoin}>가입하기</Button>
             </ButtonContainer>
           </CommunityContainer>
         )}

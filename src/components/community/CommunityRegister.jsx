@@ -131,7 +131,7 @@ function CommunityRegister() {
     console.log(addressKey);
     
     try {
-      const response = await axios.post(`${addressKey}/community/register`, formData, {
+      const response = await axios.post(`http://localhost:8080/community/register`, formData, {
         headers:{
             Authorization: token
           },

@@ -18,6 +18,7 @@ const Wrapper = styled.div`
 
 const CommunityContainer = styled.div`
   width: 100%;
+  min-height: 500px;
   margin: 0 auto;
   margin-top: 50px;
   padding: 10px;
@@ -27,7 +28,7 @@ const CommunityContainer = styled.div`
 `;
 
 const ItemContainer = styled.div`
-  height: 800px;
+  max-height: 800px;
   flex: 1;
   border: 2px solid #e0e0e0;
   margin: 2px;
