@@ -16,7 +16,7 @@ const initialState = {
   //   { electric: 0, water: 0, maintenance: 0 }, // 9월
   //   { electric: 0, water: 0, maintenance: 0 }, // 10월
   //   { electric: 0, water: 0, maintenance: 0 }, // 11월
-  //   { electric: 5555, water: 5465, maintenance: 0 }  // 12월
+  //   { electric: 0, water: 0, maintenance: 0 }  // 12월
   // ],
   
   fees: Array.from({ length: 12 }, () => ({

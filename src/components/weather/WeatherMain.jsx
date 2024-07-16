@@ -12,6 +12,7 @@ import {
 } from "react-icons/wi";
 
 const WeatherContainer = styled.div`
+  max-height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
