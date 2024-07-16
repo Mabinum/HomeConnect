@@ -28,6 +28,7 @@ const WeatherInfo = styled.div`
 
 const CityName = styled.h2`
   font-size: 1em;
+  padding-bottom: 0.8rem;
 `;
 
 const WeatherIcon = styled.div`
