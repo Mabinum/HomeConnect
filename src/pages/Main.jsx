@@ -237,7 +237,7 @@ function Main() {
 
   // 슬라이드 세팅
   var settings = {
-    dots: false,
+    dots: true,
     infinite: true,
     speed: 1000,
     slidesToShow: 1,
@@ -329,10 +329,10 @@ function Main() {
             <SlideWrapper>
               <Slider {...settings}>
                 <div>
-                  <h3>📢 매주 월, 수, 금요일은 생활쓰레기 배출일 입니다.</h3>
+                  <h3>📢 생활쓰레기 배출일은 매주 월, 수, 금요일 입니다.</h3>
                 </div>
                 <div>
-                  <h3>📢 매주 화, 목, 토요일은 음식물쓰레기 배출일 입니다.</h3>
+                  <h3>📢 음식물쓰레기 배출일은 매주 화, 목, 토요일 입니다.</h3>
                 </div>
               </Slider>
             </SlideWrapper>
@@ -356,7 +356,7 @@ function Main() {
                       */}
                           <Card.Body>
                             <Card.Title style={{ fontSize: '2.2rem' }}>{noticeitem.title}</Card.Title>
-                            <Card.Text style={{ fontSize: '1rem' }}>
+                            <Card.Text style={{ fontSize: '1rem', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                               {noticeitem.content}
                             </Card.Text>
                             <p style={{ cursor: 'pointer', fontSize: '1rem', fontWeight: '200' }} onClick={() => navigate('/boardlist')}>바로가기</p>

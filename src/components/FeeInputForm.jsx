@@ -115,6 +115,26 @@ function FeeInputForm() {
       if (!token) {
         throw new Error("No token found. Please log in.");
       }
+      // 유효성 검사
+      // const testResponse = await axios.get(`http://localhost:8080/fee/read`,
+      //   {
+      //     "userId": id,
+      //     "month": month,
+      //     "water": water,
+      //     "electric": electric,
+      //     "maintenance": maintenance
+      //   },
+      //   {
+      //     headers: {
+      //       Authorization: `Bearer ${token}`
+      //     }
+      //   },
+      // );
+      // if (testResponse.status === 200) {
+      // } else {
+      //   return new Error('존재하지 않는 아이디이거나, 입력된 월 입니다.');
+      // };
+
       const response = await axios.post(`http://localhost:8080/fee/register`, 
       {
         "userId": id,
