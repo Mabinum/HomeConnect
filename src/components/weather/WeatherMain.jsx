@@ -12,6 +12,7 @@ import {
 } from "react-icons/wi";
 
 const WeatherContainer = styled.div`
+  max-height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,7 +21,9 @@ const WeatherContainer = styled.div`
 const WeatherInfo = styled.div`
   display: flex;
   align-items: flex-end;
-  gap: 20px;
+  gap: 8px;
+  text-align: center;
+  padding-bottom: 14px;
 `;
 
 const CityName = styled.h2`

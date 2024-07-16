@@ -28,8 +28,15 @@ ChartJS.register(
 function FeeChart() {
   const fees = useSelector((state) => state.fees.fees);
 
+  // 월별 데이터를 고정된 배열로 변환
+  const fixedFees = Array.from({ length: 12 }, (_, i) => {
+    const month = i + 1;
+    const fee = fees.find(f => f.month === month);
+    return fee || { month: month, electric: 0, water: 0, maintenance: 0 };
+  });
+
   // 월별 합계 계산
-  const totalFees = fees.map(fee => fee.electric + fee.water + fee.maintenance);
+  const totalFees = fixedFees.map(fee => fee.electric + fee.water + fee.maintenance);
 
   const data = {
     labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
