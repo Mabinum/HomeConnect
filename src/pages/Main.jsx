@@ -17,6 +17,7 @@ const StyledCard = styled.div`
   justify-content: space-between;
   text-align: center;
   margin: 0 auto;
+  gap: 36px;
 `;
 
 const Wrapper = styled.div`
@@ -282,7 +283,7 @@ function Main() {
             </Card>
             <ContentRow>
               <FeeContainer>
-                <FeeChart />
+                <FeeChart/>
               </FeeContainer>
 
               <FeeContainer2>

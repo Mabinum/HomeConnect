@@ -12,6 +12,7 @@ import {
   PointElement,
   LineElement,
 } from 'chart.js';
+import { getmyInfo, selectmyInfo } from '../features/main/mainSlice';
 
 // Chart.js에 필요한 구성 요소 등록
 ChartJS.register(
@@ -27,6 +28,7 @@ ChartJS.register(
 
 function FeeChart() {
   const fees = useSelector((state) => state.fees.fees);
+  const userInfo = useSelector(selectmyInfo);
 
   // 월별 데이터를 고정된 배열로 변환
   const fixedFees = Array.from({ length: 12 }, (_, i) => {
@@ -44,7 +46,7 @@ function FeeChart() {
       {
         type: 'bar',
         label: '월별 총 관리비',
-        data: totalFees,
+        data: userInfo.role === 'ROLE_ADMIN' ? 0 : totalFees,
         backgroundColor: 'rgba(153, 102, 255, 0.6)',
       },
     ]

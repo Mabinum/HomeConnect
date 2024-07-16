@@ -49,7 +49,7 @@ const InputField = styled.input`
   padding: 8px;
   border-radius: 4px;
   border: 1px solid #ccc;
-  width: 100px;
+  width: 85px;
 `;
 
 const ButtonWrapper = styled.div`
@@ -75,6 +75,7 @@ function FeeReadPage() {
   const userInfo = useSelector(selectmyInfo);
   const fees = useSelector((state) => state.fees.fees);
   const [editedFees, setEditedFees] = useState([]);
+  const [userId, setUserId] = useState('');
 
   useEffect(() => {
     const fetchFeeInfo = async () => {
@@ -83,24 +84,22 @@ function FeeReadPage() {
           headers: {
             Authorization: localStorage.getItem('token')
           },
-          params: {
-            'userId': userInfo.userId
-          }
+          // params: {
+          //   'userId': userInfo.userId
+          // }
         });
-        console.log(userInfo.userId);
         console.log(response);
         if (response.status === 200) {
           const sortedFees = response.data.sort((a, b) => a.month - b.month);
           dispatch(setFees(sortedFees));
           setEditedFees(sortedFees); // 초기 상태 설정
+          setUserId(response.data.userId);
         }
       } catch (error) {
         console.error("Error fetching fee data:", error);
       }
     }
-    if (userInfo && userInfo.userId) {
       fetchFeeInfo();
-    }
   }, [userInfo, dispatch]);
 
   const handleInputChange = (index, field, value) => {
@@ -147,6 +146,15 @@ function FeeReadPage() {
       <FeeList>
         {editedFees.map((fee, index) => (
           <FeeItem key={index}>
+            <Label>
+              ID
+              <InputField
+                type="text"
+                name="userId"
+                value={fee.userId}
+                readOnly
+              />
+            </Label>
             <Label>
               월
               <InputField
