@@ -146,7 +146,6 @@ function FeeChartDetail() {
   console.log(fees);
   const [visibleDatasets, setVisibleDatasets] = useState(['electric', 'water', 'maintenance']);
   const [selectedMonth, setSelectedMonth] = useState('');
-  console.log(selectedMonth);
   const dispatch = useDispatch();
   const payments = useSelector((state) => state.fees.payments);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -357,25 +356,25 @@ function FeeChartDetail() {
   const fixedFees = Array.from({ length: 12 }, (_, i) => {
     const month = i + 1;
     const fee = fees.find(f => f.month === month);
-    return fee || { month:month, electric: 0, water: 0, maintenance: 0 };
+    return fee || { electric: 0, water: 0, maintenance: 0 };
   });
 
   const datasets = [
     {
       label: '전기세',
-      data: fixedFees.map(fee => fee.electric),
+      data: fixedFees.map(fee => fee.electric || 0),
       backgroundColor: 'rgba(224, 14, 60, 0.6)',
       hidden: !visibleDatasets.includes('electric'),
     },
     {
       label: '수도세',
-      data: fixedFees.map(fee => fee.water),
+      data: fixedFees.map(fee => fee.water || 0),
       backgroundColor: 'rgba(5, 138, 226, 0.6)',
       hidden: !visibleDatasets.includes('water'),
     },
     {
       label: '관리비',
-      data: fixedFees.map(fee => fee.maintenance),
+      data: fixedFees.map(fee => fee.maintenance || 0),
       backgroundColor: 'rgba(14, 199, 199, 0.6)',
       hidden: !visibleDatasets.includes('maintenance'),
     },

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 const initialState = {
-  // fees: Array(12).fill({ electric: 1, water: 1, maintenance: 1}),
+  fees: Array(12).fill({ electric: 0, water: 0, maintenance: 0}),
   // fees: [
   //   { electric: 0, water: 0, maintenance: 0 }, // 1월
   //   { electric: 0, water: 0, maintenance: 0 }, // 2월
@@ -19,11 +19,11 @@ const initialState = {
   //   { electric: 0, water: 0, maintenance: 0 }  // 12월
   // ],
   
-  fees: Array.from({ length: 12 }, () => ({
-    electric: 0,
-    water: 0,
-    maintenance: 0,
-  })),
+  // fees: Array.from({ length: 12 }, () => ({
+  //   electric: 0,
+  //   water: 0,
+  //   maintenance: 0,
+  // })),
   payments: [],
 };
 
