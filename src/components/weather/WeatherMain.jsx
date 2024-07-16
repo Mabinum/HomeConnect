@@ -21,7 +21,9 @@ const WeatherContainer = styled.div`
 const WeatherInfo = styled.div`
   display: flex;
   align-items: flex-end;
-  gap: 20px;
+  gap: 8px;
+  text-align: center;
+  padding-bottom: 14px;
 `;
 
 const CityName = styled.h2`
