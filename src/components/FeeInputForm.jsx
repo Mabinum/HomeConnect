@@ -106,21 +106,24 @@ function FeeInputForm() {
       if (!token) {
         throw new Error("No token found. Please log in.");
       }
-  
       const response = await axios.get(`http://localhost:8080/fee/check/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`
+        },
+        params: {
+          'userId': id
         }
       });
+      console.log(response);
       return response.data.exists; 
     } catch (error) {
       console.error("Error checking ID existence:", error);
       return false;
     }
   };
-
+  
   const handleFeeSubmit = async () => {
-    // db에 id가 존재하는지 확인
+    // db에 userid가 존재하는지 확인
     const idExists = await handleCheckIdExists();
     if (idExists) {
       alert("이미 등록된 ID입니다.");

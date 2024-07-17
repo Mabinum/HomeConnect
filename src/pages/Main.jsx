@@ -191,7 +191,7 @@ function Main() {
   const userInfo = useSelector(selectmyInfo);
   const today = new Date();
   const currentMonth = today.getMonth();
-  const fee = useSelector(state => selectMyFee(state, currentMonth)) || { electric: 0, water: 0, maintenance: 0 };
+  const fee = useSelector(state => selectMyFee(state, currentMonth));
 
   let options = {
     activeClass: 'active', // the class that is appended to the sections links
@@ -220,10 +220,8 @@ function Main() {
     vertical: true,
     verticalSwiping: true,
     beforeChange: function(currentSlide, nextSlide) {
-      console.log("before change", currentSlide, nextSlide);
     },
     afterChange: function(currentSlide) {
-      console.log("after change", currentSlide);
     }
   };
 
@@ -234,7 +232,6 @@ function Main() {
   const dayText = daysOfWeek[today.getDay()];
 
   const totalFee = fee.electric + fee.water + fee.maintenance
-  console.log(totalFee);
 
   useEffect(() => {
     const fetchFeeInfo = async () => {
@@ -268,7 +265,6 @@ function Main() {
             Authorization: localStorage.getItem('token'),
           },
         });
-        console.log(response);
         if (response.status === 200) {
           setNotice(response.data);
         } else {
