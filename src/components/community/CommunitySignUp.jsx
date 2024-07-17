@@ -5,8 +5,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import CommunityModal from "./CommunityModal";
 import { addressKey } from "../..";
-import { useSelector } from "react-redux";
-import { selectmyInfo } from "../../features/main/mainSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { getmyInfo, selectmyInfo } from "../../features/main/mainSlice";
 
 const Wrapper = styled.div`
   margin: 50px auto;
@@ -62,7 +62,8 @@ const CommunityContainer = styled.div`
 `;
 
 const CommunityTitle = styled.input`
-  width: 100%;
+  width: 60%;
+  margin-left: 80px;
   height: 50px;
   padding: 10px;
   font-size: 18px;
@@ -98,6 +99,7 @@ function CommunitySignUp() {
   const { communityId } = useParams();
   const userInfo = useSelector(selectmyInfo);
   const token = localStorage.getItem('token');
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchCommunity = async () => {
@@ -138,40 +140,93 @@ function CommunitySignUp() {
     }
   };
 
+  // const handleJoin = async () => {
+  //   console.log(userInfo);
+  //   const communityNo = communityList.no;
+  //   console.log(communityNo);
+  //   try {
+  //     if (userInfo.communityNo === communityId) {
+  //       alert('이미 가입되어있습니다.');
+  //     } else {
+  //       const response = await axios.post(`${addressKey}/community/join`, {
+  //         communityNo: communityList.no
+  //       }, {
+  //         headers: {
+  //           Authorization: token
+  //         }
+  //       });
+  //       if (response.status === 200) {
+  //         localStorage.setItem('user', JSON.stringify(response.data));
+  //         const userInfo = JSON.parse((localStorage.getItem('user')));
+  //         dispatch(getmyInfo(userInfo));
+  //         alert('가입이 완료되었습니다.');
+  //         navigate('/community');
+  //         console.log(userInfo);
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error('가입 요청 중 오류 발생:', error);
+  //   }
+  // };
+
+
   const handleJoin = async () => {
-    const communityNo = Number(communityList.no);
-    console.log(communityNo);
     try {
-        if (userInfo.communityNo === communityNo) {
-          alert('이미 가입되어있습니다.');
-        } else {
-          const response = await axios.post(`${addressKey}/community/join`, {
-              communityNo: communityNo
-          }, {
-              headers: {
-                  Authorization: token
-              }
-          });
-          if (response.status === 200) {
-              alert('가입이 완료되었습니다.');
-              navigate('/community');
+      console.log("userInfo.communityNo:", userInfo.communityNo); // 디버깅용 로그 추가
+      console.log(userInfo);
+
+      if (userInfo.communityNo === communityId) {
+        alert('이미 가입한 모임입니다.');
+      } else if (!userInfo.communityNo || userInfo.communityNo === 0 || userInfo.communityNo === "") {
+        const response = await axios.post(`${addressKey}/community/join`, {
+          communityNo: communityList.no
+        }, {
+          headers: {
+            Authorization: token
           }
+        });
+        if (response.status === 200) {
+          localStorage.setItem('user', JSON.stringify(response.data));
+          const userInfo = JSON.parse((localStorage.getItem('user')));
+          dispatch(getmyInfo(userInfo));
+          alert('가입이 완료되었습니다.');
+          navigate('/community');
+          console.log(userInfo);
         }
+      } else {
+        const response = await axios.put(`${addressKey}/community/pluscommunityno?no=${communityId}`, {
+          headers: {
+            Authorization: token
+          }
+        });
+        if (response.status === 200) {
+          alert('새로운 모임에 가입했습니다.');
+          // navigate('/community');
+        }
+      }
     } catch (error) {
-        console.error('가입 요청 중 오류 발생:', error);
+      console.error('모임 가입 중 오류 발생:', error);
     }
-};
+  };
+
+
+
+
 
   return (
     <>
       <Wrapper>
         {communityList && (
           <CommunityContainer>
-            <CommunityTitle
-              type="text"
-              value={communityList.title}
-              readOnly
-            />
+            <div style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
+              <img style={{ width: '15%', height: '15%', borderRadius: '10px'}}
+                    src={`/image/${communityList.imgPath}`} alt="" />
+              <CommunityTitle
+                type="text"
+                value={communityList.title}
+                readOnly
+              />
+            </div>
             <CommunityContent
               value={communityList.content}
               readOnly

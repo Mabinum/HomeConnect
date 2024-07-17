@@ -28,7 +28,7 @@ const CommunityContainer = styled.div`
 `;
 
 const ItemContainer = styled.div`
-  max-height: 800px;
+  max-height: 600px;
   flex: 1;
   border: 2px solid #e0e0e0;
   margin: 2px;
@@ -86,7 +86,7 @@ function Community() {
             <Nav.Link eventKey="link-4" onClick={() => setCategoryName('등산')}>등산</Nav.Link>
           </Nav.Item>
 
-          <DropdownButton id="dropdown-basic-button" title="모임 개설하기" variant="dark">
+          <DropdownButton style={{marginLeft: '15px'}} id="dropdown-basic-button" title="모임 개설하기" variant="dark">
             <Dropdown.Item
               onClick={() => {
                 dispatch(selectCategory('맛집'));
