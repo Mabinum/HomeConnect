@@ -332,11 +332,11 @@ function Main() {
                       height="40px"/>  
                       */}
                           <Card.Body>
-                            <Card.Title style={{ fontSize: '2.2rem' }}>{noticeitem.title}</Card.Title>
+                            <Card.Title style={{ fontSize: '2rem', display: '-webkit-box', WebkitLineClamp: 1, WebkitBoxOrient: 'vertical', overflow: 'hidden', textOverflow: 'ellipsis', marginTop:'12px' }}>{noticeitem.title}</Card.Title>
                             <Card.Text style={{ fontSize: '1rem', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                               {noticeitem.content}
                             </Card.Text>
-                            <p style={{ cursor: 'pointer', fontSize: '1rem', fontWeight: '200' }} onClick={() => navigate('/boardlist')}>바로가기</p>
+                            <p style={{ cursor: 'pointer', fontSize: '1rem', fontWeight: '200', textAlign:'end' }} onClick={() => navigate('/boardlist')}>- 바로가기</p>
                           </Card.Body>
                         </Card>);
                     })}
