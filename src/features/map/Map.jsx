@@ -317,6 +317,11 @@ function Map() {
 
   // 장소 선택 시 호출되는 핸들러
   const handleSelectPlace = (place) => {
+    // 이전 마커들 제거
+    markers.forEach((marker) => {
+      marker.setMap(null); // 지도에서 마커 제거
+    });
+
     // 선택된 장소의 마커를 생성하여 지도에 표시
     const marker = new window.kakao.maps.Marker({
       position: new window.kakao.maps.LatLng(place.y, place.x),
@@ -328,7 +333,12 @@ function Map() {
       displayPlaceInfo(marker, place);
     });
 
-    marker.setMap(map); // 지도에 마커 표시
+
+    // 새로운 마커를 markers 배열에 추가
+    setMarkers([marker]);
+
+    // 지도에 마커 표시
+    marker.setMap(map);
 
     // 검색 결과 목록을 비웁니다.
     setSearchResults([]);
@@ -337,7 +347,7 @@ function Map() {
     map.panTo(new window.kakao.maps.LatLng(place.y, place.x));
 
     setSelectedItemIndex(-1);
-    setSavedSearches([...savedSearches, place]);
+    setSavedSearches([place]); // ...savedSearches 목록을 여러개 추가하고 싶을 때 넣으세요^^
     setInputValue(place.place_name);
   };
 
@@ -673,7 +683,7 @@ function Map() {
             });
 
             marker.setMap(map); // 지도에 마커 표시
-            setSavedSearches([...savedSearches, firstPlace]); 
+            setSavedSearches([firstPlace]); // ...savedSearches 여러개 추가하고 싶을 때 넣으세요^^
             setSearchResults([]); // 검색 결과 목록을 비웁니다.  
           } else {
             setSearchResults([]); // 검색 결과 초기화
@@ -692,7 +702,31 @@ function Map() {
   };
 
   // handleClick 함수 정의
-  const handleClick = (search) => {
+  const handleClick1 = (search) => {
+    // 선택된 장소에 대한 정보를 표시하는 함수 호출
+    const markerPosition = new window.kakao.maps.LatLng(search.y, search.x);
+  
+    // 마커를 생성합니다.
+    const marker = new window.kakao.maps.Marker({
+      position: markerPosition,
+    });
+  
+    // 마커가 클릭된 경우의 이벤트 리스너를 추가합니다.
+    window.kakao.maps.event.addListener(marker, 'click', function() {
+      displayPlaceInfo(marker, search);
+    });
+
+    // 마커를 지도에 추가합니다.
+    marker.setMap(map);
+
+    // 선택된 장소에 대한 정보를 표시하는 함수 호출
+    displayPlaceInfo(marker, search);
+
+    // 클릭한 위치로 지도를 이동합니다.
+    map.setCenter(markerPosition);
+  };
+
+  const handleClick2 = (search) => {
     // 선택된 장소에 대한 정보를 표시하는 함수 호출
     const markerPosition = new window.kakao.maps.LatLng(search.y, search.x);
   
@@ -715,7 +749,7 @@ function Map() {
     // 클릭한 위치로 지도를 이동합니다.
     map.setCenter(markerPosition);
 
-  }
+  };
 
   const openDetails = (url) => {
     window.open(url, '_blank');
@@ -729,35 +763,35 @@ function Map() {
     <Container>
       <Sidebar>
       <MenuBar>
-      <Containeradd>
-        <SearchContainer>
-          <Input
-            type="text"
-            value={inputValue}
-            onChange={handleInputChange}
-            onKeyDown={handleKeyDown}
-            placeholder="검색어를 입력하세요"
-          />
-          <Button onClick={handleSearchClick}>
-            <SearchIcon>🔍</SearchIcon>
-          </Button>
-        </SearchContainer>
+        <Containeradd>
+          <SearchContainer>
+            <Input
+              type="text"
+              value={inputValue}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
+              placeholder="검색어를 입력하세요"
+            />
+            <Button onClick={handleSearchClick}>
+              <SearchIcon>🔍</SearchIcon>
+            </Button>
+          </SearchContainer>
 
-        {/* 목록창 */}
-        {searchResults.length > 0 && (
-          <SearchResults ref={searchResultsRef}>
-            {searchResults.map((place, index) => (
-              <ResultItem 
-                key={place.id}
-                onClick={() => handleSelectPlace(place)}
-                className={index === selectedItemIndex ? "selected" : ""}
-              >
-                {place.place_name}
-              </ResultItem>
-            ))}
-          </SearchResults>
-        )}
-      </Containeradd>
+          {/* 목록창 */}
+          {searchResults.length > 0 && (
+            <SearchResults ref={searchResultsRef}>
+              {searchResults.map((place, index) => (
+                <ResultItem 
+                  key={place.id}
+                  onClick={() => handleSelectPlace(place)}
+                  className={index === selectedItemIndex ? "selected" : ""}
+                >
+                  {place.place_name}
+                </ResultItem>
+              ))}
+            </SearchResults>
+          )}
+        </Containeradd>
 
       <CategoryList>
         <CategoryItem
@@ -814,7 +848,7 @@ function Map() {
           .map((search, index) => (
             <SavedSearchItem 
               key={index} 
-              onClick={() => handleClick(search)}
+              onClick={() => handleClick1(search)}
               >
               <PlaceName>{search.place_name}</PlaceName>
               {search.road_address_name && (
@@ -846,7 +880,8 @@ function Map() {
           .map((place, index) => (
             <SavedSearchItem
               key={index} 
-              onClick={() => handleClick(place)}
+              selected={selectedCategories.includes(place)}
+              onClick={() => handleClick2(place)}
             >
               <PlaceName>{place.place_name}</PlaceName>
               {place.road_address_name && (
@@ -868,7 +903,6 @@ function Map() {
               </ButtonContainer>
             </SavedSearchItem>
         ))}
-
         </SidebarOverflow>
       </Sidebar>
       <MapContainer id="map" />
