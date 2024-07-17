@@ -400,7 +400,7 @@ function BoardList() {
                 )}
               </td>
             </tr>
-          )).reverse()}
+          ))}
         </tbody>
       </TableWrapper>
 
