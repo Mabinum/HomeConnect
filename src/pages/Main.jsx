@@ -249,7 +249,7 @@ function Main() {
 
   const today2 = new Date();
 
-  const formattedDate = `${today2.getMonth() + 1}`
+  const formattedDate = `${today2.getMonth()}`
 
   const dayText = daysOfWeek[today.getDay()];
 
