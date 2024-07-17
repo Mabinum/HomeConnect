@@ -191,7 +191,7 @@ function Main() {
   const userInfo = useSelector(selectmyInfo);
   const today = new Date();
   const currentMonth = today.getMonth();
-  const fee = useSelector(state => selectMyFee(state, currentMonth));
+  const fee = useSelector(state => selectMyFee(state, currentMonth)) || { electric: 0, water: 0, maintenance: 0 };
 
   let options = {
     activeClass: 'active', // the class that is appended to the sections links
