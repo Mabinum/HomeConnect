@@ -30,7 +30,7 @@ const CalendarContainer = styled.div`
 
   .react-calendar__navigation button {
     font-size: 1.6rem;
-    color: #007bff;
+    color: #94abdd;
     cursor: pointer;
 
     &:disabled {
@@ -49,30 +49,35 @@ const CalendarContainer = styled.div`
   .react-calendar__tile {
     height: 6rem;
     text-align: center;
-    border-radius: 1rem;
+    border-radius: 50%;
     transition: all 0.2s ease;
     font-size: 1rem;
     padding: 1rem;
     text-overflow: ellipsis;
 
     &:hover {
-      background-color: #f0f0f0;
+      background-color: #a6b8df;
     }
 
     &.react-calendar__tile--now {
-      background-color: #94abdd;
-      color: #fff;
+      /* background-color: #94abdd; */
+      /* color: #fff; */
+      border: 2px solid black;
     }
 
     &.react-calendar__tile--active {
-      background-color: #a37f7b;
+      background-color: #b5c3e2;
       color: #fff;
     }
 
     &.react-calendar__tile--marked {
-      background-color: #fff8dc;
+      background-color: #FFEFEF;
       color: #333;
     }
+    &.react-calendar__tile--today {
+    background-color: white;
+    color: black;
+}
   }
 `;
 
@@ -114,6 +119,7 @@ const NoticeWrapper = styled.div`
     color: #888;
     cursor: pointer;
     font-size: 1.2rem;
+    font-weight: bold;
     z-index: 999;
 
     &:hover {
@@ -132,19 +138,22 @@ const TitleInput = styled.input`
   width: 100%;
   height: 4rem;
   text-align: center;
-  background-color: #fff8dc;
+  /* background-color: #fff8dc; */
+  background-color: #FFEFEF;
   cursor: pointer;
-  border: 1px solid #ccc;
-  border-radius: 0.5rem;
+  /* border: 1px solid #ccc; */
+  border: none;
+  border-radius: 1rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
   padding: 0.5rem;
   font-size: 2rem;
   font-weight: bold;
   transition: all 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
   &:hover {
-    background-color: #f1f1f1;
+    background-color: #ffe8e8;
   }
 `;
 
@@ -194,6 +203,9 @@ function CalendarMain() {
   const tileClassName = ({ date, view }) => {
     if (view === 'month' && date.getDay() === 0) {
       return 'react-calendar__tile--sunday';
+    }
+    if (moment(date).isSame(new Date(), 'day')) {
+      return 'react-calendar__tile--today';
     }
     if (noticeList.some((notice) => moment(notice.noticeDate).isSame(date, 'day'))) {
       return 'react-calendar__tile--marked';
