@@ -141,11 +141,34 @@ const CloseButton = styled.button`
   margin-top: 20px;
 ;`
 
+const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+;`
+
+const ModalContent = styled.div`
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+;`
+
 function FeeChartDetail() {
   const fees = useSelector((state) => state.fees.fees);
   console.log(fees);
   const [visibleDatasets, setVisibleDatasets] = useState(['electric', 'water', 'maintenance']);
   const [selectedMonth, setSelectedMonth] = useState('');
+  const [paymentInfo, setPaymentInfo] = useState(null);
   const dispatch = useDispatch();
   const payments = useSelector((state) => state.fees.payments);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -154,7 +177,6 @@ function FeeChartDetail() {
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
-  
 
   const today = new Date();
 
@@ -185,7 +207,7 @@ function FeeChartDetail() {
       fetchFeeInfo();
     }
   }, [userInfo, dispatch]);
-  
+
   // 결제 시스템
   const Payment = (effect, deps) => {
     useEffect(() => {
@@ -196,8 +218,8 @@ function FeeChartDetail() {
       document.head.appendChild(jquery);
       document.head.appendChild(iamport);
       return () => {
-        document.head.removeChild(jquery); 
-        document.head.removeChild(iamport); 
+        document.head.removeChild(jquery);
+        document.head.removeChild(iamport);
       }
     }, []);
   };
@@ -218,15 +240,15 @@ function FeeChartDetail() {
       alert('결제할 월을 선택해주세요.');
       return;
     }
-  
+
     // 결제 로직을 계속 진행합니다
     const monthIndex = parseInt(selectedMonth) - 1;
     const monthFees = fees[monthIndex];
     const amount = monthFees.electric + monthFees.water + monthFees.maintenance;
-  
+
     const { IMP } = window;
     IMP.init('imp86124615');
-  
+
     IMP.request_pay({
       pg: 'html5_inicis',
       pay_method: 'card',
@@ -240,7 +262,7 @@ function FeeChartDetail() {
       buyer_postalcode: '12345'
     }, async function (rsp) { // 콜백
       if (rsp.success) {
-        await axios.post(`${addressKey}/pay/register`, {
+        await axios.post(`http://localhost:8080/pay/register`, {
           merchant_uid: rsp.merchant_uid,
           imp_uid: rsp.imp_uid,
           amount: amount,
@@ -251,14 +273,20 @@ function FeeChartDetail() {
           time: formattedDate
         });
         console.log(rsp);
+        // setPaymentInfo(rsp.data);
+        // openModal();
         alert('결제 성공');
+        // alert(
+        //   `결제금액: ${rsp.paid_amount}`
+        //   `결제수단: ${rsp.card_name}`
+        //   `결제시간: ${rsp.card_name}`);
       } else {
         alert(rsp.error_msg);
         console.log(rsp);
       }
     });
   }
-  
+
 
   // const callback = (response) => {
   //   const {success, error_msg} = response;
@@ -327,7 +355,7 @@ function FeeChartDetail() {
 
   // 관리비 레이블 변환
   const toggleDataset = (label) => {
-    setVisibleDatasets((prev) => 
+    setVisibleDatasets((prev) =>
       prev.includes(label)
         ? prev.filter((dataset) => dataset !== label)
         : [...prev, label]
@@ -335,9 +363,9 @@ function FeeChartDetail() {
   };
 
   // 숫자 포맷
-  const formatter = new Intl.NumberFormat('ko-KR', {currency: 'KRW'});
-  
-   // 항목별 총합과 평균 계산
+  const formatter = new Intl.NumberFormat('ko-KR', { currency: 'KRW' });
+
+  // 항목별 총합과 평균 계산
   const totalFees = fees.reduce((acc, fee) => {
     acc.electric += fee.electric;
     acc.water += fee.water;
@@ -351,8 +379,8 @@ function FeeChartDetail() {
     maintenance: (totalFees.maintenance / fees.length).toFixed(0),
   };
 
-// for문 사용해서 배열 12개로 만들기
-// 안에 if문 사용해서 월 별 데이터 매칭하기
+  // for문 사용해서 배열 12개로 만들기
+  // 안에 if문 사용해서 월 별 데이터 매칭하기
   const fixedFees = Array.from({ length: 12 }, (_, i) => {
     const month = i + 1;
     const fee = fees.find(f => f.month === month);
@@ -411,56 +439,67 @@ function FeeChartDetail() {
 
   return (
     <>
-  <CalContainer>
-    <TestDivWrapper>
-    <TestDiv>
-      <h2>{formattedYear}년 평균 관리비</h2>
-    </TestDiv>
-    <TestDiv >
-      <h2>{formattedYear}년 관리비 합계</h2>
-    </TestDiv>
-    </TestDivWrapper>
-    <CalDivWrapper>
-    <CalDiv>
-      <p>
-        ◼ 전기세: {formatter.format(averageFees.electric) === 'NaN' ? `0` : formatter.format(averageFees.electric)}원
-        <br/>
-        ◼ 수도세: {formatter.format(averageFees.water) === 'NaN' ? `0` : formatter.format(averageFees.water)}원
-        <br/>
-        ◼ 관리비: {formatter.format(averageFees.maintenance) === 'NaN' ? `0` : formatter.format(averageFees.maintenance)}원
-      </p>
-    </CalDiv>
-    <CalDiv>
-      <p>
-        ◼ 전기세: {formatter.format(totalFees.electric)}원
-        <br/>
-        ◼ 수도세: {formatter.format(totalFees.water)}원
-        <br/>
-        ◼ 관리비: {formatter.format(totalFees.maintenance)}원
-      </p> 
-    </CalDiv>
-      </CalDivWrapper>
-  </CalContainer>
-    <StyledDiv2>
-      <HeaderDiv>
-        <h2>{formattedYear}년 관리비 상세내역</h2>
-            <PaymentButton type='text' onClick={onClickPayment}>결제하기</PaymentButton>
-          <StyledSelect 
-            value={selectedMonth} 
+      <CalContainer>
+        <TestDivWrapper>
+          <TestDiv>
+            <h2>{formattedYear}년 평균 관리비</h2>
+          </TestDiv>
+          <TestDiv >
+            <h2>{formattedYear}년 관리비 합계</h2>
+          </TestDiv>
+        </TestDivWrapper>
+        <CalDivWrapper>
+          <CalDiv>
+            <p>
+              ◼ 전기세: {formatter.format(averageFees.electric) === 'NaN' ? `0` : formatter.format(averageFees.electric)}원
+              <br />
+              ◼ 수도세: {formatter.format(averageFees.water) === 'NaN' ? `0` : formatter.format(averageFees.water)}원
+              <br />
+              ◼ 관리비: {formatter.format(averageFees.maintenance) === 'NaN' ? `0` : formatter.format(averageFees.maintenance)}원
+            </p>
+          </CalDiv>
+          <CalDiv>
+            <p>
+              ◼ 전기세: {formatter.format(totalFees.electric)}원
+              <br />
+              ◼ 수도세: {formatter.format(totalFees.water)}원
+              <br />
+              ◼ 관리비: {formatter.format(totalFees.maintenance)}원
+            </p>
+          </CalDiv>
+        </CalDivWrapper>
+      </CalContainer>
+      <StyledDiv2>
+        <HeaderDiv>
+          <h2>{formattedYear}년 관리비 상세내역</h2>
+          <PaymentButton type='text' onClick={onClickPayment}>결제하기</PaymentButton>
+          <StyledSelect
+            value={selectedMonth}
             onChange={(e) => setSelectedMonth(e.target.value)}
             className='select'
-            >
+          >
             <option value="">결제월</option>
             {Array.from({ length: 12 }, (_, i) => (
               <option key={i + 1} value={i + 1}>{`${i + 1}월`}</option>
             ))}
           </StyledSelect >
-      </HeaderDiv>
-      <Bar data={data} options={options} style={{maxHeight:'768px'}}/>
-    </StyledDiv2>
+        </HeaderDiv>
+        <Bar data={data} options={options} style={{ maxHeight: '768px' }} />
+      </StyledDiv2>
+
+      {/* {isModalOpen && (
+      <ModalOverlay>
+        <ModalContent>
+          <h2>결제 정보</h2>
+          <p>결제 금액: {formatter.format(paymentInfo.amount)}원</p>
+          <p>결제 일시: {paymentInfo.time}</p>
+          <p>결제 방법: {paymentInfo.pay_method}</p>
+          <CloseButton onClick={closeModal}>닫기</CloseButton>
+        </ModalContent>
+      </ModalOverlay>)} */}
 
 
-    {/* <StyledDiv3>
+      {/* <StyledDiv3>
         <h3>결제 내역</h3>
         {data.length === 0 ? (
           <p>결제 내역이 없습니다.</p>
