@@ -75,7 +75,7 @@ const FeeContainer2 = styled.div`
   align-items: center;
   justify-content: center;
   height: 30%;
-  margin-top: 8rem;
+  margin-top: 3rem;
 `;
 
 const FeeContainer3 = styled.div`
@@ -88,7 +88,7 @@ const FeeContainer3 = styled.div`
   align-items: center;
   justify-content: center;
   height: 30%;
-  margin-top: 6rem;
+  margin-top: 8rem;
 `;
 
 const FeeContentsContainer = styled.div`
