@@ -142,17 +142,20 @@ function CommunitySignUp() {
     const communityNo = Number(communityList.no);
     console.log(communityNo);
     try {
-        const response = await axios.post(`${addressKey}/community/join`, {
-            communityNo: communityNo
-        }, {
-            headers: {
-                Authorization: token
-            }
-        });
-
-        if (response.status === 200) {
-            alert('가입이 완료되었습니다.');
-            navigate('/community');
+        if (userInfo.communityNo === communityNo) {
+          alert('이미 가입되어있습니다.');
+        } else {
+          const response = await axios.post(`${addressKey}/community/join`, {
+              communityNo: communityNo
+          }, {
+              headers: {
+                  Authorization: token
+              }
+          });
+          if (response.status === 200) {
+              alert('가입이 완료되었습니다.');
+              navigate('/community');
+          }
         }
     } catch (error) {
         console.error('가입 요청 중 오류 발생:', error);
