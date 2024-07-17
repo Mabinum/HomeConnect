@@ -11,16 +11,16 @@ import { MdManageAccounts } from "react-icons/md";
 
 const FixedHeader = styled.header`
   position: fixed;
-  /* height: 5.5rem; */
   top: 0;
   width: 100%;
   z-index: 10;
-  background-color: #f8f9fa;
+  background-color: ${(props) => props.theme.background};
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
 
+  
   .widthAdjust {
     width: 95%;
   }
@@ -30,6 +30,7 @@ const SpaceBetweenContainer = styled(Container)`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  
 `;
 
 const StyledNavbar = styled(Navbar.Brand)`
@@ -37,6 +38,7 @@ const StyledNavbar = styled(Navbar.Brand)`
   cursor: pointer;
   font-size: 1.2em;
   margin: 0 10px;
+  
 
   &:hover {
     color: #3003077b;
@@ -60,6 +62,7 @@ const Content = styled.div`
   /* margin-top: 8rem;   */
   /* padding-top: 1%;  */
   /* margin-top: 4%; */
+  
 `;
 
 const StyledFooter = styled.footer`
@@ -106,6 +109,7 @@ const StyledNav = styled(Nav)`
   flex: 1;
   justify-content: center;
   align-items: center;
+  
 `;
 
 const StyledWeather = styled.div`
@@ -121,6 +125,7 @@ const ADMINCOMMAND = styled(MdManageAccounts)`
   /* right: 3rem; */
   /* z-index: 999; */
   margin-left: 1rem;
+  
 `;
 
 const Layout = () => {

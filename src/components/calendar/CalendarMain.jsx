@@ -5,79 +5,114 @@ import 'react-calendar/dist/Calendar.css';
 import styled, { keyframes } from 'styled-components';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
 
 const Wrapper = styled.div`
   display: flex;
-  padding: 50px;
-  background-color: #f8f9fa;
-`;
+  padding: 50px 50px 20px 50px;
+  /* background-color: red; */
+  `;
 
 const CalendarContainer = styled.div`
   flex: 1;
   display: flex;
   justify-content: center;
-
+  
   .react-calendar {
     width: 80%;
-    max-width: 1200px;
+    max-width: 900px;
     border: none;
-    border-radius: 1rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 3rem;
-    background-color: #fff;
+    border-radius: 0.7rem;
+    box-shadow: 0 4px 8px rgba(54, 51, 51, 0.315);
+    /* padding: 3rem; */
+    background-color: #ffffff;
+  }
+  
+  .react-calendar__navigation{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.7rem 0.7rem 0 0;
+    color: white;
+    padding: 4rem;
+    background-color: #575ae7;
   }
 
   .react-calendar__navigation button {
     font-size: 1.6rem;
-    color: #94abdd;
+    color: #fcfeff;
     cursor: pointer;
 
-    &:disabled {
-      color: #dcdcdc;
+    &:hover {
+      background-color: #575ae7;
+    }
+
+    &:disabled{
+      background-color: #575ae7;
     }
   }
+  
+  .react-calendar__navigation__arrow_react-calendar__navigation__next-button{
+    background-color: #575ae7;
+  }
 
+  .react-calendar__navigation__label{
+    background-color: #575ae7;
+  }
   .react-calendar__month-view__weekdays {
     text-align: center;
     font-size: 1.3rem;
     font-weight: bold;
     color: #333;
     margin-bottom: 1rem;
+    
+    abbr{
+      text-decoration: none;
+    }
   }
+  .react-calendar__viewContainer{
+    margin: 3rem;
+  }
+
+  .react-calendar__month-view__weekdays__weekday--weekend{
+    color: red;
+  }
+
 
   .react-calendar__tile {
     height: 6rem;
     text-align: center;
-    border-radius: 50%;
+    border-radius: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     transition: all 0.2s ease;
     font-size: 1rem;
-    padding: 1rem;
-    text-overflow: ellipsis;
-
+    padding: 3rem;
+  
     &:hover {
-      background-color: #a6b8df;
+      /* background-color: #a6b8df; */
     }
 
     &.react-calendar__tile--now {
-      /* background-color: #94abdd; */
-      /* color: #fff; */
-      border: 2px solid black;
+      background-color: #94abdd;
+      color: #fff;
     }
 
     &.react-calendar__tile--active {
-      background-color: #b5c3e2;
+      background-color: #575bec;
       color: #fff;
     }
 
     &.react-calendar__tile--marked {
-      background-color: #FFEFEF;
+      background-color: #f6bf5f;
+      color: #fff;
+    }
+
+    &.react-calendar__tile--today {
+      background-color: #e6e6e6;
       color: #333;
     }
-    &.react-calendar__tile--today {
-    background-color: white;
-    color: black;
-}
   }
 `;
 
@@ -138,12 +173,9 @@ const TitleInput = styled.input`
   width: 100%;
   height: 4rem;
   text-align: center;
-  /* background-color: #fff8dc; */
-  background-color: #FFEFEF;
   cursor: pointer;
-  /* border: 1px solid #ccc; */
+  background-color: #FFEFEF; /* Consistent background color */
   border: none;
-  border-radius: 1rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
   padding: 0.5rem;
@@ -154,6 +186,12 @@ const TitleInput = styled.input`
 
   &:hover {
     background-color: #ffe8e8;
+    border: none;
+  }
+
+  &:active {
+    background-color: #ffe8e8;
+    border: none;
   }
 `;
 
@@ -193,6 +231,7 @@ function CalendarMain() {
       }
     } catch (error) {
       console.error(error);
+      // Add user feedback for failed API request
     }
   };
 
@@ -211,11 +250,6 @@ function CalendarMain() {
       return 'react-calendar__tile--marked';
     }
     return null;
-  };
-
-  const tileContent = ({ date }) => {
-    const notices = noticeList.filter((notice) => moment(notice.noticeDate).isSame(date, 'day'));
-    return notices.map((notice, index) => <div key={index}>{notice.title}</div>);
   };
 
   const handleDateClick = (date) => {
@@ -237,19 +271,18 @@ function CalendarMain() {
   return (
     <Wrapper>
       <CalendarContainer>
-        <Calendar
-          onChange={handleDateClick}
-          value={value}
-          next2Label={null}
-          prev2Label={null}
-          calendarType="gregory"
-          formatDay={(locale, date) => date.toLocaleString('en', { day: 'numeric' })}
-          showNeighboringMonth={false}
-          minDetail="year"
-          // tileContent={tileContent}
-          tileClassName={tileClassName}
-          onClickDay={handleClickDate}
-        />
+          <Calendar
+            onChange={handleDateClick}
+            value={value}
+            next2Label={null}
+            prev2Label={null}
+            calendarType="gregory"
+            formatDay={(locale, date) => date.toLocaleString('en', { day: 'numeric' })}
+            showNeighboringMonth={false}
+            minDetail="year"
+            tileClassName={tileClassName}
+            onClickDay={handleClickDate}
+          />
       </CalendarContainer>
       {showDate && selectedDate && (
         <NoticeWrapper>
@@ -272,7 +305,6 @@ function CalendarMain() {
                   onClick={() => navigate(`/noticeread/${notice.no}`)}
                 />
                 {/* <ContentInput type="text" value={notice.content} readOnly /> */}
-                {/* <hr /> */}
               </div>
             ))}
         </NoticeWrapper>

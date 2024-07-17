@@ -8,12 +8,14 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { addressKey } from '..';
 import MyPageModify from './MyPageModify';
+import { color } from 'chart.js/helpers';
 
 // 테마 설정
-const lightTheme = {
+export const lightTheme = {
   background: '#f0f2f5',
   paperBackground: '#ffffff',
   textPrimary: '#333',
+  textPrimaryReverse: '#e0e0e0',
   textSecondary: '#777',
   buttonPrimary: '#007bff',
   buttonPrimaryHover: '#0056b3',
@@ -22,10 +24,11 @@ const lightTheme = {
   divider: '#e0e0e0',
 };
 
-const darkTheme = {
+export const darkTheme = {
   background: '#161414c9',
   paperBackground: '#1e1e1ef0',
   textPrimary: '#e0e0e0',
+  textPrimaryReverse: '#333',
   textSecondary: '#b0b0b0',
   buttonPrimary: '#1a73e8',
   buttonPrimaryHover: '#1358a5',
@@ -35,12 +38,13 @@ const darkTheme = {
 };
 
 // 전역 스타일 설정
-const GlobalStyle = createGlobalStyle`
+export const GlobalStyle = createGlobalStyle`
   body {
     background-color: ${(props) => props.theme.background};
     color: ${(props) => props.theme.textPrimary};
     margin: 0;
     font-family: Arial, sans-serif;
+    transition: all 0.3s linear;
   }
 `;
 
