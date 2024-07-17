@@ -288,7 +288,7 @@ function Map() {
   const handleInputChange = (event) => {
     const value = event.target.value;
     setInputValue(value);
-    // console.log(setInputValue); 검색어 가능 칸
+    // console.log(setInputValue); 검색어 가능 
     
     // 타이머 클리어 및 디바운스 처리
     if (timerRef.current) {
