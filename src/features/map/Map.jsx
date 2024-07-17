@@ -39,6 +39,8 @@ const SearchContainer = styled.div`
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 5px 10px;
+  width: 100%;
+  max-width: 500px;
 `;
 
 const Input = styled.input`
@@ -54,14 +56,14 @@ const Input = styled.input`
   }
 `;
 
-const Button = styled.button`
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 5px 10px;
+const Containeradd = styled.div`
+  position: relative;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  max-width: 600px;
 `;
+
 
 const SearchIcon = styled.span`
   font-size: 20px;
@@ -75,7 +77,7 @@ const MapContainer = styled.div`
 
 const SearchResults = styled.div`
   position: absolute;
-  width: 36vh; /* 왼쪽과 오른쪽 padding 고려하여 너비 조정 */
+  width: 100%;
   background-color: #fff;
   border: 1px solid #ccc;
   border-top: none;
@@ -84,17 +86,11 @@ const SearchResults = styled.div`
   z-index: 9; /* 검색 결과 목록을 검색창 아래로 내리기 위해 z-index를 낮춤 */
   border-radius: 10px; /* 동그란 테두리 조정 */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
-  top: 13.6%; /* 검색창과의 간격 조정 */
+  top: 73.7%; /* 검색창과의 간격 조정 */
   
   &::-webkit-scrollbar {
     background: none;
-    width: none;
   }
-`;
-
-const CategoryList = styled.ul`
-  list-style-type: none;
-  padding: 0;
 `;
 
 const ResultItem = styled.div`
@@ -112,6 +108,11 @@ const ResultItem = styled.div`
     font-weight: bold; /* 선택된 항목의 글꼴 굵기 */
     color: #007bff; /* 선택된 항목의 글자색 */
   }
+`;
+
+const CategoryList = styled.ul`
+  list-style-type: none;
+  padding: 0;
 `;
 
 const CategoryItem = styled.li`
@@ -140,6 +141,15 @@ const SavedSearchItem = styled.div`
   &:hover {
     background-color: #f9f9f9;
   }
+`;
+
+const Button = styled.button`
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
 `;
 
 const PlaceName = styled.p`
@@ -707,10 +717,6 @@ function Map() {
 
   }
 
-  const handleCloseResults = () => {
-    setSearchResults([]);
-  };
-
   const openDetails = (url) => {
     window.open(url, '_blank');
   };
@@ -723,33 +729,35 @@ function Map() {
     <Container>
       <Sidebar>
       <MenuBar>
-      <SearchContainer>
-        <Input
-          type="text"
-          value={inputValue}
-          onChange={handleInputChange}
-          onKeyDown={handleKeyDown}
-          placeholder="검색어를 입력하세요"
-        />
-        <Button onClick={handleSearchClick}>
-          <SearchIcon>🔍</SearchIcon>
-        </Button>
-      </SearchContainer>
+      <Containeradd>
+        <SearchContainer>
+          <Input
+            type="text"
+            value={inputValue}
+            onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
+            placeholder="검색어를 입력하세요"
+          />
+          <Button onClick={handleSearchClick}>
+            <SearchIcon>🔍</SearchIcon>
+          </Button>
+        </SearchContainer>
 
-      {/* 목록창 */}
-    {searchResults.length > 0 && (
-        <SearchResults ref={searchResultsRef}>
-          {searchResults.map((place, index) => (
-            <ResultItem 
-              key={place.id}
-              onClick={() => handleSelectPlace(place)}
-              className={index === selectedItemIndex ? "selected" : ""}
-            >
-              {place.place_name}
-            </ResultItem>
-          ))}
-        </SearchResults>
-    )}
+        {/* 목록창 */}
+        {searchResults.length > 0 && (
+          <SearchResults ref={searchResultsRef}>
+            {searchResults.map((place, index) => (
+              <ResultItem 
+                key={place.id}
+                onClick={() => handleSelectPlace(place)}
+                className={index === selectedItemIndex ? "selected" : ""}
+              >
+                {place.place_name}
+              </ResultItem>
+            ))}
+          </SearchResults>
+        )}
+      </Containeradd>
 
       <CategoryList>
         <CategoryItem
@@ -836,7 +844,7 @@ function Map() {
             !savedSearches.some((search) => search.place_name === place.place_name)
           )
           .map((place, index) => (
-            <SavedSearchItem 
+            <SavedSearchItem
               key={index} 
               onClick={() => handleClick(place)}
             >
