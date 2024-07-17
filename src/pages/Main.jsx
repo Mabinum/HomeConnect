@@ -187,38 +187,10 @@ function Main() {
   const noticeList = useSelector((state) => state.board.noticeList);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [notice, setNotice] = useState(
-    // {
-    //   content: "공지",
-    //   modDate: "2024-07-15T14:10:33.81332",
-    //   no: 4,
-    //   noticeDate: "2024-07-16",
-    //   regDate: "2024-07-15T14:10:33.81332",
-    //   title: "공지",
-    //   writer: "por2360"
-    // },
-    // {
-    //   content: "공지",
-    //   modDate: "2024-07-15T14:10:33.81332",
-    //   no: 4,
-    //   noticeDate: "2024-07-16",
-    //   regDate: "2024-07-15T14:10:33.81332",
-    //   title: "공지",
-    //   writer: "por2360"
-    // },
-    // {
-    //   content: "공지",
-    //   modDate: "2024-07-15T14:10:33.81332",
-    //   no: 4,
-    //   noticeDate: "2024-07-16",
-    //   regDate: "2024-07-15T14:10:33.81332",
-    //   title: "공지",
-    //   writer: "por2360"
-    // },
-  );
+  const [notice, setNotice] = useState();
   const userInfo = useSelector(selectmyInfo);
   const today = new Date();
-  const currentMonth = today.getMonth() + 1;
+  const currentMonth = today.getMonth();
   const fee = useSelector(state => selectMyFee(state, currentMonth)) || { electric: 0, water: 0, maintenance: 0 };
 
   let options = {
@@ -244,16 +216,25 @@ function Main() {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 8000,
-    pauseOnHover: true,
+    // pauseOnHover: true,
+    vertical: true,
+    verticalSwiping: true,
+    beforeChange: function(currentSlide, nextSlide) {
+      console.log("before change", currentSlide, nextSlide);
+    },
+    afterChange: function(currentSlide) {
+      console.log("after change", currentSlide);
+    }
   };
 
   const today2 = new Date();
 
-  const formattedDate = `${today2.getMonth() + 1}`
+  const formattedDate = `${today2.getMonth()}`
 
   const dayText = daysOfWeek[today.getDay()];
 
   const totalFee = fee.electric + fee.water + fee.maintenance
+  console.log(totalFee);
 
   useEffect(() => {
     const fetchFeeInfo = async () => {
@@ -368,7 +349,7 @@ function Main() {
 
                 <FeeContainer2>
                   <FeeContentsContainer>
-                    <p>{userInfo?.name}님 {formattedDate}월 총 관리비는
+                    <p>{userInfo.name}님 {formattedDate}월 총 관리비는
                       <br />
                       {totalFee}원 입니다.
                       <br />

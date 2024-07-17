@@ -112,13 +112,11 @@ function FeeReadPage() {
 
   const handleInputChange = (index, field, value) => {
     const newFees = [...editedFees];
-
     newFees[index] = {
       ...newFees[index],
       [field]: value
     };
     setEditedFees(newFees);
-    console.log(editedFees);
   };
 
   const handleMonthInputChange = (index, field, value) => {
