@@ -90,6 +90,7 @@ function FeeInputForm() {
       maintenance: '0'
     }))
   );
+  const [tempValue, setTempValue] = useState('');
   const userInfo = useSelector(selectmyInfo);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -168,6 +169,19 @@ function FeeInputForm() {
     }
   };
 
+  const handleFocus = (e) => {
+    setTempValue(e.target.value);
+    e.target.value = '';
+  };
+
+  const handleBlur = (e, monthIndex, type) => {
+    if (e.target.value === '') {
+      const newMonths = [...months];
+      newMonths[monthIndex][type] = tempValue;
+      setMonths(newMonths);
+    }
+  };
+
   return (
     <>
         <Header>관리비 입력</Header>
@@ -193,6 +207,8 @@ function FeeInputForm() {
               type="number"
               name={`water${index + 1}`}
               value={months[index].water}
+              onFocus={(e) => handleFocus(e)}
+              onBlur={(e) => handleBlur(e, index, 'water')}
               onChange={(e) => handleInputChange(e, index, 'water')}
               required
             />
@@ -201,6 +217,8 @@ function FeeInputForm() {
               type="number"
               name={`electric${index + 1}`}
               value={months[index].electric}
+              onFocus={(e) => handleFocus(e)}
+              onBlur={(e) => handleBlur(e, index, 'electric')}
               onChange={(e) => handleInputChange(e, index, 'electric')}
               required
             />
@@ -209,6 +227,8 @@ function FeeInputForm() {
               type="number"
               name={`maintenance${index + 1}`}
               value={months[index].maintenance}
+              onFocus={(e) => handleFocus(e)}
+              onBlur={(e) => handleBlur(e, index, 'maintenance')}
               onChange={(e) => handleInputChange(e, index, 'maintenance')}
               required
             />
