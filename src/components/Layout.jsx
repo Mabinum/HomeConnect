@@ -19,7 +19,6 @@ const FixedHeader = styled.header`
   display: flex;
   align-items: center;
   justify-content: center;
-
   
   .widthAdjust {
     width: 95%;
@@ -39,7 +38,6 @@ const StyledNavbar = styled(Navbar.Brand)`
   font-size: 1.2em;
   margin: 0 10px;
   
-
   &:hover {
     color: #3003077b;
   }

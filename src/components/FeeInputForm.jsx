@@ -125,10 +125,15 @@ function FeeInputForm() {
   
   const handleFeeSubmit = async () => {
     // db에 userid가 존재하는지 확인
-    const idExists = await handleCheckIdExists();
-    if (idExists) {
-      alert("이미 등록된 ID입니다.");
-      return;
+    // const idExists = await handleCheckIdExists();
+    // if (idExists) {
+    //   alert("이미 등록된 ID입니다.");
+    //   return;
+    // }
+
+    if (!id) {
+      alert("ID를 입력하세요!");
+      return ;
     }
 
     try {
