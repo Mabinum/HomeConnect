@@ -244,6 +244,7 @@ function Map() {
       const marker = new window.kakao.maps.Marker({
         position: new window.kakao.maps.LatLng(selectedPlace.y, selectedPlace.x),
       });
+      
 
       // 이미 열려 있는 인포윈도우 닫기
       if (infoWindow.current) {
@@ -288,7 +289,7 @@ function Map() {
   const handleInputChange = (event) => {
     const value = event.target.value;
     setInputValue(value);
-    // console.log(setInputValue); 검색어 가능 
+    // console.log(value); // 검색어 가능 
     
     // 타이머 클리어 및 디바운스 처리
     if (timerRef.current) {
@@ -297,10 +298,12 @@ function Map() {
 
     // 입력값이 변경된 경우 디바운스 처리
     timerRef.current = setTimeout(() => {
+      // console.log(timerRef); x
       if (value.trim() !== "") {
         const ps = new window.kakao.maps.services.Places(map);
         ps.keywordSearch(value, (data, status) => {
           if (status === window.kakao.maps.services.Status.OK) {
+            // console.log(setSearchResults(data));
             setSearchResults(data);
           } else if (status === window.kakao.maps.services.Status.ZERO_RESULT) {
             setSearchResults([]);
@@ -317,6 +320,7 @@ function Map() {
 
   // 장소 선택 시 호출되는 핸들러
   const handleSelectPlace = (place) => {
+
     // 이전 마커들 제거
     markers.forEach((marker) => {
       marker.setMap(null); // 지도에서 마커 제거
@@ -326,11 +330,12 @@ function Map() {
     const marker = new window.kakao.maps.Marker({
       position: new window.kakao.maps.LatLng(place.y, place.x),
     });
-    // console.log(marker); // 선택된 장소에 위도 경도 확인 가능
+    // console.log(marker); 
 
     // 마커 클릭 시 장소 정보 표시
     window.kakao.maps.event.addListener(marker, "click", function () {
       displayPlaceInfo(marker, place);
+      console.log(displayPlaceInfo());
     });
 
 
@@ -699,6 +704,7 @@ function Map() {
     } else {
       setSearchResults([]); // 검색 결과 초기화
     }
+
   };
 
   // handleClick 함수 정의
