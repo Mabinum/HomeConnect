@@ -32,7 +32,7 @@ const Wrapper = styled.div`
   height: 86%;
   /* border: 1px solid black; */
   margin: 0 auto;
-`
+`;
 
 const SlideWrapper = styled.div`
   height: 36px;
@@ -41,7 +41,7 @@ const SlideWrapper = styled.div`
   padding-top: 2rem;
   /* border: 1px solid black; */
   text-align: center;
-`
+`;
 
 const ContentRow = styled.div`
   display: flex;
@@ -52,21 +52,28 @@ const ContentRow = styled.div`
 
 const FeeContainer = styled.div`
   flex: 4;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
   /* border: 1px solid black; */
-  border-radius: 5px;
+  background: aliceblue;
+  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 600px;
+  margin: 80px 50px 0 0;
+  
 `;
 
 const FeeWrapper = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-`
+`;
 
 const FeeContainer2 = styled.div`
-  border: 2px solid black;
+  /* border: 2px solid black; */
+  background: aliceblue;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   font-size: 24px;
   font-weight: 600;
@@ -79,7 +86,8 @@ const FeeContainer2 = styled.div`
 `;
 
 const FeeContainer3 = styled.div`
-  border: 2px solid black;
+  background: aliceblue;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   font-size: 24px;
   font-weight: 600;
@@ -89,6 +97,10 @@ const FeeContainer3 = styled.div`
   justify-content: center;
   height: 30%;
   margin-top: 8rem;
+`;
+
+const StyleCard = styled(Card.Body)`
+  background: aliceblue;
 `;
 
 const FeeContentsContainer = styled.div`
@@ -344,13 +356,13 @@ function Main() {
                       width="5px" 
                       height="40px"/>  
                       */}
-                          <Card.Body>
+                          <StyleCard>
                             <Card.Title style={{ fontSize: '2rem', display: '-webkit-box', WebkitLineClamp: 1, WebkitBoxOrient: 'vertical', overflow: 'hidden', textOverflow: 'ellipsis', marginTop: '12px' }}>{noticeitem.title}</Card.Title>
                             <Card.Text style={{ fontSize: '1rem', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                               {noticeitem.content}
                             </Card.Text>
                             <p style={{ cursor: 'pointer', fontSize: '1rem', fontWeight: '200', textAlign: 'end' }} onClick={() => navigate('/boardlist')}>- 바로가기</p>
-                          </Card.Body>
+                          </StyleCard>
                         </Card>);
                     })}
                   </StyledCard>
