@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
 import { FaMoon, FaRegMoon, FaSun } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { getmyInfo, selectmyInfo } from '../features/main/mainSlice';
+import { getmyInfo, getTheme, selectmyInfo } from '../features/main/mainSlice';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -13,7 +13,8 @@ import { color } from 'chart.js/helpers';
 // 테마 설정
 export const lightTheme = {
   background: '#f0f2f5',
-  paperBackground: '#ffffff',
+  background2: '#161414c9',
+  paperBackground: 'rgb(255, 255, 255)',
   textPrimary: '#333',
   textPrimaryReverse: '#e0e0e0',
   textSecondary: '#777',
@@ -26,6 +27,7 @@ export const lightTheme = {
 
 export const darkTheme = {
   background: '#161414c9',
+  background2: '#f0f2f5',
   paperBackground: '#1e1e1ef0',
   textPrimary: '#e0e0e0',
   textPrimaryReverse: '#333',
@@ -141,7 +143,8 @@ const StyledButton = styled.button`
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s linear;
+
 
   &:hover {
     background-color: ${(props) =>
@@ -166,7 +169,8 @@ const ToggleButton = styled.button`
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s linear;
+
 
   &:hover {
     background-color: #5a6268;
@@ -196,7 +200,7 @@ const SubmitButton = styled(Button)`
   color: #ffffff;
   border: none;
   border-radius: 4px;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s linear;
 
   &:hover {
     background-color: #0056b3;
@@ -211,9 +215,9 @@ const CancelButton = styled(Button)`
   color: #ffffff;
   border: none;
   border-radius: 4px;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s linear;
 
-  &:hover {
+  &:hover { 
     background-color: #5a6268;
   }
 `;
@@ -234,6 +238,7 @@ const MyPage = () => {
   // 테마 토글 함수
   const toggleTheme = () => {
     setTheme(theme === lightTheme ? darkTheme : lightTheme);
+    dispatch(getTheme(theme));
   };
   
   const handleProfileModify = () => {
@@ -308,7 +313,7 @@ const MyPage = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <GlobalStyle />
+      <GlobalStyle /> 
       <Root>
         <StyledPaper>
           {/* 상단 영역 */}
@@ -371,7 +376,7 @@ const MyPage = () => {
 
       <Modal show={showModal} onHide={handleModalClose} centered>
         <Modal.Header closeButton>
-          <Modal.Title>비밀번호 변경</Modal.Title>
+          <Modal.Title style={{ color : 'black' }}>비밀번호 변경</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form.Control className='textcenter' placeholder='비밀번호 변경' value={pw} onChange={(e)=>setPw(e.target.value)}/>
@@ -386,10 +391,10 @@ const MyPage = () => {
       </Modal>
       <Modal show={showModal2} onHide={handleModalClose2} centered>
         <Modal.Header closeButton>
-          <Modal.Title>삭제 확인</Modal.Title>
+          <Modal.Title style={{ color : 'black' }}>삭제 확인</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>정말 삭제하시겠습니까?</p>
+          <p style={{ color : 'black' }}>정말 삭제하시겠습니까?</p>
         </Modal.Body>
         <Modal.Footer>
           <SubmitButton onClick={handleDelete}>확인</SubmitButton>

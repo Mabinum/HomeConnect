@@ -65,7 +65,6 @@ const StyledNav = styled(Nav)`
 
 function Community() {
   const navigate = useNavigate();
-  const [currentTab, setCurrentTab] = useState('delicious');
   const [categoryName, setCategoryName] = useState('맛집');
   const dispatch = useDispatch();
 

@@ -1,20 +1,34 @@
 // Layout.jsx
 import { Button, Container, Nav, Navbar } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 import { Outlet } from "react-router-dom";
 import { IoIosHome } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
-import { getmyInfo, selectmyInfo } from "../features/main/mainSlice";
+import { getmyInfo, selectmyInfo, selectTheme } from "../features/main/mainSlice";
 import WeatherMain from "./weather/WeatherMain";
 import { MdManageAccounts } from "react-icons/md";
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    background-color: ${(props) => props.theme.background2};
+    color: ${(props) => props.theme.background};
+    margin: 0;
+    font-family: Arial, sans-serif;
+    transition: all 0.3s linear;
+  }
+`;
 
 const FixedHeader = styled.header`
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 10;
-  background-color: ${(props) => props.theme.background};
+  background-color: ${(props) => props.theme.background2};
+  color: ${(props) => props.theme.background};
+  transition: all 0.3s linear;
+
+
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
@@ -29,7 +43,6 @@ const SpaceBetweenContainer = styled(Container)`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  
 `;
 
 const StyledNavbar = styled(Navbar.Brand)`
@@ -37,10 +50,16 @@ const StyledNavbar = styled(Navbar.Brand)`
   cursor: pointer;
   font-size: 1.2em;
   margin: 0 10px;
+  color: ${(props) => props.theme.background};
   
   &:hover {
-    color: #3003077b;
+    color: #007bff;
+
   }
+`;
+
+const Home = styled(IoIosHome)`
+  color: ${(props) => props.theme.background};
 `;
 
 const Mypage = styled.div`
@@ -93,12 +112,12 @@ const LogoutButton = styled.button`
   background: none;
   border: none;
   font-size: 1em;
-  color: #000;
   margin-left: 10px;
   cursor: pointer;
+  color: ${(props) => props.theme.background};
 
   &:hover {
-    color: #3003077b;
+    color: red;
   }
 `;
 
@@ -130,7 +149,8 @@ const Layout = () => {
   const navigate = useNavigate();
   const userInfo = useSelector(selectmyInfo);
   const dispatch = useDispatch();
-
+  const theme = useSelector(selectTheme);
+  console.log(theme);
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
@@ -139,12 +159,13 @@ const Layout = () => {
   };
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle /> 
       <FixedHeader>
         <Navbar className="widthAdjust" expand="lg">
           <SpaceBetweenContainer style={{padding:'0 15px 0 15px'}}>
             <Navbar.Brand>
-              <IoIosHome onClick={() => navigate('/')} className="cursor-pointer" size={32} />
+              <Home onClick={() => navigate('/')} className="cursor-pointer" size={32} />
             </Navbar.Brand>
 
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -163,7 +184,7 @@ const Layout = () => {
 
               <Mypage>
                 {/* <img src="/image/profile.png" alt="profile" /> */}
-                <Nav.Link onClick={() => navigate('/mypage')} className="cursor-pointer">{userInfo.name && `${userInfo?.name}님 환영합니다.`}</Nav.Link>
+                <Nav.Link style={{transition:'none'}} onClick={() => navigate('/mypage')} className="cursor-pointer">{userInfo.name && `${userInfo?.name}님 환영합니다.`}</Nav.Link>
                 <ProfileButton onClick={() => navigate('/feeinput')}>{userInfo.role === 'ROLE_ADMIN' ? '관리비 입력' : ''}</ProfileButton>
                 <LogoutButton onClick={handleLogout}>{userInfo.role ? '로그아웃' : '로그인'}</LogoutButton>
                 {
@@ -183,7 +204,7 @@ const Layout = () => {
       <StyledFooter>
         &copy; 코딩하는오합지졸. All Rights Reserved.
       </StyledFooter>
-    </>
+    </ThemeProvider>
   );
 };
 
