@@ -140,44 +140,14 @@ function CommunitySignUp() {
     }
   };
 
-  // const handleJoin = async () => {
-  //   console.log(userInfo);
-  //   const communityNo = communityList.no;
-  //   console.log(communityNo);
-  //   try {
-  //     if (userInfo.communityNo === communityId) {
-  //       alert('이미 가입되어있습니다.');
-  //     } else {
-  //       const response = await axios.post(`${addressKey}/community/join`, {
-  //         communityNo: communityList.no
-  //       }, {
-  //         headers: {
-  //           Authorization: token
-  //         }
-  //       });
-  //       if (response.status === 200) {
-  //         localStorage.setItem('user', JSON.stringify(response.data));
-  //         const userInfo = JSON.parse((localStorage.getItem('user')));
-  //         dispatch(getmyInfo(userInfo));
-  //         alert('가입이 완료되었습니다.');
-  //         navigate('/community');
-  //         console.log(userInfo);
-  //       }
-  //     }
-  //   } catch (error) {
-  //     console.error('가입 요청 중 오류 발생:', error);
-  //   }
-  // };
-
-
   const handleJoin = async () => {
+    console.log(userInfo);
+    const communityNo = communityList.no;
+    console.log(communityNo);
     try {
-      console.log("userInfo.communityNo:", userInfo.communityNo); // 디버깅용 로그 추가
-      console.log(userInfo);
-
       if (userInfo.communityNo === communityId) {
-        alert('이미 가입한 모임입니다.');
-      } else if (!userInfo.communityNo || userInfo.communityNo === 0 || userInfo.communityNo === "") {
+        alert('이미 가입되어있습니다.');
+      } else {
         const response = await axios.post(`${addressKey}/community/join`, {
           communityNo: communityList.no
         }, {
@@ -193,21 +163,51 @@ function CommunitySignUp() {
           navigate('/community');
           console.log(userInfo);
         }
-      } else {
-        const response = await axios.put(`${addressKey}/community/pluscommunityno?no=${communityId}`, {
-          headers: {
-            Authorization: token
-          }
-        });
-        if (response.status === 200) {
-          alert('새로운 모임에 가입했습니다.');
-          // navigate('/community');
-        }
       }
     } catch (error) {
-      console.error('모임 가입 중 오류 발생:', error);
+      console.error('가입 요청 중 오류 발생:', error);
     }
   };
+
+
+  // const handleJoin = async () => {
+  //   try {
+  //     console.log("userInfo.communityNo:", userInfo.communityNo); // 디버깅용 로그 추가
+  //     console.log(userInfo);
+
+  //     if (userInfo.communityNo === communityId) {
+  //       alert('이미 가입한 모임입니다.');
+  //     } else if (!userInfo.communityNo || userInfo.communityNo === 0 || userInfo.communityNo === "") {
+  //       const response = await axios.post(`${addressKey}/community/join`, {
+  //         communityNo: communityList.no
+  //       }, {
+  //         headers: {
+  //           Authorization: token
+  //         }
+  //       });
+  //       if (response.status === 200) {
+  //         localStorage.setItem('user', JSON.stringify(response.data));
+  //         const userInfo = JSON.parse((localStorage.getItem('user')));
+  //         dispatch(getmyInfo(userInfo));
+  //         alert('가입이 완료되었습니다.');
+  //         navigate('/community');
+  //         console.log(userInfo);
+  //       }
+  //     } else {
+  //       const response = await axios.put(`${addressKey}/community/pluscommunityno?no=${communityId}`, {
+  //         headers: {
+  //           Authorization: token
+  //         }
+  //       });
+  //       if (response.status === 200) {
+  //         alert('새로운 모임에 가입했습니다.');
+  //         // navigate('/community');
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error('모임 가입 중 오류 발생:', error);
+  //   }
+  // };
 
 
 
@@ -234,7 +234,7 @@ function CommunitySignUp() {
             <CommunityInfo>
               <CommunityInfoItem>모임 위치</CommunityInfoItem>
               <CommunityInfoItem>작성자: {communityList.writer}</CommunityInfoItem>
-              <CommunityInfoItem>회원수:</CommunityInfoItem>
+              {/* <CommunityInfoItem>회원수:</CommunityInfoItem> */}
             </CommunityInfo>
             <ButtonContainer>
               <Button onClick={handleJoin}>가입하기</Button>

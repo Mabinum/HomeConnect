@@ -90,7 +90,8 @@ function CommunityItem(props) {
           },
         });
         if (response.status === 200) {
-          setCommunityList(response.data);
+          const searchItem = response.data.sort((a, b) => new Date(b.regDate) - new Date(a.regDate));
+          setCommunityList(searchItem);
         } else {
           throw new Error(`API error: ${response.status} ${response.statusText}`);
         }
