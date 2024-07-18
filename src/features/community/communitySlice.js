@@ -9,16 +9,19 @@ const communitySlice = createSlice({
   initialState,
   reducers: {
     selectCategory: (state, action) => {
-      console.log(action.payload);
+      state.communityList = action.payload;
+    },
+    setCommunityList: (state, action) => {
       state.communityList = action.payload;
     }
   }
 });
 
 export const {
-  selectCategory
+  selectCategory, setCommunityList
 } = communitySlice.actions;
 
 export const selectCommunityList = state => state.community.communityList;
+export const selectCategoryState = (state) => state.community.category;
 
 export default communitySlice.reducer;

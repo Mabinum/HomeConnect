@@ -44,7 +44,7 @@ const Wrapper = styled.div`
 `;
 
 function CommunityItem(props) {
-  const { categoryName } = props;
+  const { categoryName, searchtitle } = props;
   const { categoryId = '맛집' } = useParams();
   const navigate = useNavigate();
   const [communityList, setCommunityList] = useState([]);
@@ -78,6 +78,28 @@ function CommunityItem(props) {
     };
     fetchCommunityList();
   }, [categoryName]);
+
+  useEffect(() => {
+    if (!searchtitle) return;
+
+    const searchList = async () => {
+      try {
+        const response = await axios.get(`${addressKey}/community/search?title=${searchtitle}`, {
+          headers: {
+            Authorization: localStorage.getItem('token'),
+          },
+        });
+        if (response.status === 200) {
+          setCommunityList(response.data);
+        } else {
+          throw new Error(`API error: ${response.status} ${response.statusText}`);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    searchList();
+  }, [searchtitle]);
 
   return (
     <Wrapper>
