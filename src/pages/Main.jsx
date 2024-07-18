@@ -54,7 +54,7 @@ const FeeContainer = styled.div`
   flex: 4;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
   /* border: 1px solid black; */
-  background: aliceblue;
+  background: white;
   border-radius: 10px;
   display: flex;
   justify-content: center;
@@ -71,8 +71,8 @@ const FeeWrapper = styled.div`
 `;
 
 const FeeContainer2 = styled.div`
-  /* border: 2px solid black; */
-  background: aliceblue;
+  /* border: 1px solid black; */
+  background: white;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   font-size: 24px;
@@ -86,7 +86,7 @@ const FeeContainer2 = styled.div`
 `;
 
 const FeeContainer3 = styled.div`
-  background: aliceblue;
+  background: white;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   font-size: 24px;
@@ -100,7 +100,7 @@ const FeeContainer3 = styled.div`
 `;
 
 const StyleCard = styled(Card.Body)`
-  background: aliceblue;
+  background: white;
 `;
 
 const FeeContentsContainer = styled.div`

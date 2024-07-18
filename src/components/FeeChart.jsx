@@ -47,7 +47,7 @@ function FeeChart() {
         type: 'bar',
         label: '월별 총 관리비',
         data: userInfo.role === 'ROLE_ADMIN' ? 0 : totalFees,
-        backgroundColor: 'rgba(153, 102, 255, 0.6)',
+        backgroundColor: 'rgba(81, 94, 212, 0.795)',
       },
     ]
   };
