@@ -1,10 +1,11 @@
 import styled from "styled-components";
-import { Button, Dropdown, DropdownButton, Nav, Table } from "react-bootstrap";
+import { Button, Dropdown, DropdownButton, Form, Nav, Table } from "react-bootstrap";
 import CommunityItem from "./CommunityItem";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { selectCategory } from "../../features/community/communitySlice";
+import { useDispatch, useSelector } from "react-redux";
+import { FaSearch } from "react-icons/fa";
+import { selectCategory, selectCommunityList } from "../../features/community/communitySlice";
 
 const Wrapper = styled.div`
   margin: 0 auto;
@@ -14,6 +15,31 @@ const Wrapper = styled.div`
   background-color: #ffffff;
   border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  .input-group {
+    display: flex;
+    align-items: center;
+    width: 20%;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .input-group-icon {
+    color: #495057;
+    margin-right: 0.5rem;
+  }
+
+  .form-control {
+    border: none;
+    box-shadow: none;
+  }
+
+  .form-control:focus {
+    border: none;
+    box-shadow: none;
+  }
 `;
 
 const CommunityContainer = styled.div`
@@ -64,29 +90,43 @@ const StyledNav = styled(Nav)`
 `;
 
 function Community() {
+  const categoryItem = useSelector(selectCommunityList);
+  localStorage.setItem('category', JSON.stringify(categoryItem));
+  const item = localStorage.getItem('category')
   const navigate = useNavigate();
-  const [currentTab, setCurrentTab] = useState('delicious');
   const [categoryName, setCategoryName] = useState('맛집');
   const dispatch = useDispatch();
+  const [searchtitle, setSearchtitle] = useState(``);
+
+  const handleSearchTitle = (e) => {
+    setSearchtitle(e.target.value)
+  }
+
 
   return (
     <Wrapper>
+      <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+        <div className="input-group">
+          <FaSearch className="input-group-icon" />
+          <Form.Control type="text" placeholder="통합검색" value={searchtitle} onChange={handleSearchTitle} />
+        </div>
+      </div>
       <Constyle>
         <StyledNav justify variant="tabs" defaultActiveKey="link-1" className="color-nav">
           <Nav.Item>
-            <Nav.Link eventKey="link-1" onClick={() => setCategoryName('맛집')}>맛집투어</Nav.Link>
+            <Nav.Link eventKey="link-1" onClick={() => {setCategoryName('맛집'); dispatch(selectCategory('맛집'));}}>맛집투어</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link eventKey="link-2" onClick={() => setCategoryName('독서')}>독서</Nav.Link>
+            <Nav.Link eventKey="link-2" onClick={() => {setCategoryName('독서'); dispatch(selectCategory('독서'));}}>독서</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link eventKey="link-3" onClick={() => setCategoryName('운동')}>운동</Nav.Link>
+            <Nav.Link eventKey="link-3" onClick={() => {setCategoryName('운동'); dispatch(selectCategory('운동'));}}>운동</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link eventKey="link-4" onClick={() => setCategoryName('등산')}>등산</Nav.Link>
+            <Nav.Link eventKey="link-4" onClick={() => {setCategoryName('등산'); dispatch(selectCategory('등산'));}}>등산</Nav.Link>
           </Nav.Item>
 
-          <DropdownButton style={{marginLeft: '15px'}} id="dropdown-basic-button" title="모임 개설하기" variant="dark">
+          <DropdownButton style={{ marginLeft: '15px' }} id="dropdown-basic-button" title="모임 개설하기" variant="dark">
             <Dropdown.Item
               onClick={() => {
                 dispatch(selectCategory('맛집'));
@@ -121,7 +161,7 @@ function Community() {
       </Constyle>
       <CommunityContainer>
         <ItemContainer>
-          <CommunityItem categoryName={categoryName} />
+          <CommunityItem categoryName={categoryName} searchtitle={searchtitle} />
         </ItemContainer>
       </CommunityContainer>
     </Wrapper>

@@ -181,6 +181,7 @@ function FeeReadPage() {
                 max="12"
                 value={fee.month}
                 onChange={(e) => handleMonthInputChange(index, 'month', e.target.value)}
+                readOnly
               />
             </Label>
             <Label>

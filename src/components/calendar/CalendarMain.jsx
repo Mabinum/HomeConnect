@@ -53,6 +53,18 @@ const CalendarContainer = styled.div`
   
   .react-calendar__navigation__arrow_react-calendar__navigation__next-button{
     background-color: #575ae7;
+
+    &:hover{
+      background-color: #575ae7;
+    }
+
+    &:focus{
+      background-color: #575ae7;
+    }
+  }
+
+  .react-calendar__navigation button:enabled:hover,.react-calendar__navigation button:enabled:focus{
+    background-color: #575ae7;
   }
 
   .react-calendar__navigation__label{

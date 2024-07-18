@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   myInfo : {},
+  theme: {},
 };
 
 const mainSlice = createSlice({
@@ -10,12 +11,16 @@ const mainSlice = createSlice({
   reducers : {
     getmyInfo : (state,{payload : user}) => {
       state.myInfo = user;
+    },
+    getTheme : (state,{payload : theme}) => {
+      state.theme = theme;
     }
   } 
 });
 
-export const {getmyInfo} = mainSlice.actions;
+export const {getmyInfo,getTheme} = mainSlice.actions;
 export const selectmyInfo = state => state.main.myInfo;
+export const selectTheme = state => state.main.theme;
 
 export default mainSlice.reducer;
 
