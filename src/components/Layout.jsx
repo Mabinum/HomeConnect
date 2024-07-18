@@ -9,16 +9,6 @@ import { getmyInfo, selectmyInfo, selectTheme } from "../features/main/mainSlice
 import WeatherMain from "./weather/WeatherMain";
 import { MdManageAccounts } from "react-icons/md";
 
-const GlobalStyle = createGlobalStyle`
-  body {
-    background-color: ${(props) => props.theme.background2};
-    color: ${(props) => props.theme.background};
-    margin: 0;
-    font-family: Arial, sans-serif;
-    transition: all 0.3s linear;
-  }
-`;
-
 const FixedHeader = styled.header`
   position: fixed;
   top: 0;
@@ -160,7 +150,6 @@ const Layout = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <GlobalStyle /> 
       <FixedHeader>
         <Navbar className="widthAdjust" expand="lg">
           <SpaceBetweenContainer style={{padding:'0 15px 0 15px'}}>
